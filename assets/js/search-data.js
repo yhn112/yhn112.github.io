@@ -23,19 +23,19 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "nav-repositories",
-          title: "repositories",
-          description: "Open-source projects and contributions.",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/repositories/";
-          },
         },{id: "nav-teaching",
           title: "teaching",
           description: "Courses, lectures, and talks.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/teaching/";
+          },
+        },{id: "nav-repositories",
+          title: "repositories",
+          description: "Open-source projects and contributions.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
           },
         },{id: "news-started-as-head-of-llm-r-amp-amp-d-at-wildberries-building-the-llm-organization-from-scratch",
           title: 'Started as Head of LLM R&amp;amp;amp;D at Wildberries, building the LLM organization from...',
@@ -51,11 +51,21 @@ ninja.data = [{
           description: "A hands-on course covering practical applications of deep learning across NLP, computer vision, and generative models.",
           section: "Teachings",handler: () => {
               window.location.href = "/teachings/deep-learning-applications/";
-            },},{id: "teachings-nlp-cv-lectures-amp-ml-reading-club",
-          title: 'NLP, CV Lectures &amp;amp; ML Reading Club',
-          description: "Lectures on NLP and Computer Vision topics, and an ML reading club discussing recent research papers.",
+            },},{id: "teachings-deep-vision-and-graphics",
+          title: 'Deep Vision and Graphics',
+          description: "Lectures on deep learning for computer vision and graphics, covering ConvNets, transformers, detection, segmentation, generative models, and neural rendering.",
           section: "Teachings",handler: () => {
-              window.location.href = "/teachings/nlp-cv-reading-club/";
+              window.location.href = "/teachings/deep-vision-and-graphics/";
+            },},{id: "teachings-ml-reading-club",
+          title: 'ML Reading Club',
+          description: "Reading club for discussing recent influential papers in machine learning and deep learning.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/ml-reading-club/";
+            },},{id: "teachings-natural-language-processing",
+          title: 'Natural Language Processing',
+          description: "Lectures on NLP as part of the YSDA NLP course covering embeddings, language models, attention, transfer learning, and LLMs.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/nlp-course/";
             },},{id: "teachings-practical-reinforcement-learning",
           title: 'Practical Reinforcement Learning',
           description: "Mentor for the Practical Reinforcement Learning course offered jointly by HSE University and Yandex on Coursera.",
