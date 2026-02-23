@@ -7,7 +7,7 @@ subtitle: Head of LLM R&D · <a href="https://www.wildberries.ru">Wildberries</a
 profile:
   align: right
   image: prof_pic.png
-  image_circular: false
+  image_circular: true
   more_info: >
     <p>Moscow, Russia</p>
     <p>michael.s.diskin@gmail.com</p>
