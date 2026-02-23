@@ -5,4 +5,6 @@ repo_description_lines_max: 2
 
 github_repos:
   - learning-at-home/hivemind
+  - yandexdataschool/nlp_course
+  - yandexdataschool/deep_vision_and_graphics
   - yandex-research/heterophilous-graphs

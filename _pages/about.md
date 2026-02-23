@@ -9,8 +9,8 @@ profile:
   image: prof_pic.png
   image_circular: true
   more_info: >
-    <p>Moscow, Russia</p>
-    <p>michael.s.diskin@gmail.com</p>
+    <p>📍 Everywhere & nowhere</p>
+    <p>Moscow · Zürich · Yerevan · Tel Aviv · London</p>
 
 selected_papers: true
 social: true
@@ -26,9 +26,8 @@ latest_posts:
   limit: 3
 ---
 
-AI/ML leader with a track record of bridging top-tier research and large-scale production.
-Built and scaled LLM and embeddings organizations from the ground up (**30+** people, **4--5** teams), delivering high-impact language systems within high-traffic products through cross-functional collaboration with Product, Engineering, Legal, and Localization.
+**Industry.** Head of LLM R&D at [Wildberries](https://www.wildberries.ru) — Russia's largest e-commerce platform. Built the LLM & embeddings organization from scratch (**30+** people, **4--5** teams), shipping search, retrieval, machine translation, and RAG systems at scale. Previously ML at [Yandex](https://yandex.com).
 
-Core expertise: LLMs and embeddings, retrieval and reranking, multilingual MT, RAG, fine-tuning and distillation, distributed training, ML systems end-to-end (training, evaluation, serving, monitoring), organizational design and delivery.
+**Research.** Published at NeurIPS, ICML, ICLR, and EMNLP (**700+** citations). Core topics: distributed training, collaborative deep learning, graph neural networks. Co-created [Hivemind](https://github.com/learning-at-home/hivemind) — an open-source framework for decentralized training.
 
-**700+ total citations** across publications at NeurIPS, ICML, ICLR, and EMNLP. Lecturer at [Harbour.Space University](https://harbour.space) and [Yandex School of Data Analysis](https://yandexdataschool.com).
+**Teaching.** Lecturer at [Harbour.Space University](https://harbour.space) and [Yandex School of Data Analysis](https://yandexdataschool.com) (NLP, Deep Vision & Graphics, Reinforcement Learning).
