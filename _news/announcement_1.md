@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2025-01-01
+date: 2025-10-17
 inline: true
 related_posts: false
 ---
 
-Gave a talk at an industry panel: [LLMs One Year Later](https://vk.com/video-214144682_456239200).
+Our workshop paper, [Think, Align, Select: Query--Key Scores for LLM Reasoning](https://openreview.net/forum?id=VLY6qAX4Fe), was published on OpenReview.

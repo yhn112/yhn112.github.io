@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2024-01-01
+date: 2025-11-01
 inline: true
 related_posts: false
 ---
 
-Started as **Head of LLM R&D** at [Wildberries](https://www.wildberries.ru), building the LLM organization from scratch.
+Our workshop paper, [Synthetic Proofs with Tool-Integrated Reasoning: Contrastive Alignment for LLM Mathematics with Lean](https://aclanthology.org/2025.mathnlp-main.15/), appeared in ACL Anthology (MathNLP @ EMNLP 2025).
