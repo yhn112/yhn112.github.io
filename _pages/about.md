@@ -31,3 +31,5 @@ latest_posts:
 **Research.** Published at NeurIPS, ICML, ICLR, and EMNLP (**700+** citations). Core topics: distributed training, collaborative deep learning, graph neural networks. Co-created [Hivemind](https://github.com/learning-at-home/hivemind) — an open-source framework for decentralized training.
 
 **Teaching.** Lecturer at [Harbour.Space University](https://harbour.space) and [Yandex School of Data Analysis](https://yandexdataschool.com) (NLP, Deep Vision & Graphics, Reinforcement Learning).
+
+**Now.** Focused on practical LLM systems: retrieval and ranking, machine translation quality, and production-grade RAG assistants.

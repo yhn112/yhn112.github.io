@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Attended [MLWS @ MBZUAI](https://mlws.mbzuai.ac.ae): no talk this time, but had a lot of valuable conversations and networking with the community.
+Attended [MLWS @ MBZUAI](https://mlws.mbzuai.ac.ae); no talk this time, but many valuable conversations and networking with the community.

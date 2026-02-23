@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-Attended [EMNLP](https://2025.emnlp.org/): presented at a workshop, had many productive discussions with colleagues, and, as usual, helped organize and connect the Russian-speaking NLP/ML community on site.
+Attended [EMNLP 2025](https://2025.emnlp.org/), presented at a workshop, and had many productive discussions with colleagues; also helped organize and connect the Russian-speaking NLP/ML community on site.

@@ -1,5 +1,6 @@
 "obozov":
   - firstname: ["Mark", "M."]
+    url: https://github.com/krammnic
 
 "tulchinskii":
   - firstname: ["Eduard", "E."]
@@ -30,6 +31,7 @@
 
 "kuznedelev":
   - firstname: ["Denis", "D."]
+    url: https://research.yandex.com/people/denis-kuznedelev
 
 "babenko":
   - firstname: ["Artem", "A."]
@@ -57,6 +59,7 @@
 
 "bukhtiyarov":
   - firstname: ["Alexey", "A."]
+    url: https://github.com/leshanbog
 
 "lhoest":
   - firstname: ["Quentin", "Q."]
@@ -64,9 +67,11 @@
 
 "saulnier":
   - firstname: ["Lucile", "L."]
+    url: https://huggingface.co/LucileSaulnier
 
 "sinitsin":
   - firstname: ["Anton", "A."]
+    url: https://huggingface.co/anutiv
 
 "jernite":
   - firstname: ["Yacine", "Y."]
@@ -82,18 +87,24 @@
 
 "villanova del moral":
   - firstname: ["Albert", "A."]
+    url: https://albertvillanova.github.io/
 
 "mazur":
   - firstname: ["Denis", "D."]
+    url: https://shxmxn.online
 
 "kobelev":
   - firstname: ["Ilia", "I."]
+    url: https://dblp.org/search/pid/api?q=author%3AIlia_Kobelev%3A
 
 "popov":
   - firstname: ["Dmitry", "D."]
+    url: https://scholar.google.com/citations?user=9FdtTv4AAAAJ
 
 "pyrkin":
   - firstname: ["Dmitry", "D."]
+    url: https://dblp.org/search/pid/api?q=author%3ADmitry_V._Pyrkin%3A
 
 "kashirin":
   - firstname: ["Maxim", "M."]
+    url: https://www.linkedin.com/in/kshmax
