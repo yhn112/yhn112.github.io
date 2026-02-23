@@ -90,13 +90,6 @@ ninja.data = [{
           window.open("https://scholar.google.com/citations?user=LRKQhcYAAAAJ", "_blank");
         },
       },{
-        id: 'social-orcid',
-        title: 'ORCID',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://orcid.org/0000-0001-8902-513X", "_blank");
-        },
-      },{
         id: 'social-rss',
         title: 'RSS Feed',
         section: 'Socials',
