@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2025-01-01
 inline: true
 related_posts: false
 ---
 
-A simple inline announcement.
+Gave a talk at an industry panel: [LLMs One Year Later](https://vk.com/video-214144682_456239200).
