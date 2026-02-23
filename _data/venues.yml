@@ -12,3 +12,10 @@
 
 "OSS":
   color: "#333333"
+
+"NeurIPS-W":
+  url: https://neurips.cc/
+  color: "#9467bd"
+
+"Preprint":
+  color: "#7f7f7f"

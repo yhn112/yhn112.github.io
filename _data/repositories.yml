@@ -5,3 +5,4 @@ repo_description_lines_max: 2
 
 github_repos:
   - learning-at-home/hivemind
+  - yandex-research/heterophilous-graphs
