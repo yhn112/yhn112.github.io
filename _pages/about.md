@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Head of LLM R&D · <a href="https://www.wildberries.ru">Wildberries</a> · <a href="https://www.hse.ru/en/staff/yhn112">HSE University</a>
+subtitle: Head of LLM R&D · <a href="https://www.wildberries.ru">Wildberries</a> <br> Researcher · <a href="https://www.hse.ru/en/staff/yhn112">HSE University</a>
 
 profile:
   align: right
@@ -10,7 +10,7 @@ profile:
   image_circular: true
   more_info: >
     <p>📍 Everywhere & nowhere</p>
-    <p>Moscow · Zürich · Yerevan · Tel Aviv · London · Abu Dhabi</p>
+    <p>Moscow · Yerevan · Tel Aviv <br> Zürich  · London · Abu Dhabi</p>
 
 selected_papers: true
 social: true
