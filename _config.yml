@@ -10,8 +10,7 @@ contact_note: >
   Feel free to reach out via email or any of the social links below.
 description: >
   AI/ML leader. Head of LLM R&D at Wildberries. Building large-scale language systems, embeddings, and ML infrastructure. (Михаил Дискин / Mikhail Diskin)
-footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
+footer_text:
 keywords: michael diskin, mikhail diskin, михаил дискин, майкл дискин, llm, machine learning, nlp, deep learning, ai research, embeddings, машинное обучение, обработка естественного языка, большие языковые модели
 x_username: michael_diskin
 lang: en
@@ -53,10 +52,10 @@ external_services:
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
-footer_fixed: true
+footer_fixed: false
 search_enabled: true
 socials_in_search: true
-posts_in_search: true
+posts_in_search: false
 bib_search: true
 
 # Dimensions
@@ -143,13 +142,9 @@ newsletter:
 # -----------------------------------------------------------------------------
 
 collections:
-  books:
-    output: true
   news:
     defaults:
       layout: post
-    output: true
-  projects:
     output: true
   teachings:
     output: true
@@ -189,6 +184,11 @@ exclude:
   - package.json
   - package-lock.json
   - _pages/about_einstein.md
+  - _pages/blog.md
+  - _pages/books.md
+  - _pages/projects.md
+  - _pages/profiles.md
+  - _pages/dropdown.md
   - purgecss.config.js
   - README.md
   - readme_preview/
