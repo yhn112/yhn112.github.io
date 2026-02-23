@@ -1,3 +1,17 @@
+"obozov":
+  - firstname: ["Mark", "M."]
+
+"tulchinskii":
+  - firstname: ["Eduard", "E."]
+    url: https://aclanthology.org/people/e/eduard-tulchinskii/
+
+"kuznetsov":
+  - firstname: ["Kristian", "K."]
+
+"barannikov":
+  - firstname: ["Serguei", "S."]
+    url: https://scholar.google.com/citations?user=-soT8KcAAAAJ
+
 "ryabinin":
   - firstname: ["Max", "M."]
     url: https://scholar.google.com/citations?user=RDHqJYEAAAAJ
@@ -12,6 +26,7 @@
 
 "platonov":
   - firstname: ["Oleg", "O."]
+    url: https://orcid.org/0009-0001-7887-5101
 
 "kuznedelev":
   - firstname: ["Denis", "D."]
@@ -26,15 +41,59 @@
 
 "beznosikov":
   - firstname: ["Aleksandr", "A."]
+    url: https://anbeznosikov.github.io/
 
-"richtar":
-  - firstname: ["Peter"]
+"richtárik":
+  - firstname: ["Peter", "P."]
+    url: https://richtarik.org/
 
 "gasnikov":
   - firstname: ["Alexander", "A."]
+    url: https://scholar.google.com/citations?user=AmeE8qkAAAAJ
 
 "gorbunov":
   - firstname: ["Eduard", "E."]
+    url: https://eduardgorbunov.github.io/
 
 "bukhtiyarov":
   - firstname: ["Alexey", "A."]
+
+"lhoest":
+  - firstname: ["Quentin", "Q."]
+    url: https://github.com/lhoestq
+
+"saulnier":
+  - firstname: ["Lucile", "L."]
+
+"sinitsin":
+  - firstname: ["Anton", "A."]
+
+"jernite":
+  - firstname: ["Yacine", "Y."]
+    url: https://yjernite.github.io/
+
+"wolf":
+  - firstname: ["Thomas", "T."]
+    url: https://scholar.google.com/citations?user=D2H5EFEAAAAJ
+
+"pekhimenko":
+  - firstname: ["Gennady", "G."]
+    url: http://www.cs.utoronto.ca/~pekhimenko/
+
+"villanova del moral":
+  - firstname: ["Albert", "A."]
+
+"mazur":
+  - firstname: ["Denis", "D."]
+
+"kobelev":
+  - firstname: ["Ilia", "I."]
+
+"popov":
+  - firstname: ["Dmitry", "D."]
+
+"pyrkin":
+  - firstname: ["Dmitry", "D."]
+
+"kashirin":
+  - firstname: ["Maxim", "M."]

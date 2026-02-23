@@ -17,5 +17,6 @@
   url: https://neurips.cc/
   color: "#9467bd"
 
-"Preprint":
-  color: "#7f7f7f"
+"EMNLP-W":
+  url: https://2025.emnlp.org/
+  color: "#e377c2"

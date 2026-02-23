@@ -31,4 +31,4 @@ Built and scaled LLM and embeddings organizations from the ground up (**30+** pe
 
 Core expertise: LLMs and embeddings, retrieval and reranking, multilingual MT, RAG, fine-tuning and distillation, distributed training, ML systems end-to-end (training, evaluation, serving, monitoring), organizational design and delivery.
 
-**700+ total citations** across 11 publications at NeurIPS, ICML, and ICLR. Lecturer at [Harbour.Space University](https://harbour.space) and [Yandex School of Data Analysis](https://yandexdataschool.com).
+**700+ total citations** across publications at NeurIPS, ICML, ICLR, and EMNLP. Lecturer at [Harbour.Space University](https://harbour.space) and [Yandex School of Data Analysis](https://yandexdataschool.com).
