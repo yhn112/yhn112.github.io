@@ -10,7 +10,7 @@ profile:
   image_circular: true
   more_info: >
     <p>📍 Everywhere & nowhere</p>
-    <p>Moscow · Zürich · Yerevan · Tel Aviv · London</p>
+    <p>Moscow · Zürich · Yerevan · Tel Aviv · London · Abu Dhabi</p>
 
 selected_papers: true
 social: true
