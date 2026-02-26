@@ -301,6 +301,24 @@
   ></script>
 {% endif %}
 
+{% if site.enable_yandex_metrika %}
+  <!-- Yandex.Metrika -->
+  <script
+    {% if site.enable_cookie_consent %}
+      type="text/plain" data-category="analytics"
+    {% endif %}
+    defer
+    src="{{ '/assets/js/yandex-metrika-setup.js' | relative_url }}"
+  ></script>
+  {% unless site.enable_cookie_consent %}
+    <noscript>
+      <div>
+        <img src="https://mc.yandex.ru/watch/{{ site.yandex_metrika }}" style="position:absolute; left:-9999px;" alt="">
+      </div>
+    </noscript>
+  {% endunless %}
+{% endif %}
+
 {% if site.enable_progressbar %}
   <!-- Scrolling Progress Bar -->
   <script defer src="{{ '/assets/js/progress-bar.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>
