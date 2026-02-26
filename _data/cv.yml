@@ -20,7 +20,6 @@ cv:
         url: https://www.wildberries.ru
         start_date: 2024
         end_date: present
-        summary: Built LLM R&D org from scratch, managing a 500+ GPU cluster and defining platform strategy for LLM and embeddings company-wide.
         highlights:
           - "Built LLM R&D org from 0 to 30+ engineers (4–5 teams); manage a 500+ GPU cluster and define platform strategy for LLM and embeddings company-wide."
           - "Shipped universal text embeddings (retrieval, ranking, classification) and marketplace-scale MT translating tens of millions of product listings into 10+ languages, including low-resource."
@@ -47,7 +46,7 @@ cv:
         highlights:
           - "Research on efficient and distributed training for large models; 5 papers at NeurIPS, ICML, and ICLR."
           - "Led pre-training of a fully open-source Russian BERT-class language model; co-authored the Hivemind decentralized training library."
-          - "Created an evaluation benchmark for graph neural networks under heterophily (400+ citations, ICLR 2023)."
+          - "Created an evaluation benchmark for graph neural networks under heterophily (460+ citations, ICLR 2023)."
 
       - company: Huawei
         position: Research Engineer
@@ -126,40 +125,28 @@ cv:
       - title: HSE FCS Scholarship for Research Excellence
         date: 2024
         awarder: HSE University
-        authors:
-          - Michael Diskin
 
       - title: Tinkoff Education Scholarship
         date: 2023
         awarder: Tinkoff
-        authors:
-          - Michael Diskin
 
       - title: 'Xeek.ai "Put it on the Map!" — 2nd place (100+ teams)'
         date: 2020
         awarder: Xeek.ai
         summary: Cash prize
-        authors:
-          - Michael Diskin
 
       - title: 'Kaggle "Recursion Cellular Image Classification" — 13th of 800+ teams'
         date: 2019
         awarder: Kaggle
-        authors:
-          - Michael Diskin
 
       - title: "Huawei Image Inpainting Hackathon — 2nd place (100+ teams)"
         date: 2019
         awarder: Huawei
         summary: Cash prize
-        authors:
-          - Michael Diskin
 
       - title: "International Data Analysis Olympiad — 16th of 1000+ participants"
         date: 2019
         awarder: IDAO
-        authors:
-          - Michael Diskin
 
     Languages:
       - name: Russian
