@@ -9,6 +9,15 @@
   content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"
 >
 
+<!-- Preconnect to third-party origins -->
+{% if site.enable_publication_badges.altmetric %}
+  <link rel="preconnect" href="https://d1bxh8uas1mnw7.cloudfront.net">
+  <link rel="preconnect" href="https://api.altmetric.com">
+{% endif %}
+{% if site.enable_publication_badges.dimensions %}
+  <link rel="preconnect" href="https://badge.dimensions.ai">
+{% endif %}
+
 <!-- Bootstrap & MDB -->
 <link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' | relative_url | bust_file_cache }}">
 <link
@@ -30,8 +39,18 @@
 {% endif %}
 
 <!-- Fonts & Icons -->
-<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="{{ '/assets/css/academicons.min.css' | relative_url | bust_file_cache }}">
-<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="{{ '/assets/css/scholar-icons.css' | relative_url | bust_file_cache }}">
+<link
+  rel="preload"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+  href="{{ '/assets/css/academicons.min.css' | relative_url | bust_file_cache }}"
+>
+<link
+  rel="preload"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+  href="{{ '/assets/css/scholar-icons.css' | relative_url | bust_file_cache }}"
+>
 <link
   defer
   rel="stylesheet"
