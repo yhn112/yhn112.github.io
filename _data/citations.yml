@@ -1,16 +1,16 @@
 metadata:
-  last_updated: '2026-02-23'
+  last_updated: '2026-02-27'
 papers:
   LRKQhcYAAAAJ:2osOgNQ5qMEC:
     citations: 17
     title: Training Transformers Together
     year: '2022'
   LRKQhcYAAAAJ:9yKSN-GCB0IC:
-    citations: 75
+    citations: 76
     title: 'Swarm parallelism: Training large models can be surprisingly communication-efficient'
     year: '2023'
   LRKQhcYAAAAJ:UeHWp8X0CEIC:
-    citations: 467
+    citations: 479
     title: 'A critical look at the evaluation of GNNs under heterophily: Are we really making progress?'
     year: '2023'
   LRKQhcYAAAAJ:W7OEmFMy1HYC:
