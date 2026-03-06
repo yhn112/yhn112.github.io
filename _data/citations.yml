@@ -1,5 +1,5 @@
 metadata:
-  last_updated: '2026-02-27'
+  last_updated: '2026-03-06'
 papers:
   LRKQhcYAAAAJ:2osOgNQ5qMEC:
     citations: 17
@@ -10,13 +10,9 @@ papers:
     title: 'Swarm parallelism: Training large models can be surprisingly communication-efficient'
     year: '2023'
   LRKQhcYAAAAJ:UeHWp8X0CEIC:
-    citations: 479
+    citations: 485
     title: 'A critical look at the evaluation of GNNs under heterophily: Are we really making progress?'
     year: '2023'
-  LRKQhcYAAAAJ:W7OEmFMy1HYC:
-    citations: 0
-    title: A Robust Training Method for Federated Learning with Partial Participation
-    year: '2025'
   LRKQhcYAAAAJ:Y0pCki6q_DkC:
     citations: 0
     title: 'Synthetic Proofs with Tool-Integrated Reasoning: Contrastive Alignment for LLM Mathematics with Lean'
@@ -24,17 +20,13 @@ papers:
   LRKQhcYAAAAJ:YsMSGLbcyi4C:
     citations: 0
     title: "Think, Align, Select: Query\u2013Key Scores for LLM Reasoning"
-    year: Unknown Year
+    year: '2025'
   LRKQhcYAAAAJ:d1gkVwhDpl0C:
     citations: 26
     title: Distributed methods with compressed communication for solving variational inequalities, with theoretical guarantees
     year: '2022'
-  LRKQhcYAAAAJ:eQOLeE2rZwMC:
-    citations: 0
-    title: "Think First, Then Select and Verify with Query\u2013Key Alignment"
-    year: Unknown Year
   LRKQhcYAAAAJ:u-x6o8ySG0sC:
-    citations: 24
+    citations: 25
     title: Secure distributed training at scale
     year: '2022'
   LRKQhcYAAAAJ:u5HHmVD_uO8C:
