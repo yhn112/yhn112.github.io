@@ -1,18 +1,22 @@
 metadata:
-  last_updated: '2026-03-06'
+  last_updated: '2026-03-09'
 papers:
   LRKQhcYAAAAJ:2osOgNQ5qMEC:
     citations: 17
     title: Training Transformers Together
     year: '2022'
   LRKQhcYAAAAJ:9yKSN-GCB0IC:
-    citations: 76
+    citations: 77
     title: 'Swarm parallelism: Training large models can be surprisingly communication-efficient'
     year: '2023'
   LRKQhcYAAAAJ:UeHWp8X0CEIC:
-    citations: 485
+    citations: 489
     title: 'A critical look at the evaluation of GNNs under heterophily: Are we really making progress?'
     year: '2023'
+  LRKQhcYAAAAJ:WF5omc3nYNoC:
+    citations: 0
+    title: 'Learning When to Be Sparse: Adaptive Activations via Two-Parameter Entropy'
+    year: Unknown Year
   LRKQhcYAAAAJ:Y0pCki6q_DkC:
     citations: 0
     title: 'Synthetic Proofs with Tool-Integrated Reasoning: Contrastive Alignment for LLM Mathematics with Lean'
