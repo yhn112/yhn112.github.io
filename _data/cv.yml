@@ -2,7 +2,7 @@ cv:
   name: Michael Diskin
   label: Head of LLM R&D
   email: michael.s.diskin@gmail.com
-  location: Moscow, Russia
+  location: Europe
   image: ""
   summary: AI/ML leader with a track record of bridging top-tier research and large-scale production. Built and scaled LLM and embeddings organizations from the ground up (30+ people, 4–5 teams).
 
@@ -123,28 +123,40 @@ cv:
 
     Awards:
       - title: HSE FCS Scholarship for Research Excellence
+        authors:
+          - HSE University
         date: 2024
         awarder: HSE University
 
       - title: Tinkoff Education Scholarship
+        authors:
+          - Tinkoff
         date: 2023
         awarder: Tinkoff
 
       - title: 'Xeek.ai "Put it on the Map!" — 2nd place (100+ teams)'
+        authors:
+          - Xeek.ai
         date: 2020
         awarder: Xeek.ai
         summary: Cash prize
 
       - title: 'Kaggle "Recursion Cellular Image Classification" — 13th of 800+ teams'
+        authors:
+          - Kaggle
         date: 2019
         awarder: Kaggle
 
       - title: "Huawei Image Inpainting Hackathon — 2nd place (100+ teams)"
+        authors:
+          - Huawei
         date: 2019
         awarder: Huawei
         summary: Cash prize
 
       - title: "International Data Analysis Olympiad — 16th of 1000+ participants"
+        authors:
+          - IDAO
         date: 2019
         awarder: IDAO
 

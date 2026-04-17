@@ -9,7 +9,7 @@ last_name: Diskin
 contact_note: >
   Feel free to reach out via email or any of the social links below.
 description: >
-  AI/ML leader. Head of LLM R&D at Wildberries. Building large-scale language systems, embeddings, and ML infrastructure. (Михаил Дискин / Mikhail Diskin)
+  AI/ML leader. Head of LLM R&D at Wildberries. Building large-scale language systems, embeddings, and ML infrastructure.
 footer_text:
 keywords: michael diskin, mikhail diskin, михаил дискин, майкл дискин, llm, machine learning, nlp, deep learning, ai research, embeddings, машинное обучение, обработка естественного языка, большие языковые модели
 x_username: michael_diskin
@@ -53,7 +53,7 @@ external_services:
 
 navbar_fixed: true
 footer_fixed: false
-search_enabled: true
+search_enabled: false
 socials_in_search: true
 posts_in_search: false
 bib_search: true
@@ -97,10 +97,10 @@ lsi: false # produce an index for related posts
 
 # Pagination
 pagination:
-  enabled: true
+  enabled: false
 
 related_blog_posts:
-  enabled: true
+  enabled: false
   max_related: 5
 
 # Giscus comments (RECOMMENDED)

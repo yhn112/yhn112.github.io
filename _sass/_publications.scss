@@ -87,13 +87,13 @@
         }
 
         > span.more-authors {
-          color: var(--global-text-color-light);
-          border-bottom: 1px dashed var(--global-text-color-light);
+          color: var(--global-text-color);
+          border-bottom: 1px dashed currentColor;
           cursor: pointer;
 
           &:hover {
-            color: var(--global-text-color);
-            border-bottom: 1px dashed var(--global-text-color);
+            color: var(--global-theme-color);
+            border-bottom: 1px dashed currentColor;
           }
         }
       }
@@ -120,6 +120,13 @@
 
       .badges {
         padding-bottom: 0.5rem;
+
+        a {
+          display: inline-block;
+          line-height: 1;
+          margin-right: 0.35rem;
+        }
+
         span {
           display: inline-block;
           color: v.$black-color;
@@ -130,6 +137,13 @@
           &:hover {
             text-decoration: underline;
           }
+        }
+
+        img.citation-badge {
+          display: inline-block;
+          width: auto;
+          height: 20px;
+          vertical-align: middle;
         }
       }
 

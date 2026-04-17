@@ -9,7 +9,7 @@ profile:
   image: prof_pic.png
   image_circular: true
   more_info: >
-    <p>📍 Everywhere & nowhere</p>
+    <p>📍 Europe</p>
     <p>Moscow · Yerevan · Tel Aviv <br> Zürich · London · Abu Dhabi</p>
 
 selected_papers: true

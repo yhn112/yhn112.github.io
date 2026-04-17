@@ -341,8 +341,12 @@
               {% endif %}
 
               <img
+                class="citation-badge"
                 src="https://img.shields.io/badge/scholar-{{ citation_count }}-4285F4?logo=googlescholar&labelColor=beige"
                 alt="{{ citation_count }} Google Scholar citations"
+                width="100"
+                height="20"
+                style="width: auto; height: 20px;"
               >
             </a>
           {% endif %}
@@ -353,8 +357,12 @@
               role="button"
             >
               <img
+                class="citation-badge"
                 src="https://img.shields.io/badge/inspire-{% inspirehep_citations entry.inspirehep_id %}-001628?logo=inspire&logoColor=001628&labelColor=beige"
                 alt="{% inspirehep_citations entry.inspirehep_id %} InspireHEP citations"
+                width="100"
+                height="20"
+                style="width: auto; height: 20px;"
               >
             </a>
           {% endif %}

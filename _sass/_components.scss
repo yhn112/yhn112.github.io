@@ -70,6 +70,32 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+.about-header {
+  margin-bottom: 0;
+  min-width: 0;
+}
+
+.about-copy {
+  margin-top: 0;
+}
+
+.about-copy > :last-child {
+  margin-bottom: 0;
+}
+
+.about-profile {
+  width: min(100%, 320px);
+  margin-bottom: 1.5rem;
+
+  figure {
+    margin-bottom: 0.75rem;
+  }
+
+  .more-info {
+    text-align: center;
+  }
+}
+
 .profile.float-right {
   margin-left: 1rem;
 }
@@ -87,6 +113,12 @@ ul.task-list input[type="checkbox"] {
         display: block;
       }
     }
+  }
+
+  .about-profile {
+    width: 30%;
+    max-width: 320px;
+    margin-bottom: 1rem;
   }
 }
 

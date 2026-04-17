@@ -6,7 +6,17 @@
 <!-- To customize for your needs, see: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
 <meta
   http-equiv="Content-Security-Policy"
-  content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"
+  content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https:;
+    style-src 'self' 'unsafe-inline' https:;
+    img-src 'self' data: https:;
+    font-src 'self' data: https:;
+    media-src 'self' https:;
+    child-src 'self' https:{% if site.enable_yandex_metrika %} blob:{% endif %};
+    frame-src 'self' https:{% if site.enable_yandex_metrika %} blob:{% endif %};
+    connect-src 'self' https:{% if site.enable_yandex_metrika %} wss://mc.yandex.ru wss://mc.yandex.com wss://mc.webvisor.com wss://mc.webvisor.org{% endif %};
+  "
 >
 
 <!-- Preconnect to third-party origins -->
@@ -19,7 +29,9 @@
 {% endif %}
 {% if site.enable_yandex_metrika %}
   <link rel="preconnect" href="https://mc.webvisor.org">
+  <link rel="preconnect" href="https://mc.yandex.com">
   <link rel="dns-prefetch" href="https://mc.yandex.ru">
+  <link rel="dns-prefetch" href="https://mc.yandex.com">
 {% endif %}
 
 <!-- Bootstrap & MDB -->
