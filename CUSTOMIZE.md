@@ -126,7 +126,6 @@ The project is structured as follows, focusing on the main components that you w
     ├── 📄 _blog.scss: blog post, tags, and pagination styles
     ├── 📄 _components.scss: reusable component styles (cards, profiles, CV, projects)
     ├── 📄 _cv.scss: style of the CV page
-    ├── 📄 _distill.scss: style of the Distill articles
     ├── 📄 _footer.scss: footer styles
     ├── 📄 _layout.scss: overall layout styles
     ├── 📄 _navbar.scss: navigation bar and dropdown menu styles

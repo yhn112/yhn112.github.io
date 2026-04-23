@@ -47,4 +47,4 @@ jobs:
         uses: lycheeverse/lychee-action@v2.0.2
         with:
           fail: true
-          args: --user-agent 'curl/7.54' --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts/2018-12-22-distill.md --exclude-path _posts/2023-04-24-videos.md --exclude-path _books/the_godfather.md --verbose --no-progress '_pages/**/*.md' '_posts/**/*.md' '_projects/**/*.md' '_news/**/*.md' '_books/**/*.md' '_teachings/**/*.md' '_data/socials.yml' '_data/cv.yml' '_data/coauthors.yml' '_data/venues.yml' 'assets/html/**/*.html'
+          args: --user-agent 'curl/7.54' --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts/2023-04-24-videos.md --exclude-path _books/the_godfather.md --verbose --no-progress '_pages/**/*.md' '_posts/**/*.md' '_projects/**/*.md' '_news/**/*.md' '_books/**/*.md' '_teachings/**/*.md' '_data/socials.yml' '_data/cv.yml' '_data/coauthors.yml' '_data/venues.yml' 'assets/html/**/*.html'

@@ -27,7 +27,6 @@ This al-folio repository uses Liquid templating extensively. When modifying `.li
 ### Important al-folio Liquid Components
 
 - `_includes/citation.liquid` – Bibliography entry rendering
-- `_includes/distill_scripts.liquid` – Distill.pub specific scripts
 - `_includes/footer.liquid` – Site footer
 - `_includes/head.liquid` – Page <head> section
 - `_includes/header.liquid` – Site header/navigation

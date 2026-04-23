@@ -264,7 +264,6 @@ Run the test yourself: [Google Lighthouse PageSpeed Insights](https://pagespeed.
     - [Publications](#publications)
     - [Collections](#collections)
     - [Layouts](#layouts)
-      - [The iconic style of Distill](#the-iconic-style-of-distill)
       - [Full support for math &amp; code](#full-support-for-math--code)
       - [Photos, Audio, Video and more](#photos-audio-video-and-more)
     - [Other features](#other-features)
@@ -405,14 +404,6 @@ For detailed instructions on creating and customizing collections, see [Adding C
 ### Layouts
 
 **al-folio** comes with stylish layouts for pages and blog posts.
-
-#### The iconic style of Distill
-
-The theme allows you to create blog posts in the [distill.pub](https://distill.pub/) style:
-
-[![Distill Preview](readme_preview/distill.png)](https://alshedivat.github.io/al-folio/blog/2021/distill/)
-
-For more details on how to create distill-styled posts using `<d-*>` tags, please refer to [the example](https://alshedivat.github.io/al-folio/blog/2021/distill/).
 
 #### Full support for math & code
 
