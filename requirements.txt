@@ -1,4 +1,4 @@
 nbconvert
 pyyaml
-rendercv[full]==2.8
+rendercv[full]==2.6
 scholarly
