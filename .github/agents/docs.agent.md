@@ -46,7 +46,7 @@ You are a documentation specialist for the al-folio Jekyll theme project.
     - `assets/bibliography/`, `assets/libs/` – Support files
     - `assets/audio/`, `assets/video/`, `assets/jupyter/`, `assets/plotly/`, `assets/html/` – Multimedia and embedded content
   - `.github/` – GitHub configuration:
-  - `.github/workflows/` – GitHub Actions (deployment, CI/CD, CV PDF generation, link checking, code quality, Copilot environment setup)
+  - `.github/workflows/` – GitHub Actions (deployment, CI/CD, CV PDF generation, link checking, code quality)
   - `.github/agents/` – AI agent configuration files (customize.agent.md, docs.agent.md)
   - `.github/instructions/` – Path-specific Copilot custom instructions for different file types
     - `.github/ISSUE_TEMPLATE/` – GitHub issue templates
@@ -127,10 +127,6 @@ This repository includes custom instruction files to enhance GitHub Copilot's ef
 - `.github/instructions/bibtex-bibliography.instructions.md` (applies to `**/*.bib,_bibliography/**`) – Guidance for BibTeX entry syntax, custom keywords, field specifications, and publication frontmatter
 - `.github/instructions/markdown-content.instructions.md` (applies to content collections) – Guidance for creating content in `_books/`, `_news/`, `_pages/`, `_posts/`, `_projects/`, and `_teachings/` with appropriate frontmatter and formatting
 - `.github/instructions/javascript-scripts.instructions.md` (applies to `_scripts/**/*.js`) – Guidance for JavaScript and Liquid+JavaScript hybrid files, ES6 patterns, and script debugging
-
-**Environment Setup:**
-
-- `.github/workflows/copilot-setup-steps.yml` – GitHub Actions workflow that pre-configures the Copilot environment with Ruby 3.3.5, Python 3.13, Node.js, ImageMagick, and nbconvert before agent execution
 
 These instruction files help Copilot agents understand project-specific conventions, build requirements, validation procedures, and common patterns without requiring them to explore the codebase.
 

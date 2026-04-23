@@ -1224,7 +1224,7 @@ The easiest way to preview changes in advance is by using [Chrome dev tools](htt
 
 ## Scheduled Posts
 
-`al-folio` contains a workflow which automatically publishes all posts scheduled at a specific day, at the end of the day (23:30). By default the action is disabled, and to enable it you need to go to `.github/workflows/` and find the file called `schedule-posts.txt`. This is the workflow file. For GitHub to recognize it as one (or to enable the action), you need to rename it to `schedule-posts.yml`.
+The upstream `al-folio` template documents an optional workflow for automatically publishing scheduled posts. This personal-site repo does not include that workflow by default anymore. If you want this feature, add your own `.github/workflows/schedule-posts.yml` based on the upstream template.
 
 In order to use this you need to save all of your "Completed" blog posts which are scheduled to be uploaded on a specific date, in a folder named `_scheduled/` in the root directory.
 
@@ -1366,12 +1366,7 @@ In order to deploy the changes from `main`, you can manually trigger the `deploy
 
 > [!TIP]
 > To ensure that these commits can trigger further GitHub Actions workflows (such as site rebuilds), you can use a Personal Access Token (PAT) instead of the default GitHub Actions token.
-> If you have set up a PAT, citation updates will trigger further workflows (such as site rebuilds) after committing changes. In order to run the action with a PAT, you need to uncomment the following lines from the workflow file (`update-citations.yml`):
->
-> ```yaml
-> with:
->   token: ${{ secrets.PAT }}
-> ```
+> If you add a repository secret named `PAT`, the workflow will automatically prefer it over `github.token`, so citation updates can trigger further workflows without any extra edits to `update-citations.yml`.
 
 ### Why is a PAT required?
 
@@ -1393,4 +1388,4 @@ GitHub restricts the default `GITHUB_TOKEN` from triggering other workflows when
    - Paste your PAT and save.
 
 3. **Workflow usage**
-   The workflow `.github/workflows/update-citations.yml` uses this PAT to commit updates to `_data/citations.yml`.
+   The workflow `.github/workflows/update-citations.yml` automatically uses this PAT, when present, to commit updates to `_data/citations.yml`.

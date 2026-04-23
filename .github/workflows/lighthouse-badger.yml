@@ -15,6 +15,7 @@ name: "Lighthouse Badger"
 # INPUTS as Secrets (env) for not manually triggered workflows
 env:
   URLS: https://diskin.me/
+  LIGHTHOUSE_BADGER_TOKEN: ${{ secrets.LIGHTHOUSE_BADGER_TOKEN || github.token }}
   # If any of the following env is blank, a default value is used instead
   REPO_BRANCH: "${{ github.repository }} main" # target repository & branch e.g. 'dummy/mytargetrepo main'
   MOBILE_LIGHTHOUSE_PARAMS: "--only-categories=performance,accessibility,best-practices,seo --throttling.cpuSlowdownMultiplier=2"
@@ -25,11 +26,10 @@ on:
   # This workflow is optional and intentionally manual-only.
   # Automatic page_build runs created noisy failures in personal-site repos
   # where lighthouse badges are not part of the deployment flow.
-  schedule: # Check your schedule here => https://crontab.guru/
-    - cron: "55 23 * * 0" # every Sunday at 23:55 UTC
-  #
-  # THAT'S IT; YOU'RE DONE;
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 ########################################################################
 # THAT'S IT; YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING

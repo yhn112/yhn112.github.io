@@ -53,7 +53,7 @@ You are an expert customization assistant for the al-folio Jekyll academic websi
     - `assets/libs/` – Third-party JavaScript libraries
     - `assets/audio/`, `assets/video/`, `assets/jupyter/`, `assets/plotly/`, `assets/html/` – Multimedia and embedded content
   - `.github/` – GitHub-specific configuration:
-  - `.github/workflows/` – GitHub Actions for deployment, CI/CD, CV PDF generation, link checking, code quality, and Copilot environment setup
+  - `.github/workflows/` – GitHub Actions for deployment, CI/CD, CV PDF generation, link checking, and code quality
   - `.github/agents/` – AI agent configuration files
   - `.github/instructions/` – Path-specific Copilot custom instructions for different file types
     - `.github/ISSUE_TEMPLATE/` – GitHub issue templates

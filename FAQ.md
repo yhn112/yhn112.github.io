@@ -66,7 +66,9 @@ Open .git/config file using your preferred editor. Change the `https` portion of
 
 ## When I manually run the Lighthouse Badger workflow, it fails with `Error: Input required and not supplied: token`. How do I fix that?
 
-You need to [create a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token) and [add it as a secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-encrypted-secrets-for-a-repository) named `LIGHTHOUSE_BADGER_TOKEN` to your repository. For more information, check [lighthouse-badger documentation](https://github.com/MyActionWay/lighthouse-badger-workflows#lighthouse-badger-easyyml) on how to do this.
+The workflow now falls back to the repository `github.token`, so this error should no longer happen in a normal same-repository run.
+
+If you still see it, add a repository secret named `LIGHTHOUSE_BADGER_TOKEN` with a Personal Access Token (PAT). For more information, check the [lighthouse-badger documentation](https://github.com/MyActionWay/lighthouse-badger-workflows#lighthouse-badger-easyyml).
 
 ## My code runs fine locally, but when I create a commit and submit it, it fails with `prettier code formatter workflow run failed for main branch`. How do I fix that?
 
@@ -119,15 +121,12 @@ Currently we have the following workflows:
 - `axe.yml`: runs accessibility testing with the [axe cli](https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli) after successful deployments, and can also be started manually
 - `broken-links-site.yml`: checks for broken links in your built website with the [lychee-action](https://github.com/lycheeverse/lychee-action)
 - `broken-links.yml`: checks for broken links in your repository with the [lychee-action](https://github.com/lycheeverse/lychee-action) on schedule and on relevant content changes
-- `codeql.yml`: runs GitHub CodeQL security analysis for Ruby and JavaScript
-- `copilot-setup-steps.yml`: prepares the GitHub Copilot coding-agent environment for this repository
+- `codeql.yml`: runs GitHub CodeQL security analysis for Ruby and JavaScript on schedule or manual run
 - `deploy.yml`: deploys the website to GitHub Pages
-- `lighthouse-badger.yml`: runs a [lighthouse](https://github.com/GoogleChrome/lighthouse) test for your site with the [lighthouse-badger-action](https://github.com/MyActionWay/lighthouse-badger-action), saving the results in the repository for easy inspecting, as can be seen [here](https://github.com/alshedivat/al-folio?tab=readme-ov-file#lighthouse-pagespeed-insights). For more information on how to enable this workflow, check our [FAQ question about it](https://github.com/alshedivat/al-folio/blob/main/FAQ.md#when-i-manually-run-the-lighthouse-badger-workflow-it-fails-with-error-input-required-and-not-supplied-token-how-do-i-fix-that)
-- `prettier-comment-on-pr.yml`: comments on pull requests when the prettier workflow fails and produces an HTML diff artifact
+- `lighthouse-badger.yml`: runs a [lighthouse](https://github.com/GoogleChrome/lighthouse) test for your site on manual run, saving the results in the repository for easy inspecting, as can be seen [here](https://github.com/alshedivat/al-folio?tab=readme-ov-file#lighthouse-pagespeed-insights)
 - `prettier.yml`: runs [prettier](https://prettier.io/) on the code to ensure it is well formatted. For more information, check our [FAQ question about it](https://github.com/alshedivat/al-folio/blob/main/FAQ.md#my-code-runs-fine-locally-but-when-i-create-a-commit-and-submit-it-it-fails-with-prettier-code-formatter-workflow-run-failed-for-main-branch-how-do-i-fix-that)
 - `render-cv.yml`: renders the CV PDF from the RenderCV data and commits updated output when needed
 - `update-citations.yml`: updates Google Scholar citation counts on schedule or manual run
-- `update-tocs.yml`: refreshes tables of contents in root-level markdown documentation files
 
 ## How can I use Google Search Console ID on the template?
 
