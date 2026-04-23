@@ -15,7 +15,11 @@
             %}
           {%- endif -%}
           {% if site.data.venues[entry.abbr].text_color != blank %}
-            {% assign venue_style_rules = venue_style_rules | append: 'color:' | append: site.data.venues[entry.abbr].text_color | append: ';' %}
+            {% assign venue_style_rules = venue_style_rules
+              | append: '--venue-text-color:'
+              | append: site.data.venues[entry.abbr].text_color
+              | append: ';'
+            %}
           {%- endif -%}
           {% if venue_style_rules != '' %}
             {% assign venue_style = venue_style_rules | prepend: 'style="' | append: '"' %}
