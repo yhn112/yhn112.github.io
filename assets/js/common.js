@@ -1,19 +1,33 @@
 $(document).ready(function () {
-  // add toggle functionality to abstract, award and bibtex buttons
-  $("a.abstract").click(function () {
-    $(this).parent().parent().find(".abstract.hidden").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden.open").toggleClass("open");
-  });
-  $("a.award").click(function () {
-    $(this).parent().parent().find(".abstract.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden.open").toggleClass("open");
-  });
-  $("a.bibtex").click(function () {
-    $(this).parent().parent().find(".abstract.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden").toggleClass("open");
+  // add toggle functionality to abstract, award, bibtex and embedded video buttons
+  var toggleConfigs = [
+    { buttonClass: "abstract-toggle", panelClass: "abstract" },
+    { buttonClass: "award-toggle", panelClass: "award" },
+    { buttonClass: "bibtex-toggle", panelClass: "bibtex" },
+    { buttonClass: "video-toggle", panelClass: "video" },
+  ];
+
+  function syncToggleState($entry, config, isOpen) {
+    var $panel = $entry.find("." + config.panelClass + ".hidden");
+    if (!$panel.length) {
+      return;
+    }
+
+    $panel.toggleClass("open", isOpen);
+    $panel.prop("hidden", !isOpen);
+    $entry.find("." + config.buttonClass).attr("aria-expanded", String(isOpen));
+  }
+
+  toggleConfigs.forEach(function (config) {
+    $("button." + config.buttonClass).click(function () {
+      var $entry = $(this).closest(".links").parent();
+      var $panel = $entry.find("." + config.panelClass + ".hidden");
+      var shouldOpen = $panel.prop("hidden");
+
+      toggleConfigs.forEach(function (currentConfig) {
+        syncToggleState($entry, currentConfig, currentConfig.panelClass === config.panelClass ? shouldOpen : false);
+      });
+    });
   });
   $("a").removeClass("waves-effect waves-light");
 

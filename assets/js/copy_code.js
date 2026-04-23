@@ -11,6 +11,9 @@ codeBlocks.forEach(function (codeBlock) {
     codeBlock.querySelector("code:not(.language-plotly)") &&
     codeBlock.querySelector("code:not(.language-vega_lite)")
   ) {
+    codeBlock.tabIndex = 0;
+    codeBlock.setAttribute("aria-label", "Code block");
+
     // create copy button
     var copyButton = document.createElement("button");
     copyButton.className = "copy";

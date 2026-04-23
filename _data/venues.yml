@@ -5,6 +5,7 @@
 "ICLR":
   url: https://iclr.cc/
   color: "#2ca02c"
+  text_color: "#111111"
 
 "NeurIPS":
   url: https://neurips.cc/
