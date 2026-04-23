@@ -23,6 +23,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: "latest"
+      - name: Install local node tools 📦
+        run: |
+          mkdir -p "$RUNNER_TEMP/axe-tools"
+          npm install --prefix "$RUNNER_TEMP/axe-tools" purgecss @axe-core/cli http-server
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -46,8 +54,7 @@ jobs:
           bundle exec jekyll build
       - name: Purge unused CSS 🧹
         run: |
-          npm install -g purgecss
-          purgecss -c purgecss.config.js
+          "$RUNNER_TEMP/axe-tools/node_modules/.bin/purgecss" -c purgecss.config.js
       - name: Get Chromium version 🌐
         # https://github.com/GoogleChromeLabs/chrome-for-testing?tab=readme-ov-file#other-api-endpoints
         run: |
@@ -61,11 +68,13 @@ jobs:
           chrome-version: ${{ env.CHROMIUM_VERSION }}
       - name: Install chromedriver 🚗
         run: |
-          npm install -g chromedriver@$CHROMIUM_VERSION
+          npm install --prefix "$RUNNER_TEMP/axe-tools" "chromedriver@$CHROMIUM_VERSION"
       - name: Run axe 🪓
         # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
         run: |
-          npm install -g @axe-core/cli
-          npm install -g http-server
-          http-server _site/ &
-          axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver http://localhost:8080/${{ github.event.inputs.url || env.URL }} --load-delay=1500 --exit
+          BIN_DIR="$RUNNER_TEMP/axe-tools/node_modules/.bin"
+          CHROMEDRIVER_PATH="$RUNNER_TEMP/axe-tools/node_modules/chromedriver/bin/chromedriver"
+          "$BIN_DIR/http-server" _site/ --port 8080 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          "$BIN_DIR/axe" --chromedriver-path "$CHROMEDRIVER_PATH" "http://localhost:8080/${{ github.event.inputs.url || env.URL }}" --load-delay=1500 --exit
