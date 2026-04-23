@@ -1,48 +1,45 @@
 name: Check for broken links
 
 on:
+  schedule:
+    - cron: "20 0 * * 2"
   push:
     branches:
       - master
       - main
     paths:
-      - "assets/**"
-      - "**.html"
-      - "**.js"
-      - "**.liquid"
-      - "**/*.md"
-      - "**.yml"
-      - "!.github/workflows/axe.yml"
-      - "!.github/workflows/deploy-docker-tag.yml"
-      - "!.github/workflows/deploy-image.yml"
-      - "!.github/workflows/docker-slim.yml"
-      - "!.github/workflows/lighthouse-badger.yml"
-      - "!.github/workflows/prettier.yml"
-      - "!lighthouse_results/**"
+      - "_pages/**/*.md"
+      - "_posts/**/*.md"
+      - "_projects/**/*.md"
+      - "_news/**/*.md"
+      - "_books/**/*.md"
+      - "_teachings/**/*.md"
+      - "_data/socials.yml"
+      - "_data/cv.yml"
+      - "_data/coauthors.yml"
+      - "_data/venues.yml"
+      - "assets/html/**/*.html"
   pull_request:
     branches:
       - master
       - main
     paths:
-      - "assets/**"
-      - "**.html"
-      - "**.js"
-      - "**.liquid"
-      - "**/*.md"
-      - "**.yml"
-      - "!.github/workflows/axe.yml"
-      - "!.github/workflows/deploy-docker-tag.yml"
-      - "!.github/workflows/deploy-image.yml"
-      - "!.github/workflows/docker-slim.yml"
-      - "!.github/workflows/lighthouse-badger.yml"
-      - "!.github/workflows/prettier.yml"
-      - "!lighthouse_results/**"
+      - "_pages/**/*.md"
+      - "_posts/**/*.md"
+      - "_projects/**/*.md"
+      - "_news/**/*.md"
+      - "_books/**/*.md"
+      - "_teachings/**/*.md"
+      - "_data/socials.yml"
+      - "_data/cv.yml"
+      - "_data/coauthors.yml"
+      - "_data/venues.yml"
+      - "assets/html/**/*.html"
+  workflow_dispatch:
 
 jobs:
   link-checker:
     runs-on: ubuntu-latest
-    # only run on the main repo
-    if: github.repository == 'alshedivat/al-folio'
     steps:
       - uses: actions/checkout@v4
 
@@ -50,5 +47,4 @@ jobs:
         uses: lycheeverse/lychee-action@v2.0.2
         with:
           fail: true
-          # removed md files that include liquid tags
-          args: --user-agent 'curl/7.54' --exclude-path README.md --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts/2018-12-22-distill.md --exclude-path _posts/2023-04-24-videos.md --exclude-path _books/the_godfather.md  --exclude-path .github/instructions/bibtex-bibliography.instructions.md --exclude-path .github/instructions/yaml-configuration.instructions.md --exclude-path .github/instructions/markdown-content.instructions.md --exclude-path .github/instructions/liquid-templates.instructions.md --exclude-path AGENTS.md --exclude-path SEO.md --verbose --no-progress './**/*.md' './**/*.html'
+          args: --user-agent 'curl/7.54' --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts/2018-12-22-distill.md --exclude-path _posts/2023-04-24-videos.md --exclude-path _books/the_godfather.md --verbose --no-progress '_pages/**/*.md' '_posts/**/*.md' '_projects/**/*.md' '_news/**/*.md' '_books/**/*.md' '_teachings/**/*.md' '_data/socials.yml' '_data/cv.yml' '_data/coauthors.yml' '_data/venues.yml' 'assets/html/**/*.html'

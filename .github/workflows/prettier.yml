@@ -5,10 +5,18 @@ on:
     branches:
       - master
       - main
+    paths-ignore:
+      - "lighthouse_results/**"
+      - "_data/citations.yml"
+      - "assets/rendercv/rendercv_output/**"
   push:
     branches:
       - master
       - main
+    paths-ignore:
+      - "lighthouse_results/**"
+      - "_data/citations.yml"
+      - "assets/rendercv/rendercv_output/**"
 
 jobs:
   check:
