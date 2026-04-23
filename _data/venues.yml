@@ -7,6 +7,11 @@
   color: "#2ca02c"
   text_color: "#111111"
 
+"ICLR-W":
+  url: https://iclr.cc/
+  color: "#6aa84f"
+  text_color: "#111111"
+
 "NeurIPS":
   url: https://neurips.cc/
   color: "#1f77b4"

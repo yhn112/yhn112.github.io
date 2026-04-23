@@ -2,6 +2,13 @@
 
 A simple, clean, and responsive Jekyll theme for academics.
 
+## Local Build Policy
+
+- Never run local site build or serve commands in this repository.
+- This includes `bundle exec jekyll build`, `bundle exec jekyll serve --livereload`, and similar local verification flows.
+- Do not suggest local build verification as a default step.
+- This policy overrides any conflicting build instructions in other project docs unless the user explicitly asks to run a local build.
+
 ## Quick Links by Role
 
 - **Are you a coding agent?** → Read [`.github/copilot-instructions.md`](.github/copilot-instructions.md) first (tech stack, build, CI/CD, common pitfalls & solutions)
@@ -13,6 +20,8 @@ A simple, clean, and responsive Jekyll theme for academics.
 - **Quick 5-min start?** → [QUICKSTART.md](QUICKSTART.md)
 
 ## Essential Commands
+
+These commands are reference only. Agents should not run local build or serve commands unless the user explicitly overrides the policy above.
 
 ### Local Development
 
@@ -40,14 +49,12 @@ Before every commit, you **must** run these steps:
     # Format all files
     npx prettier . --write
     ```
-2.  **Build Locally & Verify:**
+2.  **Do Not Run Local Build/Serve:**
 
     ```bash
-    # Rebuild the site
-    JEKYLL_ENV=production bundle exec jekyll build
-
-    # Verify by visiting http://localhost:4000 after `bundle exec jekyll serve --livereload`.
-    # Check navigation, pages, images, and dark mode.
+    # Repository-specific policy:
+    # do not run local Jekyll build/serve commands in this repo
+    # unless the user explicitly asks for it.
     ```
 
 ## Critical Configuration
