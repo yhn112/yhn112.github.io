@@ -5,31 +5,30 @@ This guide covers common issues and their solutions. For more information, see [
 <!--ts-->
 
 - [Troubleshooting Guide](#troubleshooting-guide)
-  - [Deployment Issues](#deployment-issues)
-    - [Site fails to deploy on GitHub Pages](#site-fails-to-deploy-on-github-pages)
-    - [Custom domain becomes blank after deployment](#custom-domain-becomes-blank-after-deployment)
-    - [GitHub Actions: "Unknown tag 'toc'" error](#github-actions-unknown-tag-toc-error)
-  - [Local Build Issues](#local-build-issues)
-    - [Docker build fails](#docker-build-fails)
-    - [Ruby dependency issues](#ruby-dependency-issues)
-    - [Port already in use](#port-already-in-use)
-  - [Styling &amp; Layout Problems](#styling--layout-problems)
-    - [CSS and JS not loading properly](#css-and-js-not-loading-properly)
-    - [Site looks broken after deployment](#site-looks-broken-after-deployment)
-    - [Theme colors not applying](#theme-colors-not-applying)
-  - [Content Not Appearing](#content-not-appearing)
-    - [Blog posts not showing up](#blog-posts-not-showing-up)
-    - [Publications not displaying](#publications-not-displaying)
-    - [Images not loading](#images-not-loading)
-  - [Configuration Issues](#configuration-issues)
-    - [YAML syntax errors](#yaml-syntax-errors)
-    - [Feed (RSS/Atom) not working](#feed-rssatom-not-working)
-    - [Search not working](#search-not-working)
-  - [Feature-Specific Issues](#feature-specific-issues)
-    - [Comments (Giscus) not appearing](#comments-giscus-not-appearing)
-    - [Related posts broken](#related-posts-broken)
-    - [Code formatting issues](#code-formatting-issues)
-  - [Getting Help](#getting-help)
+- [Deployment Issues](#deployment-issues)
+  - [Site fails to deploy on GitHub Pages](#site-fails-to-deploy-on-github-pages)
+  - [Custom domain becomes blank after deployment](#custom-domain-becomes-blank-after-deployment)
+  - [GitHub Actions: "Unknown tag 'toc'" error](#github-actions-unknown-tag-toc-error)
+- [Local Build Issues](#local-build-issues)
+  - [Ruby dependency issues](#ruby-dependency-issues)
+  - [Port already in use](#port-already-in-use)
+- [Styling &amp; Layout Problems](#styling--layout-problems)
+  - [CSS and JS not loading properly](#css-and-js-not-loading-properly)
+  - [Site looks broken after deployment](#site-looks-broken-after-deployment)
+  - [Theme colors not applying](#theme-colors-not-applying)
+- [Content Not Appearing](#content-not-appearing)
+  - [Blog posts not showing up](#blog-posts-not-showing-up)
+  - [Publications not displaying](#publications-not-displaying)
+  - [Images not loading](#images-not-loading)
+- [Configuration Issues](#configuration-issues)
+  - [YAML syntax errors](#yaml-syntax-errors)
+  - [Feed (RSS/Atom) not working](#feed-rssatom-not-working)
+  - [Search not working](#search-not-working)
+- [Feature-Specific Issues](#feature-specific-issues)
+  - [Comments (Giscus) not appearing](#comments-giscus-not-appearing)
+  - [Related posts broken](#related-posts-broken)
+  - [Code formatting issues](#code-formatting-issues)
+- [Getting Help](#getting-help)
 
 <!--te-->
 
@@ -86,25 +85,6 @@ This guide covers common issues and their solutions. For more information, see [
 
 ## Local Build Issues
 
-### Docker build fails
-
-**Problem:** `docker compose up` fails or shows errors.
-
-**Solution:**
-
-1. Update Docker: `docker compose pull`
-2. Rebuild: `docker compose up --build`
-3. If still failing, check your system resources (disk space, RAM)
-4. For M1/M2 Mac users, verify you're using a compatible Docker version
-5. Check Docker Desktop is running
-
-**For permission issues:**
-
-- Linux users may need to add your user to the docker group: `sudo usermod -aG docker $USER`
-- Then log out and log back in
-
----
-
 ### Ruby dependency issues
 
 **Problem:** `Gemfile.lock` conflicts or bundle errors.
@@ -122,14 +102,7 @@ This guide covers common issues and their solutions. For more information, see [
 
 **Problem:** "Address already in use" when running `jekyll serve`.
 
-**Solution - Docker:**
-
-```bash
-docker compose down  # Stop the running container
-docker compose up    # Start fresh
-```
-
-**Solution - Local Ruby:**
+**Solution:**
 
 ```bash
 # Find and kill the Jekyll process
@@ -193,7 +166,7 @@ bundle exec jekyll serve --port 5000
 
 1. Check your color name is valid in `_sass/_variables.scss`
 2. Clear browser cache (see above)
-3. Rebuild: `docker compose up --build` (Docker) or `bundle exec jekyll build` (Ruby)
+3. Rebuild: `bundle exec jekyll build`
 4. Wait for GitHub Actions to complete
 5. Visit the site in a private/incognito window
 
@@ -244,9 +217,6 @@ bundle exec jekyll serve --port 5000
 ```bash
 # Local Ruby setup
 bundle exec jekyll build 2>&1 | grep -i bibtex
-
-# Docker
-docker compose run --rm web jekyll build 2>&1 | grep -i bibtex
 ```
 
 ---

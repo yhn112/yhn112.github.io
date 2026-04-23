@@ -14,20 +14,19 @@ A simple, clean, and responsive Jekyll theme for academics.
 
 ## Essential Commands
 
-### Local Development (Docker)
-
-The recommended approach is using Docker.
+### Local Development
 
 ```bash
-# Initial setup & start dev server
-docker compose pull && docker compose up
-# Site runs at http://localhost:8080
+# Install Ruby gems and Python support
+bundle install
+pip install -r requirements.txt
 
-# Rebuild after changing dependencies or Dockerfile
-docker compose up --build
+# Start the dev server
+bundle exec jekyll serve --livereload
+# Site runs at http://localhost:4000
 
-# Stop containers and free port 8080
-docker compose down
+# Production-like build
+JEKYLL_ENV=production bundle exec jekyll build
 ```
 
 ### Pre-Commit Checklist
@@ -45,9 +44,9 @@ Before every commit, you **must** run these steps:
 
     ```bash
     # Rebuild the site
-    docker compose up --build
+    JEKYLL_ENV=production bundle exec jekyll build
 
-    # Verify by visiting http://localhost:8080.
+    # Verify by visiting http://localhost:4000 after `bundle exec jekyll serve --livereload`.
     # Check navigation, pages, images, and dark mode.
     ```
 

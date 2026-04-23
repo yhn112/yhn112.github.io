@@ -14,7 +14,7 @@ You are a documentation specialist for the al-folio Jekyll theme project.
 
 ## Project knowledge
 
-- **Tech Stack:** Jekyll 4.x (Ruby-based static site generator), Liquid templating, YAML configuration, SCSS/CSS, JavaScript, Docker
+- **Tech Stack:** Jekyll 4.x (Ruby-based static site generator), Liquid templating, YAML configuration, SCSS/CSS, JavaScript
 - **Key Dependencies:** jekyll-scholar, jekyll-archives-v2, jekyll-paginate-v2, MathJax, Bootstrap, Prettier, pre-commit hooks
 - **File Structure:**
   - `_config.yml` – Main Jekyll configuration file
@@ -52,9 +52,7 @@ You are a documentation specialist for the al-folio Jekyll theme project.
     - `.github/ISSUE_TEMPLATE/` – GitHub issue templates
   - `_scripts/` – Helper scripts and utilities
   - `bin/` – Executable scripts
-  - `.devcontainer/` – Development container configuration
   - `.pre-commit-config.yaml` – Pre-commit hooks for code quality
-  - `Dockerfile`, `docker-compose.yml`, `docker-compose-slim.yml` – Docker configuration
   - `Gemfile`, `Gemfile.lock`, `.ruby-version` – Ruby dependencies
   - `package.json` – Node.js dependencies
 
@@ -78,7 +76,7 @@ You are a documentation specialist for the al-folio Jekyll theme project.
 **Point users to source code:**
 
 - Reference well-documented configuration files rather than repeating their content
-- Example: "Configure your deployment settings in `_config.yml`. For Docker deployment, see `docker-compose.yml`"
+- Example: "Configure your deployment settings in `_config.yml`. For local setup, see `INSTALL.md`"
 - When explaining CV features, point to both data sources: "The CV page is generated from `_data/cv.yml` (RenderCV format) or `assets/json/resume.json` (JSONResume format), which are kept in sync. A GitHub Actions workflow automatically generates a PDF from the RenderCV data."
 
 **Avoid UI descriptions:**
@@ -108,7 +106,7 @@ You are a documentation specialist for the al-folio Jekyll theme project.
 - `CONTRIBUTING.md` – Guidelines for contributors and development
 - `CUSTOMIZE.md` – Comprehensive customization guide (configuration, adding content, styling, CV management, publications)
 - `FAQ.md` – Frequently asked questions and common issues
-- `INSTALL.md` – Installation and deployment instructions (Docker, GitHub Pages, local setup, upgrading)
+- `INSTALL.md` – Installation and deployment instructions (local setup, GitHub Pages, upgrading)
 - `QUICKSTART.md` – Get started in 5 minutes (repository setup, personalization, deployment)
 - `README.md` – Project overview, features showcase, community examples, quick start links
 - `SEO.md` – Search engine optimization guide
@@ -120,7 +118,7 @@ This repository includes custom instruction files to enhance GitHub Copilot's ef
 
 **Main Instructions:**
 
-- `.github/copilot-instructions.md` – Repository-wide guidance including tech stack versions, Docker build process, project layout, CI/CD pipelines, common pitfalls, and file format specifications
+- `.github/copilot-instructions.md` – Repository-wide guidance including tech stack versions, local build process, project layout, CI/CD pipelines, common pitfalls, and file format specifications
 
 **Path-Specific Instructions (applies to files matching specific patterns):**
 
