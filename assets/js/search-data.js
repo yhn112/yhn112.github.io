@@ -23,8 +23,8 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/cv/";
           },
-        },{id: "nav-teaching",
-          title: "teaching",
+        },{id: "nav-talks-amp-teaching",
+          title: "talks&amp;teaching",
           description: "Courses, lectures, and talks.",
           section: "Navigation",
           handler: () => {
@@ -51,6 +51,9 @@ ninja.data = [{
           description: "",
           section: "News",},{id: "news-attended-mlws-mbzuai-no-talk-this-time-but-many-valuable-conversations-and-networking-with-the-community",
           title: 'Attended MLWS @ MBZUAI; no talk this time, but many valuable conversations and...',
+          description: "",
+          section: "News",},{id: "news-talk-video-from-data-fusion-2026-do-you-really-need-a-multi-agent-system-lessons-from-teams-that-already-tried",
+          title: 'Talk video from Data Fusion 2026: “Do You Really Need a Multi-Agent System?...',
           description: "",
           section: "News",},{id: "news-new-paper-learning-when-to-be-sparse-adaptive-activations-via-two-parameter-entropy-appeared-on-openreview-sci4dl-workshop-iclr-2026-also-arrived-in-rio-de-janeiro-for-the-conference-happy-to-connect-on-site",
           title: 'New paper: Learning When to Be Sparse: Adaptive Activations via Two-Parameter Entropy appeared...',
