@@ -1,16 +1,16 @@
 metadata:
-  last_updated: '2026-05-01'
+  last_updated: '2026-05-06'
 papers:
   LRKQhcYAAAAJ:2osOgNQ5qMEC:
     citations: 17
     title: Training Transformers Together
     year: '2022'
   LRKQhcYAAAAJ:9yKSN-GCB0IC:
-    citations: 86
+    citations: 87
     title: 'Swarm parallelism: Training large models can be surprisingly communication-efficient'
     year: '2023'
   LRKQhcYAAAAJ:UeHWp8X0CEIC:
-    citations: 523
+    citations: 528
     title: 'A critical look at the evaluation of GNNs under heterophily: Are we really making progress?'
     year: '2023'
   LRKQhcYAAAAJ:WF5omc3nYNoC:
@@ -37,10 +37,6 @@ papers:
     citations: 89
     title: Distributed deep learning in open collaborations
     year: '2021'
-  LRKQhcYAAAAJ:ufrVoPGSRksC:
-    citations: 7
-    title: 'A critical look at the evaluation of GNNs under heterophily: Are we really making progress? arXiv 2023'
-    year: Unknown Year
   LRKQhcYAAAAJ:zYLM7Y9cAGgC:
     citations: 5
     title: 'Hivemind: Decentralized Deep Learning in PyTorch'
