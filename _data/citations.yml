@@ -1,5 +1,5 @@
 metadata:
-  last_updated: '2026-08-17'
+  last_updated: '2026-08-21'
 papers:
   LRKQhcYAAAAJ:2osOgNQ5qMEC:
     citations: 18
@@ -10,7 +10,7 @@ papers:
     title: 'Swarm parallelism: Training large models can be surprisingly communication-efficient'
     year: '2023'
   LRKQhcYAAAAJ:UeHWp8X0CEIC:
-    citations: 635
+    citations: 637
     title: 'A critical look at the evaluation of GNNs under heterophily: Are we really making progress?'
     year: '2023'
   LRKQhcYAAAAJ:WF5omc3nYNoC:
@@ -34,7 +34,7 @@ papers:
     title: Secure distributed training at scale
     year: '2022'
   LRKQhcYAAAAJ:u5HHmVD_uO8C:
-    citations: 101
+    citations: 102
     title: Distributed deep learning in open collaborations
     year: '2021'
   LRKQhcYAAAAJ:zYLM7Y9cAGgC:
