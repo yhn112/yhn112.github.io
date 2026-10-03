@@ -46,7 +46,7 @@ cv:
         highlights:
           - "Research on efficient and distributed training for large models; 5 papers at NeurIPS, ICML, and ICLR."
           - "Led pre-training of a fully open-source Russian BERT-class language model; co-authored the Hivemind decentralized training library."
-          - "Created an evaluation benchmark for graph neural networks under heterophily (460+ citations, ICLR 2023)."
+          - "Created an evaluation benchmark for graph neural networks under heterophily (650+ citations, ICLR 2023)."
 
       - company: Huawei
         position: Research Engineer
