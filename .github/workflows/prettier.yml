@@ -18,6 +18,9 @@ on:
       - "_data/citations.yml"
       - "assets/rendercv/rendercv_output/**"
 
+permissions:
+  contents: read
+
 jobs:
   check:
     # available images: https://github.com/actions/runner-images#available-images
@@ -25,6 +28,8 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Setup Node.js ⚙️
         uses: actions/setup-node@v4
       - name: Install Prettier 💾

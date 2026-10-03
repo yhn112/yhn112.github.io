@@ -37,11 +37,16 @@ on:
       - "assets/html/**/*.html"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   link-checker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Link Checker 🔗
         uses: lycheeverse/lychee-action@v2.0.2

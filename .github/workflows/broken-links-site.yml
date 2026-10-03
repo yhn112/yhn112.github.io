@@ -1,19 +1,32 @@
 name: Check for broken links on site
 
 on:
+  pull_request:
+    branches: [main, master]
   workflow_run:
     workflows: [Deploy site]
     types: [completed]
+    branches: [main, master]
+
+permissions:
+  contents: read
 
 jobs:
   check-links-on-site:
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-a-workflow-based-on-the-conclusion-of-another-workflow
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event != 'pull_request' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
     # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -43,5 +56,15 @@ jobs:
         uses: lycheeverse/lychee-action@v2.0.2
         with:
           fail: true
-          # only check local links
-          args: --offline --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --verbose --no-progress '_site/**/*.html'
+          # Resolve this site's URLs against the build before offline filtering.
+          # Check directory URLs as index.html rather than accepting an empty directory.
+          # Lychee 0.16 uses --base and applies only the first matching remap.
+          args: >-
+            --offline
+            --base '${{ github.workspace }}/_site'
+            --remap '^https?://diskin\.me(/[^?#]*/)([?#].*)?$ file://${{ github.workspace }}/_site${1}index.html$2'
+            --remap '^https?://diskin\.me/([?#].*)?$ file://${{ github.workspace }}/_site/index.html$1'
+            --remap '^https?://diskin\.me(/[^?#]*)([?#].*)?$ file://${{ github.workspace }}/_site$1$2'
+            --remap '^(file://.*/)([?#].*)?$ ${1}index.html$2'
+            --remap '^(file://[^?#]*/[^./?#]+)([?#].*)?$ ${1}/index.html$2'
+            --verbose --no-progress '_site/**/*.html'
