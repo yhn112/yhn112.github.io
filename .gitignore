@@ -8,6 +8,12 @@ _site
 .sass-cache
 .tweet-cache
 .venv
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+__pycache__/
 *.swp
 *.swo
 *~
