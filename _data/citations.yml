@@ -1,16 +1,20 @@
 metadata:
-  last_updated: '2026-10-05'
+  last_updated: '2026-10-16'
 papers:
   LRKQhcYAAAAJ:2osOgNQ5qMEC:
     citations: 18
     title: Training Transformers Together
     year: '2022'
   LRKQhcYAAAAJ:9yKSN-GCB0IC:
-    citations: 108
+    citations: 109
     title: 'Swarm parallelism: Training large models can be surprisingly communication-efficient'
     year: '2023'
+  LRKQhcYAAAAJ:LkGwnXOMwfcC:
+    citations: 0
+    title: "Query\u2013Key Ensembles for Mathematical Reasoning Verification"
+    year: Unknown Year
   LRKQhcYAAAAJ:UeHWp8X0CEIC:
-    citations: 683
+    citations: 697
     title: 'A critical look at the evaluation of GNNs under heterophily: Are we really making progress?'
     year: '2023'
   LRKQhcYAAAAJ:WF5omc3nYNoC:
@@ -22,7 +26,7 @@ papers:
     title: 'Synthetic Proofs with Tool-Integrated Reasoning: Contrastive Alignment for LLM Mathematics with Lean'
     year: '2025'
   LRKQhcYAAAAJ:YsMSGLbcyi4C:
-    citations: 0
+    citations: 1
     title: "Think, Align, Select: Query\u2013Key Scores for LLM Reasoning"
     year: '2025'
   LRKQhcYAAAAJ:_FxGoFyzp5QC:
@@ -38,7 +42,7 @@ papers:
     title: Secure distributed training at scale
     year: '2022'
   LRKQhcYAAAAJ:u5HHmVD_uO8C:
-    citations: 106
+    citations: 107
     title: Distributed deep learning in open collaborations
     year: '2021'
   LRKQhcYAAAAJ:zYLM7Y9cAGgC:
