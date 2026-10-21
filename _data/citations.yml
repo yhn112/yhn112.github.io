@@ -1,5 +1,5 @@
 metadata:
-  last_updated: '2026-10-16'
+  last_updated: '2026-10-21'
 papers:
   LRKQhcYAAAAJ:2osOgNQ5qMEC:
     citations: 18
@@ -14,7 +14,7 @@ papers:
     title: "Query\u2013Key Ensembles for Mathematical Reasoning Verification"
     year: Unknown Year
   LRKQhcYAAAAJ:UeHWp8X0CEIC:
-    citations: 697
+    citations: 701
     title: 'A critical look at the evaluation of GNNs under heterophily: Are we really making progress?'
     year: '2023'
   LRKQhcYAAAAJ:WF5omc3nYNoC:
