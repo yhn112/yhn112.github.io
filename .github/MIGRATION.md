@@ -52,6 +52,33 @@ The upstream [migration guide](https://github.com/alshedivat/al-folio/blob/v1.2/
 and [ownership boundaries](https://github.com/alshedivat/al-folio/blob/v1.2/docs/BOUNDARIES.md)
 describe future gem upgrades.
 
+## Upstream comparisons
+
+The `upstream` remote points to `https://github.com/alshedivat/al-folio.git`.
+The original release is kept as the namespaced tag `al-folio/v1.2`,
+resolving to the release commit recorded above.
+Publish this tag to `origin` with the migration branch.
+Remote configuration is local to a checkout; on a fresh clone, configure and fetch it with:
+
+```sh
+git remote add upstream https://github.com/alshedivat/al-folio.git
+git fetch --no-tags upstream refs/tags/v1.2:refs/tags/al-folio/v1.2
+```
+
+Compare starter configuration, dependencies, and workflows against the original release:
+
+```sh
+git diff al-folio/v1.2 HEAD --stat
+git diff al-folio/v1.2 HEAD -- Gemfile _config.yml .github/workflows
+```
+
+These compare the two snapshots directly, preserving the site's existing history.
+The full diff includes personal content and removed starter examples.
+Runtime templates live in gems, so use the override audit and per-file diff commands above
+for their actual implementation differences.
+Those commands compare against the installed gem versions;
+the current pins are the v1.2 release set.
+
 ## Assets, analytics, and automation
 
 The icon configuration uses the v1.2 Font Awesome, Academicons, and Scholar Icons versions and CSS integrity hashes.
@@ -99,14 +126,15 @@ git diff --check
 
 These checks do not establish that the complete site builds or renders correctly.
 No local Jekyll build or server was run, in accordance with the project policy.
-The migration has not been pushed, built in CI, browser-reviewed, or published.
+CI build, browser review, and publication status are recorded below as release proceeds.
 
-After explicit authorization to send the branch, open a PR against `main`.
-The PR builds and checks the artifact without publishing.
+Michael authorized the upstream setup and upload on 24 November 2026.
+Release the migration through a PR against `main`.
+The PR builds and checks the artifact before publication.
 CI browser checks cover existing sections, all teaching/news routes, 404, JSON-LD,
 local resources, both themes at 1440 and 390 pixels, mobile navigation, theme switching,
 publication filtering, CV sections, analytics inclusion, and the downloadable PDF.
-Review the uploaded screenshots and resolve failures before authorizing the merge/publication.
+Review the uploaded screenshots and resolve failures before merging and publishing.
 After publication, check `diskin.me`, key routes, PDF, and analytics requests again.
 If rollout fails, restore the prior source through a new revert commit and redeploy;
 keep the complete migration history.

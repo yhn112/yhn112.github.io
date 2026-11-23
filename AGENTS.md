@@ -14,8 +14,12 @@ Michael approved these migration decisions on 24 November 2026:
 - Keep Google Analytics and Yandex.Metrika loading immediately, including the existing Yandex settings;
   make Privacy describe that behavior.
 - Disable the unavailable GitHub trophies widget while preserving the other repository cards.
-- Prepare and commit the migration locally;
-  sending the branch for CI and publishing require a separate explicit instruction.
+- Configure an `upstream` remote and keep the original release at `al-folio/v1.2` for direct comparisons.
+
+Michael subsequently authorized the upstream setup and upload on 24 November 2026
+("делай. и заливать можно").
+Use the existing `origin` repository and `diskin.me` publication scope;
+complete CI and visual acceptance before publishing the migrated site.
 
 Local runtime files must be intentional overrides of the pinned gems.
 Review them with `bundle exec al-folio upgrade overrides diff PATH` and acknowledge reviewed changes in `.al-folio-overrides.yml`.
