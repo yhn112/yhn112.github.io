@@ -52,7 +52,7 @@ jobs:
         run: |
           SITE_URL=https://diskin.me
           if [ -n "$ARTIFACT_NAME" ]; then
-            python3 -m http.server 8080 --directory _site > "$RUNNER_TEMP/site-server.log" 2>&1 &
+            python3 -m http.server 8080 --protocol HTTP/1.1 --directory _site > "$RUNNER_TEMP/site-server.log" 2>&1 &
             SERVER_PID=$!
             trap 'kill "$SERVER_PID"' EXIT
             SITE_URL=http://localhost:8080

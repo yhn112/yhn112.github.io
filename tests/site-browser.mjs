@@ -30,6 +30,7 @@ async function collectionRoutes(directory) {
 
 async function checkPage(route, theme, width) {
   const response = await fetch(base + route);
+  await response.arrayBuffer();
   assert.equal(response.status, 200, `Missing route: ${route}`);
   await driver.get(base + route);
   await driver.wait(async () => (await driver.executeScript("return document.documentElement.dataset.theme")) === theme, 10000);
@@ -54,7 +55,9 @@ async function checkPage(route, theme, width) {
   assert(data.privacyLink, `Missing privacy footer link: ${route}`);
   assert(!data.overflow, `Horizontal overflow at ${width}px: ${route}`);
   for (const asset of new Set(data.assets.filter((url) => url.startsWith(base + "/")))) {
-    assert.equal((await fetch(asset)).status, 200, `Missing asset: ${asset}`);
+    const resource = await fetch(asset);
+    await resource.arrayBuffer();
+    assert.equal(resource.status, 200, `Missing asset: ${asset}`);
   }
   await driver.wait(
     () =>
