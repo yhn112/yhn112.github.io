@@ -1,8 +1,61 @@
 # Website audit and remaining work
 
 Snapshot: 23 November 2026.
-The published site is available, but deployment is blocked and several visitor-facing defects remain.
-Restore publishing first, then address analytics behavior, broken content, metadata, and accessibility.
+The next major task is migration to a newer al-folio release.
+The published site is available, but deployment is blocked and several visitor-facing defects remain;
+use the findings below as migration acceptance checks and resolve the remaining issues on the new runtime.
+
+## Template migration
+
+The inspected site still uses the pre-v1 layout: locally copied runtime files,
+no `theme: al_folio_core`, and no `al_folio_*` gem wiring.
+No migration implementation appears in the inspected source history.
+The latest published upstream release is [v1.2](https://github.com/alshedivat/al-folio/releases/tag/v1.2),
+released on 9 August 2026; it is the recommended candidate, not a recovered earlier version choice.
+
+[Version 1](https://github.com/alshedivat/al-folio/releases/tag/v1.0) moves layouts, styles,
+and feature implementations into versioned gems and introduces a Tailwind-based runtime.
+Updating the existing dependency lockfile alone will not perform this migration.
+Follow the upstream [migration guide](https://github.com/alshedivat/al-folio/blob/v1.2/docs/INSTALL.md#older-pre-v1-installs)
+and [migration skill](https://github.com/alshedivat/al-folio/blob/v1.2/.agents/skills/al-folio-v1-migration/SKILL.md).
+
+1. **Prepare an isolated migration branch from the current site history.**
+   Reconcile the remote citation-only commits before moving data.
+   Bring the v1.2 starter configuration and plugin wiring into that branch while preserving history.
+2. **Port site-owned content and configuration.**
+   Preserve `diskin.me`, existing URLs, pages, teaching and news collections, bibliography, CV data,
+   PDF rendering settings, images, favicon, social links, and enabled or disabled features.
+   Bring over configuration values selectively so the old configuration does not replace the v1 contract.
+3. **Review actual customizations before retaining runtime overrides.**
+   Compare current runtime files with initial site commit `94b2040` and the owning v1 gems.
+   Changes since that initial snapshot include the homepage/profile layout, image loading,
+   citation badges, metadata, venue contrast, colors, navbar styles, and JavaScript behavior.
+   Teaching templates and styles also need parity checks even though they were already present in the initial snapshot.
+   Keep only necessary overrides and record them in `.al-folio-overrides.yml`.
+   Review copied citation plugins before enabling `al_citations` to avoid duplicate implementations.
+4. **Resolve analytics and Bootstrap compatibility explicitly.**
+   The current Yandex integration uses a custom script.
+   The current [al_analytics documentation](https://github.com/al-org-dev/al-analytics#supported-providers)
+   does not list Yandex among supported providers; verify the pinned implementation before porting this integration.
+   Its `v1.0.2` Git tag could not be resolved, so that exact version's behavior has not been verified.
+   Preserve analytics capabilities unless Michael changes the requirement, and settle the privacy behavior below.
+   Existing templates use Bootstrap classes and `data-toggle` attributes;
+   port them or use the documented compatibility option during migration.
+5. **Adapt CI and PDF publication to the new starter.**
+   The v1.2 starter's [deploy workflow](https://github.com/alshedivat/al-folio/blob/v1.2/.github/workflows/deploy.yml)
+   still requests Ruby 3.3.5, so copying it will not fix the current runner failure.
+   Resolve the deployment, Axe, and RenderCV ordering findings below as part of this work.
+6. **Audit overrides and validate the migrated site.**
+   After installing the selected migration dependencies, run the upstream upgrade and override audits
+   and review every retained override against its owning gem.
+   These audits have not been run on the current legacy setup.
+   Validate generated pages through CI, then check existing routes, content, CV HTML and PDF,
+   citations, mobile navigation, themes, analytics, metadata, links, and accessibility.
+   The repository's local build prohibition remains in force.
+
+The remaining sections describe the old site's measured state.
+Recheck template defects on v1.2 before carrying forward any local fix;
+upstream v1.2 already disables the unavailable trophy service by default.
 
 ## Publication and automation
 

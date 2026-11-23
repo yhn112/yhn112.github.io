@@ -2,6 +2,11 @@
 
 A simple, clean, and responsive Jekyll theme for academics.
 
+## Current Project Direction
+
+The planned next major change is migration to a newer al-folio release, as confirmed by Michael on 23 November 2026.
+See [the site audit](.github/SITE_AUDIT.md#template-migration) for migration status, the candidate release, and remaining work.
+
 ## Local Build Policy
 
 - Never run local site build or serve commands in this repository.
