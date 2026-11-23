@@ -22,7 +22,9 @@
 "NeurIPS-W":
   url: https://neurips.cc/
   color: "#9467bd"
+  text_color: "#000000"
 
 "EMNLP-W":
   url: https://2025.emnlp.org/
   color: "#e377c2"
+  text_color: "#111111"

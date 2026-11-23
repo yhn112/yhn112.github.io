@@ -11,8 +11,8 @@ codeBlocks.forEach(function (codeBlock) {
     codeBlock.querySelector("code:not(.language-plotly)") &&
     codeBlock.querySelector("code:not(.language-vega_lite)")
   ) {
+    // Allow keyboard users to scroll the code block.
     codeBlock.tabIndex = 0;
-    codeBlock.setAttribute("aria-label", "Code block");
 
     // create copy button
     var copyButton = document.createElement("button");

@@ -6,16 +6,20 @@ description: Privacy and cookie policy for diskin.me.
 nav: false
 ---
 
-This site uses a minimal set of cookies and third-party scripts to keep the content available, measure aggregate traffic, and improve the experience over time.
+This site uses cookies and third-party scripts to measure traffic and understand how visitors use its pages.
 
 ## Analytics
 
-If you allow analytics cookies in the consent dialog, the site may load:
+The site loads the following services when you visit, without a cookie consent dialog:
 
 - Google Analytics
 - Yandex.Metrika
 
-These services are used to understand high-level traffic patterns, popular pages, and site performance. They are blocked until you opt in through the cookie consent dialog.
+Google Analytics measures traffic, popular pages, and visitor interactions.
+Yandex.Metrika also has Webvisor session replay, click maps, link tracking, and bounce tracking enabled.
+The Yandex counter is configured with a `dataLayer` for ecommerce events.
+These services may set cookies and receive information about your browser, the page URL, and the referring page.
+Browser privacy settings and content blockers can restrict their requests and cookies.
 
 ## Search Engine Verification
 

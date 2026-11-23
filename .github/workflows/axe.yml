@@ -1,16 +1,18 @@
 name: Axe accessibility testing
 
 on:
-  pull_request:
-    branches: [main, master]
-  workflow_run:
-    workflows: ["Deploy site"]
-    types: [completed]
-    branches: [main, master]
+  workflow_call:
+    inputs:
+      artifact_name:
+        type: string
+        required: true
+      source_sha:
+        type: string
+        required: true
   workflow_dispatch:
     inputs:
       url:
-        description: "URL to be checked (e.g.: blog/)"
+        description: "Published page path to check (empty checks the main sections)"
         required: false
 
 permissions:
@@ -18,83 +20,62 @@ permissions:
 
 jobs:
   check:
-    if: >-
-      github.event_name != 'workflow_run' ||
-      (github.event.workflow_run.conclusion == 'success' &&
-       github.event.workflow_run.event != 'pull_request' &&
-       github.event.workflow_run.head_repository.full_name == github.repository)
-    # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ inputs.source_sha || github.sha }}
           persist-credentials: false
-      - name: Setup Node.js ⚙️
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "latest"
-      - name: Install local node tools 📦
-        run: |
-          mkdir -p "$RUNNER_TEMP/axe-tools"
-          npm install --prefix "$RUNNER_TEMP/axe-tools" purgecss @axe-core/cli http-server
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        if: inputs.artifact_name != ''
         with:
-          ruby-version: "3.2.2"
-          bundler-cache: true
-      - name: Update _config.yml ⚙️
-        uses: fjogeleit/yaml-update-action@main
+          name: ${{ inputs.artifact_name }}
+          path: _site
+      - name: Set up Chrome and its matching driver
+        id: chrome
+        uses: browser-actions/setup-chrome@48ad923757ca74d66703209fe939badbdf80f2f4 # v2.2.0, packaged release
         with:
-          commitChange: false
-          valueFile: "_config.yml"
-          changes: |
-            {
-              "giscus.repo": "${{ github.repository }}",
-              "baseurl": ""
-            }
-      - name: Install and Build 🔧
-        run: |
-          sudo apt-get update && sudo apt-get install -y imagemagick
-          pip3 install --upgrade jupyter
-          export JEKYLL_ENV=production
-          bundle exec jekyll build
-      - name: Purge unused CSS 🧹
-        run: |
-          "$RUNNER_TEMP/axe-tools/node_modules/.bin/purgecss" -c purgecss.config.js
-      - name: Get Chromium version 🌐
-        # https://github.com/GoogleChromeLabs/chrome-for-testing?tab=readme-ov-file#other-api-endpoints
-        run: |
-          CHROMIUM_VERSION=$(wget -qO- https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE | cut -d. -f1)
-          echo "Chromium version: $CHROMIUM_VERSION"
-          echo "CHROMIUM_VERSION=$CHROMIUM_VERSION" >> "$GITHUB_ENV"
-      - name: Setup Chrome 🌐
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: ${{ env.CHROMIUM_VERSION }}
-      - name: Install chromedriver 🚗
-        run: |
-          npm install --prefix "$RUNNER_TEMP/axe-tools" "chromedriver@$CHROMIUM_VERSION"
-      - name: Run axe 🪓
-        # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
+          chrome-version: stable
+          install-dependencies: true
+          install-chromedriver: true
+      - name: Check accessibility and browser behavior
         env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+          CHROMEDRIVER_PATH: ${{ steps.chrome.outputs.chromedriver-path }}
+          ARTIFACT_NAME: ${{ inputs.artifact_name }}
           PAGE_PATH: ${{ inputs.url }}
         run: |
-          BIN_DIR="$RUNNER_TEMP/axe-tools/node_modules/.bin"
-          CHROMEDRIVER_PATH="$RUNNER_TEMP/axe-tools/node_modules/chromedriver/bin/chromedriver"
-          "$BIN_DIR/http-server" _site/ --port 8080 &
-          SERVER_PID=$!
-          trap 'kill $SERVER_PID' EXIT
-          paths=("" "publications/" "cv/" "teaching/")
+          SITE_URL=https://diskin.me
+          browser_status=0
+          if [ -n "$ARTIFACT_NAME" ]; then
+            python3 -m http.server 8080 --protocol HTTP/1.1 --directory _site > "$RUNNER_TEMP/site-server.log" 2>&1 &
+            SERVER_PID=$!
+            trap 'kill "$SERVER_PID"' EXIT
+            SITE_URL=http://localhost:8080
+            curl --fail --silent --show-error --retry 5 --retry-connrefused --retry-delay 1 "$SITE_URL/" > /dev/null
+            export SITE_URL
+            node tests/site-browser.mjs || browser_status=$?
+          fi
+          paths=("" "publications/" "cv/" "teaching/" "repositories/" "news/" "privacy/")
           if [ -n "$PAGE_PATH" ]; then
             paths=("${PAGE_PATH#/}")
           fi
           urls=()
           for path in "${paths[@]}"; do
-            url="http://localhost:8080/$path"
-            curl --fail --silent --show-error --retry 5 --retry-connrefused --retry-delay 1 "$url" > /dev/null
-            urls+=("$url")
+            urls+=("$SITE_URL/$path")
           done
-          "$BIN_DIR/axe" --chromedriver-path "$CHROMEDRIVER_PATH" "${urls[@]}" --load-delay=1500 --exit
+          npx axe --chrome-path "$CHROME_PATH" --chromedriver-path "$CHROMEDRIVER_PATH" \
+            --chrome-options="--headless=new,--no-sandbox,--disable-dev-shm-usage" \
+            --load-delay=1500 --exit "${urls[@]}"
+          exit "$browser_status"
+      - uses: actions/upload-artifact@v4
+        if: always() && inputs.artifact_name != ''
+        with:
+          name: site-browser-results
+          path: test-results/
+          if-no-files-found: warn
