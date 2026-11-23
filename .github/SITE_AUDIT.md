@@ -134,7 +134,10 @@ External-link repairs, citation-fetch reliability, PDF content mapping, and the 
   if it should display a citation badge.
   The cache contains this paper, but its bibliography entry lacks `google_scholar_id`.
 - Review [Dependabot PR 3](https://github.com/yhn112/yhn112.github.io/pull/3)
-  after repairing CI; its existing checks include an Axe failure.
+  and [dependency alerts](https://github.com/yhn112/yhn112.github.io/security/dependabot).
+  GitHub's push summary after migration reported 40 alerts:
+  four high, 20 moderate, and 16 low.
+  This is GitHub's automatic report; advisory applicability and fixes were not triaged during migration.
 - Refresh performance measurements after fixes.
   The checked-in Lighthouse reports are from 23 April 2026, using Lighthouse 9.6.8.
   Their performance scores are 71 for mobile and 98 for desktop under their respective recorded presets;
