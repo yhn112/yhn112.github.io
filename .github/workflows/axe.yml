@@ -51,6 +51,7 @@ jobs:
           PAGE_PATH: ${{ inputs.url }}
         run: |
           SITE_URL=https://diskin.me
+          browser_status=0
           if [ -n "$ARTIFACT_NAME" ]; then
             python3 -m http.server 8080 --protocol HTTP/1.1 --directory _site > "$RUNNER_TEMP/site-server.log" 2>&1 &
             SERVER_PID=$!
@@ -58,7 +59,7 @@ jobs:
             SITE_URL=http://localhost:8080
             curl --fail --silent --show-error --retry 5 --retry-connrefused --retry-delay 1 "$SITE_URL/" > /dev/null
             export SITE_URL
-            node tests/site-browser.mjs
+            node tests/site-browser.mjs || browser_status=$?
           fi
           paths=("" "publications/" "cv/" "teaching/" "repositories/" "news/" "privacy/")
           if [ -n "$PAGE_PATH" ]; then
@@ -71,6 +72,7 @@ jobs:
           npx axe --chrome-path "$CHROME_PATH" --chromedriver-path "$CHROMEDRIVER_PATH" \
             --chrome-options="--headless=new,--no-sandbox,--disable-dev-shm-usage" \
             --load-delay=1500 --exit "${urls[@]}"
+          exit "$browser_status"
       - uses: actions/upload-artifact@v4
         if: always() && inputs.artifact_name != ''
         with:

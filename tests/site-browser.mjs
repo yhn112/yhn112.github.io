@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { Builder, By, logging, until } from "selenium-webdriver";
@@ -37,13 +38,21 @@ async function checkPage(route, theme, width) {
   const data = await driver.executeScript(() => ({
     json: [...document.querySelectorAll('script[type="application/ld+json"]')].map((node) => node.textContent),
     canonical: document.querySelector('link[rel="canonical"]')?.href,
-    assets: [...document.querySelectorAll('script[src], link[rel="stylesheet"]')].map((node) => node.src || node.href),
+    assets: [...document.querySelectorAll('script[src], link[rel="stylesheet"]')].map((node) => ({
+      url: node.src || node.href,
+      integrity: node.integrity,
+    })),
     google: document.querySelectorAll('script[src*="googletagmanager.com/gtag/js"]').length,
     yandex: document.querySelectorAll('script[src*="yandex-metrika-setup.js"]').length,
     consentGates: document.querySelectorAll('script[type="text/plain"][data-category="analytics"]').length,
     privacyLink: !!document.querySelector('footer a[href="/privacy/"]'),
     overflow: document.documentElement.scrollWidth > window.innerWidth,
     heading: document.querySelector("h1")?.textContent.trim(),
+    navbar: {
+      top: document.querySelector("#navbar").getBoundingClientRect().top,
+      width: document.querySelector("#navbar").getBoundingClientRect().width,
+      viewport: innerWidth,
+    },
   }));
   if (!route.startsWith("/news/announcement")) assert(data.heading, `Missing page heading: ${route}`);
   assert(data.json.length, `Missing JSON-LD: ${route}`);
@@ -54,10 +63,22 @@ async function checkPage(route, theme, width) {
   assert.equal(data.consentGates, 0, `Unexpected consent gate: ${route}`);
   assert(data.privacyLink, `Missing privacy footer link: ${route}`);
   assert(!data.overflow, `Horizontal overflow at ${width}px: ${route}`);
-  for (const asset of new Set(data.assets.filter((url) => url.startsWith(base + "/")))) {
-    const resource = await fetch(asset);
-    await resource.arrayBuffer();
-    assert.equal(resource.status, 200, `Missing asset: ${asset}`);
+  assert(
+    Math.abs(data.navbar.top) < 1 && Math.abs(data.navbar.width - data.navbar.viewport) < 1,
+    `Fixed navbar does not span the viewport: ${route}`
+  );
+  const localAssets = new Map(data.assets.filter((asset) => asset.url.startsWith(base + "/")).map((asset) => [asset.url, asset]));
+  for (const { url, integrity } of localAssets.values()) {
+    const resource = await fetch(url);
+    const bytes = Buffer.from(await resource.arrayBuffer());
+    assert.equal(resource.status, 200, `Missing asset: ${url}`);
+    if (integrity) {
+      const valid = integrity.split(/\s+/).some((token) => {
+        const [algorithm, digest] = token.split("-");
+        return createHash(algorithm).update(bytes).digest("base64") === digest;
+      });
+      assert(valid, `Browser asset integrity mismatch: ${url}`);
+    }
   }
   await driver.wait(
     () =>
@@ -118,7 +139,7 @@ try {
           const visible = await driver.executeScript(() =>
             [...document.querySelectorAll("ol.bibliography > li")].filter((node) => node.getClientRects().length).map((node) => node.textContent)
           );
-          return visible.length === 1 && visible[0].includes("Swarm parallelism");
+          return visible.length === 1 && visible[0].toLowerCase().includes("swarm parallelism");
         },
         5000,
         "Publication filtering did not select Swarm"

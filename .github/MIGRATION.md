@@ -88,6 +88,10 @@ and skips a font directory once it contains any files;
 Academicons and Scholar Icons share the resulting `assets/libs/fonts` directory.
 The helper verifies each CSS integrity hash and preserves all referenced font formats.
 Downloaded files remain disposable under `assets/libs`.
+The legacy CSS minifier's second compression pass is disabled:
+it corrupts Tailwind's `calc(var(--spacing))` expressions and changes Scholar Icons' integrity hash.
+Tailwind remains precompiled and minified, and Sass still uses compressed output.
+Browser checks verify navbar geometry and integrity hashes of the loaded local assets.
 
 Google Analytics uses `al_analytics` 1.0.2 and its supported top-level configuration keys.
 Yandex keeps `_scripts/yandex-metrika-setup.js` and its existing counter and options.
