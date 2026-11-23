@@ -120,14 +120,16 @@ try {
         10000,
         "The local icon font did not load"
       );
+      const mobileToggle = width < 576 ? await driver.findElement(By.css("[data-nav-toggle]")) : null;
+      if (mobileToggle) {
+        await mobileToggle.click();
+        await driver.wait(until.elementIsVisible(await driver.findElement(By.id("navbarNav"))), 5000);
+      }
       await driver.findElement(By.id("light-toggle")).click();
       await driver.wait(async () => (await driver.executeScript("return localStorage.getItem('theme')")) !== theme, 5000);
       await driver.executeScript("setThemeSetting(arguments[0])", theme);
-      if (width < 576) {
-        const toggle = await driver.findElement(By.css("[data-nav-toggle]"));
-        await toggle.click();
-        await driver.wait(until.elementIsVisible(await driver.findElement(By.id("navbarNav"))), 5000);
-        await toggle.click();
+      if (mobileToggle) {
+        await mobileToggle.click();
         await driver.wait(until.elementIsNotVisible(await driver.findElement(By.id("navbarNav"))), 5000);
       }
 
