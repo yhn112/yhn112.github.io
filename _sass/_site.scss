@@ -1,0 +1,46 @@
+// Site colors and accessibility fixes layered over the v1.2 runtime.
+:root {
+  --global-theme-color: #0076df;
+  --global-hover-color: #0076df;
+  --global-code-bg-color: rgba(0, 118, 223, 0.05);
+}
+
+html[data-theme="dark"] {
+  --global-theme-color: #2698ba;
+  --global-hover-color: #2698ba;
+  --global-code-bg-color: #2c3237;
+}
+
+.publications h2.bibliography,
+.courses h2.year {
+  color: var(--global-text-color-light);
+}
+
+.publications ol.bibliography li .abbr abbr {
+  background-color: var(--venue-bg, var(--global-theme-color));
+  color: var(--venue-text, #fff) !important;
+
+  a {
+    color: inherit;
+  }
+}
+
+.publication-note {
+  display: inline-block;
+
+  summary {
+    cursor: pointer;
+  }
+}
+
+.repositories {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}

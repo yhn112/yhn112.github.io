@@ -4,7 +4,7 @@ _site
 .idea
 .jekyll-cache
 .jekyll-metadata
-.ruby-version
+al-folio-upgrade-report.md
 .sass-cache
 .tweet-cache
 .venv
@@ -19,8 +19,8 @@ __pycache__/
 *~
 assets/libs/
 assets/rendercv/rendercv_output/*.typ
-Gemfile.lock
 node_modules/
+test-results/
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*

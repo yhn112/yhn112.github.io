@@ -4,8 +4,21 @@ A simple, clean, and responsive Jekyll theme for academics.
 
 ## Current Project Direction
 
-The planned next major change is migration to a newer al-folio release, as confirmed by Michael on 23 November 2026.
-See [the site audit](.github/SITE_AUDIT.md#template-migration) for migration status, the candidate release, and remaining work.
+The site targets al-folio v1.2 with gem-owned runtime files.
+See [the migration record](.github/MIGRATION.md) for implementation status, retained overrides, checks, and release steps.
+See [the site audit](.github/SITE_AUDIT.md) for the historical baseline and separate content work.
+
+Michael approved these migration decisions on 24 November 2026:
+
+- Use the v1.2 layout while preserving content, routes, site colors, and profile.
+- Keep Google Analytics and Yandex.Metrika loading immediately, including the existing Yandex settings;
+  make Privacy describe that behavior.
+- Disable the unavailable GitHub trophies widget while preserving the other repository cards.
+- Prepare and commit the migration locally;
+  sending the branch for CI and publishing require a separate explicit instruction.
+
+Local runtime files must be intentional overrides of the pinned gems.
+Review them with `bundle exec al-folio upgrade overrides diff PATH` and acknowledge reviewed changes in `.al-folio-overrides.yml`.
 
 ## Local Build Policy
 

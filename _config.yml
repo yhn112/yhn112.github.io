@@ -10,7 +10,7 @@ contact_note: >
   Feel free to reach out via email or any of the social links below.
 description: >
   AI/ML leader. Head of LLM R&D at Wildberries. Building large-scale language systems, embeddings, and ML infrastructure.
-footer_text:
+footer_text: '<a href="/privacy/">Privacy</a>.'
 keywords: michael diskin, mikhail diskin, михаил дискин, майкл дискин, llm, machine learning, nlp, deep learning, ai research, embeddings, машинное обучение, обработка естественного языка, большие языковые модели
 x_username: michael_diskin
 lang: en
@@ -30,7 +30,7 @@ back_to_top: false # set to false to disable the back to top button
 repo_theme_light: default # https://github.com/anuraghazra/github-readme-stats/blob/master/themes/README.md
 repo_theme_dark: dark # https://github.com/anuraghazra/github-readme-stats/blob/master/themes/README.md
 repo_trophies:
-  enabled: true
+  enabled: false
   theme_light: flat # https://github.com/ryo-ma/github-profile-trophy
   theme_dark: gitdimmed # https://github.com/ryo-ma/github-profile-trophy
 
@@ -40,6 +40,35 @@ repo_trophies:
 external_services:
   github_readme_stats_url: https://github-readme-stats.vercel.app
   github_profile_trophy_url: https://github-profile-trophy.vercel.app
+
+# al-folio v1.2 runtime contract. Site content and URLs remain site-owned.
+al_folio:
+  api_version: 1
+  style_engine: tailwind
+  tailwind:
+    version: 4.1.18
+    preflight: false
+    css_entry: assets/tailwind/app.css
+  distill:
+    engine: distillpub-template
+    source: al-org-dev/distill-template#al-folio
+    allow_remote_loader: false
+  features:
+    cv:
+      enabled: true
+    distill:
+      enabled: false
+  compat:
+    bootstrap:
+      enabled: false
+      support_window: v1.0-v1.2
+      deprecates_in: v1.3
+      removed_in: v2.0
+  upgrade:
+    channel: stable
+    auto_apply_safe_fixes: false
+
+protect_email: false
 
 # -----------------------------------------------------------------------------
 # RSS Feed
@@ -172,6 +201,7 @@ include: ["_pages", "_scripts"]
 exclude:
   - AGENTS.md
   - ANALYTICS.md
+  - al-folio-upgrade-report.md
   - bin/
   - CLAUDE.md
   - CONTRIBUTING.md
@@ -203,7 +233,9 @@ keep_files:
   - CNAME
   - .nojekyll
 
-# Plug-ins
+theme: al_folio_core
+
+# Plug-ins: keep v1.2 runtime wiring aligned with the exact Gemfile pins.
 plugins:
   - jekyll-3rd-party-libraries
   - jekyll-archives-v2
@@ -224,6 +256,25 @@ plugins:
   - jekyll-toc
   - jekyll-twitter-plugin
   - jemoji
+  - al_folio_core
+  - al_icons
+  - al_folio_cv
+  - al_folio_distill
+  - al_folio_upgrade
+  - al_folio_bootstrap_compat
+  - al_cookie
+  - al_analytics
+  - al_citations
+  - al_ext_posts
+  - al_img_tools
+  - al_search
+  - al_charts
+  - al_math
+  - al_comments
+  - al_newsletter
+  - al_email_protect
+  - al_marimo
+  - al_rtl
 
 # Sitemap settings
 defaults:
@@ -392,8 +443,8 @@ enable_cronitor_analytics: false # enables cronitor RUM analytics
 enable_pirsch_analytics: false # enables Pirsch analytics (https://pirsch.io/)
 enable_openpanel_analytics: false # enables Openpanel analytics (https://openpanel.dev/)
 enable_yandex_metrika: true # enables Yandex.Metrika analytics
-enable_google_verification: false # legacy toggle; meta tag is rendered automatically when google_site_verification is set
-enable_bing_verification: false # legacy toggle; meta tag is rendered automatically when bing_site_verification is set
+enable_google_verification: false
+enable_bing_verification: false
 enable_cookie_consent: false # enables GDPR-compliant cookie consent dialog (https://github.com/orestbida/cookieconsent)
 enable_masonry: false # enables automatic project cards arrangement
 enable_math: false # enables math typesetting (uses MathJax)
@@ -414,6 +465,33 @@ enable_video_embedding: false # enables video embedding for bibtex entries. If f
 # Integrity hashes not provided by the libraries were generated using https://www.srihash.org/
 third_party_libraries:
   download: true # if true, download the versions of the libraries specified below and use the downloaded files
+  fontawesome:
+    local:
+      fonts: ../webfonts/
+    integrity:
+      css: "sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c="
+    url:
+      css: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{version}}/css/all.min.css"
+      fonts: "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@{{version}}/webfonts/"
+    version: "7.2.0"
+  academicons:
+    local:
+      fonts: ../fonts/
+    integrity:
+      css: "sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw="
+    url:
+      css: "https://cdn.jsdelivr.net/npm/academicons@{{version}}/css/academicons.min.css"
+      fonts: "https://cdn.jsdelivr.net/npm/academicons@{{version}}/fonts/"
+    version: "1.9.5"
+  scholar-icons:
+    local:
+      fonts: ../fonts/
+    integrity:
+      css: "sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY="
+    url:
+      css: "https://cdn.jsdelivr.net/npm/scholar-icons@{{version}}/css/scholar-icons.css"
+      fonts: "https://cdn.jsdelivr.net/npm/scholar-icons@{{version}}/fonts/"
+    version: "1.0.3"
   bootstrap-table:
     integrity:
       css: "sha256-uRX+PiRTR4ysKFRCykT8HLuRCub26LgXJZym3Yeom1c="

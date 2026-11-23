@@ -1,0 +1,10 @@
+{% comment %}Keep the v1 provider integration and add the site's Yandex counter.{% endcomment %}
+{% al_analytics_scripts %}
+{% if jekyll.environment == 'production' and site.enable_yandex_metrika and site.yandex_metrika %}
+  <script defer src="{{ '/assets/js/yandex-metrika-setup.js' | relative_url }}"></script>
+  <noscript>
+    <div>
+      <img src="https://mc.yandex.ru/watch/{{ site.yandex_metrika }}" style="position:absolute; left:-9999px;" alt="">
+    </div>
+  </noscript>
+{% endif %}
