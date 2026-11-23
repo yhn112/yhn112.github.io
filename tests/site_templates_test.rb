@@ -69,6 +69,7 @@ check("CV PDF keeps its URL and has an accessible name") do
   assert(html.include?('aria-label="Download CV as PDF"'), "PDF download has no accessible name")
   assert(html.include?('href="/assets/rendercv/rendercv_output/Michael_Diskin_CV.pdf"'), "PDF URL changed")
   assert(html.include?("Michael Diskin"), "RenderCV content is missing")
+  assert(html.scan(/<h([1-6])\b/).flatten == ["1", "2"], "CV section headings skip a level")
 end
 
 check("Publication badges use the committed citation cache") do

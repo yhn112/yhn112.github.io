@@ -51,7 +51,7 @@ async function checkPage(route, theme, width) {
     navbar: {
       top: document.querySelector("#navbar").getBoundingClientRect().top,
       width: document.querySelector("#navbar").getBoundingClientRect().width,
-      viewport: innerWidth,
+      viewport: document.documentElement.clientWidth,
     },
   }));
   if (!route.startsWith("/news/announcement")) assert(data.heading, `Missing page heading: ${route}`);
@@ -65,7 +65,7 @@ async function checkPage(route, theme, width) {
   assert(!data.overflow, `Horizontal overflow at ${width}px: ${route}`);
   assert(
     Math.abs(data.navbar.top) < 1 && Math.abs(data.navbar.width - data.navbar.viewport) < 1,
-    `Fixed navbar does not span the viewport: ${route}`
+    `Fixed navbar does not span the viewport: ${route}, ${JSON.stringify(data.navbar)}`
   );
   const localAssets = new Map(data.assets.filter((asset) => asset.url.startsWith(base + "/")).map((asset) => [asset.url, asset]));
   for (const { url, integrity } of localAssets.values()) {
@@ -144,6 +144,14 @@ try {
         5000,
         "Publication filtering did not select Swarm"
       );
+      const publication = await driver.findElement(By.css("ol.bibliography > li:not(.unloaded)"));
+      const bibButton = await publication.findElement(By.css("a.bibtex"));
+      const bibPanel = await publication.findElement(By.css("div.bibtex"));
+      await bibButton.click();
+      await driver.wait(until.elementIsVisible(bibPanel), 5000);
+      assert.equal(await bibPanel.findElement(By.css("pre")).getAttribute("tabindex"), "0", "BibTeX code is not keyboard-scrollable");
+      await bibButton.click();
+      await driver.wait(until.elementIsNotVisible(bibPanel), 5000);
       await search.clear();
     }
   }

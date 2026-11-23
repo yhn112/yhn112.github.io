@@ -27,15 +27,18 @@ Copied Bootstrap/MDB, icon fonts, search bundles, and other stock runtime assets
 Site-specific CSS is in `_sass/_site.scss`.
 It preserves the blue/cyan theme and fixes year-heading and venue-badge contrast.
 
-Five intentional overrides remain:
+Ten intentional overrides remain:
 
-| Local file                                      | Reason                                                                    |
-| ----------------------------------------------- | ------------------------------------------------------------------------- |
-| `_includes/metadata.liquid`                     | JSON serialization, escaped metadata, and useful homepage preview titles. |
-| `_includes/cv/render.liquid`                    | Accessible PDF download name, retaining the v1 RenderCV renderer.         |
-| `_includes/plugins/al_analytics_scripts.liquid` | Standard Google integration plus the existing Yandex counter.             |
-| `_layouts/bib.liquid`                           | Venue text colors and native annotation disclosure.                       |
-| `assets/css/main.scss`                          | Load site CSS after the gem's Sass modules.                               |
+| Local file                                                                                      | Reason                                                                      |
+| ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `_includes/metadata.liquid`                                                                     | JSON serialization, escaped metadata, and useful homepage preview titles.   |
+| `_includes/cv/render.liquid`                                                                    | Accessible PDF download and sequential section headings in the v1 renderer. |
+| `_includes/plugins/al_analytics_scripts.liquid`                                                 | Standard Google integration plus the existing Yandex counter.               |
+| `_layouts/bib.liquid`                                                                           | Venue text colors and native annotation disclosure.                         |
+| `assets/css/main.scss`                                                                          | Load site CSS after the gem's Sass modules.                                 |
+| `_layouts/default.liquid`                                                                       | Native main landmark so page headers do not become nested banners.          |
+| `_includes/cv/education.liquid`, `_includes/cv/experience.liquid`, `_includes/cv/awards.liquid` | Sequential CV headings with descriptive text as paragraphs.                 |
+| `assets/js/copy_code.js`                                                                        | Keyboard scrolling in code blocks, including expanded BibTeX.               |
 
 `.al-folio-overrides.yml` records the reviewed upstream and local checksums.
 After editing an override, format it before reviewing and acknowledging its final contents:
@@ -115,7 +118,7 @@ cached citation badges, venue contrast, existing citation-update behavior,
 workflow syntax, YAML, JavaScript syntax, and formatting.
 The icon prefetch helper has been run against the pinned CDN assets.
 The local run used Ruby 3.3.14: nine template checks and four citation-update tests passed.
-The upgrade audit reported zero findings, and all five overrides were acknowledged.
+The initial upgrade audit reported zero findings; the final acknowledged override count is ten.
 The font helper verified three CSS hashes and downloaded twelve referenced font files.
 Content and personal assets were byte-checked against merged baseline `d526da5`.
 

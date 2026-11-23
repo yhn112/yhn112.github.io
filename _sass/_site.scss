@@ -23,6 +23,47 @@ html[data-theme="dark"] {
   a {
     color: inherit;
   }
+
+  > div {
+    color: inherit;
+  }
+}
+
+.navbar.navbar-light .navbar-nav .nav-item.active > .nav-link {
+  color: var(--global-text-color);
+  box-shadow: inset 0 -2px 0 var(--global-theme-color);
+
+  &:hover {
+    color: var(--global-text-color);
+  }
+}
+
+.publications ol.bibliography li .author > span.more-authors {
+  color: var(--global-text-color);
+  border-bottom-color: currentColor;
+}
+
+.publications .hidden {
+  visibility: hidden;
+
+  &.open {
+    visibility: visible;
+  }
+}
+
+p > code {
+  color: var(--global-text-color);
+}
+
+.cv .list-group {
+  h3.title {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .publication-note {
