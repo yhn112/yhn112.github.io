@@ -2,7 +2,11 @@
 
 ## Status and decisions
 
-The migration is prepared on `migration/al-folio-v1.2`.
+The migration was merged through [PR 4](https://github.com/yhn112/yhn112.github.io/pull/4)
+at `3ca0a0a7695bedc50971920a60c02a5ef36cc037` on 24 November 2026.
+The migrated site is published at [diskin.me](https://diskin.me).
+The [release pipeline](https://github.com/yhn112/yhn112.github.io/actions/runs/45278901376)
+passed its build, browser/accessibility, internal-link, and deployment jobs.
 It follows upstream release [v1.2](https://github.com/alshedivat/al-folio/releases/tag/v1.2)
 at `b95d6d61a1b0663529094b1b5f4fbe8aa41f8a04`.
 The old local runtime is replaced by the release's exact gem pins,
@@ -60,7 +64,7 @@ describe future gem upgrades.
 The `upstream` remote points to `https://github.com/alshedivat/al-folio.git`.
 The original release is kept as the namespaced tag `al-folio/v1.2`,
 resolving to the release commit recorded above.
-Publish this tag to `origin` with the migration branch.
+The tag and migration branch were pushed to `origin`.
 Remote configuration is local to a checkout; on a fresh clone, configure and fetch it with:
 
 ```sh
@@ -131,17 +135,38 @@ npx prettier . --check
 git diff --check
 ```
 
-These checks do not establish that the complete site builds or renders correctly.
 No local Jekyll build or server was run, in accordance with the project policy.
-CI build, browser review, and publication status are recorded below as release proceeds.
+Production acceptance ran in GitHub Actions.
 
 Michael authorized the upstream setup and upload on 24 November 2026.
-Release the migration through a PR against `main`.
-The PR builds and checks the artifact before publication.
-CI browser checks cover existing sections, all teaching/news routes, 404, JSON-LD,
-local resources, both themes at 1440 and 390 pixels, mobile navigation, theme switching,
-publication filtering, CV sections, analytics inclusion, and the downloadable PDF.
-Review the uploaded screenshots and resolve failures before merging and publishing.
-After publication, check `diskin.me`, key routes, PDF, and analytics requests again.
+[PR acceptance run 45277857389](https://github.com/yhn112/yhn112.github.io/actions/runs/45277857389)
+passed the production build, browser/accessibility job, and internal-link check
+at head `9f0b6d1cca9b8306bc6f0070fbd78ce2d73552cb` before merge.
+Browser checks used Chrome and ChromeDriver 158.0.8127.88 on the Ubuntu runner.
+All 20 routes passed, including five teaching pages, seven news entries, and 404.
+The seven main sections also passed in light/dark themes at 1440 and 390 pixels:
+41 page checks in total, plus mobile navigation, theme switching, publication filtering,
+BibTeX expansion and keyboard scrolling, and PDF download/artifact parity.
+Page checks cover JSON-LD, canonical URLs, local resources and integrity hashes,
+analytics inclusion, image loading, navbar geometry, overflow, and JavaScript exceptions.
+Axe Core 4.14.1 reported zero violations on the seven main pages in its desktop light-theme run.
+Desktop/mobile screenshots in both themes were visually reviewed.
+Both pages of the generated A4 PDF were rendered with Poppler and inspected for clipping and overlap.
+The separate external URL check still fails on previously recorded dead links and bot/network restrictions;
+its behavior was preserved and repairs remain in [the site audit](SITE_AUDIT.md).
+
+Release run `45278901376` repeated the checks on merge commit `3ca0a0a7`
+and published the same artifact to `gh-pages` at `11481dd9ef37b5ebdffab316f438248286e785bc`.
+GitHub Pages reported that revision built at `2026-11-23T22:25:58Z`.
+Live verification after publication returned HTTP 200 for all seven main sections, sitemap, robots, and PDF.
+The seven HTML pages passed checks of JSON-LD, canonicals, privacy links,
+analytics inclusion, and main landmarks.
+The live CSS (31,319 bytes) and PDF (55,187 bytes) matched the release artifact byte for byte.
+The release PDF's extracted text also matched the visually reviewed two-page PDF.
+A fresh Chrome session verified immediate Google and Yandex script requests,
+publication filtering, mobile navigation, theme switching, no horizontal overflow on the mobile homepage,
+and no JavaScript exceptions.
+
+Repeat artifact checks and screenshot review before publishing future runtime changes.
 If rollout fails, restore the prior source through a new revert commit and redeploy;
 keep the complete migration history.

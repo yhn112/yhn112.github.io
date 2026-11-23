@@ -1,13 +1,13 @@
 # Website audit and remaining work
 
-Snapshot: 23 November 2026.
-The next major task is migration to a newer al-folio release.
-The published site is available, but deployment is blocked and several visitor-facing defects remain;
-use the findings below as migration acceptance checks and resolve the remaining issues on the new runtime.
+Original baseline: 23 November 2026.
+Migration status updated on 24 November 2026.
+The historical findings below describe the old runtime;
+the migration record identifies completed fixes and release evidence.
 
 ## Template migration
 
-The v1.2 migration is now prepared locally on `migration/al-folio-v1.2`.
+The v1.2 migration was merged through [PR 4](https://github.com/yhn112/yhn112.github.io/pull/4).
 See [the migration record](MIGRATION.md) for the pinned release, implementation,
 retained overrides, checks, and release steps.
 Michael's approved layout, analytics, widget, and publication decisions live in
@@ -17,13 +17,16 @@ The implementation replaces copied runtime files with the v1.2 gems,
 preserves site content and URLs, fixes JSON-LD and measured contrast/download-label defects,
 and changes CI to validate the same artifact that will be published.
 It also orders PDF rendering before the build and replaces the broken driver setup.
-The source checks are separate from the still-pending production build and browser acceptance in CI.
+The production build, internal links, browser matrix, and Axe checks passed before merge.
+The migrated site is published at [diskin.me](https://diskin.me).
+The release pipeline and live checks passed; their exact revisions and scope are in the migration record.
 
-The published site has not changed.
-The remaining sections retain the old site's measured state from 23 November 2026;
-recheck those findings against the migration artifact before closing them.
+The migration resolves the Ruby/driver failures, PDF build ordering, invalid JSON-LD,
+privacy mismatch and missing footer link, measured contrast defects, and unnamed CV download.
+The unavailable trophy widget is disabled by Michael's decision.
+External-link repairs, citation-fetch reliability, PDF content mapping, and the content updates below remain separate work.
 
-## Publication and automation
+## Historical publication and automation findings
 
 1. **Restore deployment.**
    The [23 November deployment](https://github.com/yhn112/yhn112.github.io/actions/runs/45119677739)
@@ -64,7 +67,7 @@ recheck those findings against the migration artifact before closing them.
    while the latest committed cache contains 735 and 120 respectively.
    Preserve failure reporting and existing cached data while diagnosing fetch failures.
 
-## Visitor-facing defects
+## Historical visitor-facing findings
 
 1. **Reconcile analytics with the privacy page.**
    [Privacy](https://diskin.me/privacy/) says Google Analytics and Yandex.Metrika load only after consent.
@@ -112,6 +115,11 @@ recheck those findings against the migration artifact before closing them.
 
 ## Content updates
 
+- Repair the PDF mapping of education degree labels (`studyType`) and Skills descriptions (`keywords`)
+  from [\_data/cv.yml](../_data/cv.yml).
+  Text extraction confirms that the committed pre-migration PDF and the regenerated migration PDF
+  both omit these values while showing institutions and skill category names.
+  This is an existing content-mapping defect, not a migration regression.
 - Add the October 2026 WMT paper
   [One Model, Five Tasks, Two RTX 3090 GPUs](https://aclanthology.org/2026.wmt-main.209/)
   to [\_bibliography/papers.bib](../_bibliography/papers.bib), with a news entry if desired.
@@ -137,7 +145,6 @@ recheck those findings against the migration artifact before closing them.
 
 ## Decisions and missing information
 
-- Analytics: should the site use the existing consent dialog, or a different explicitly chosen tracking policy?
 - PhD: confirm institution, program, start date, and public wording before editing the CV.
 - The latest remote citation cache also contains `Query–Key Ensembles for Mathematical Reasoning Verification`.
   The [MATH-AI 2026 accepted paper list](https://mathai-2026.github.io/papers/) includes this title,
@@ -146,7 +153,7 @@ recheck those findings against the migration artifact before closing them.
 - Search Console ownership and indexing status remain unknown.
   Empty verification settings alone do not establish that ownership verification is missing.
 
-## Verification scope
+## Historical verification scope
 
 - Inspected local commit `ac27afc` and compared it with remote `main` at `ab8be0b`.
   Remote is five citation-only commits ahead; other source files are unchanged.
