@@ -126,13 +126,43 @@ External-link repairs, citation-fetch reliability, PDF content mapping, and the 
 - Decide whether the October 2026 WMT paper
   [One Model, Five Tasks, Two RTX 3090 GPUs](https://aclanthology.org/2026.wmt-main.209/)
   should get a news entry; the paper itself is now in [\_bibliography/papers.bib](../_bibliography/papers.bib).
-- Add the PhD education entry to [\_data/cv.yml](../_data/cv.yml)
-  using Michael's confirmed institution, program, and dates.
-  The current education list ends with the 2022–2024 MSc.
+- Add the PhD to [\_data/cv.yml](../_data/cv.yml), the bios, and the homepage.
+  The current education list ends with the 2022–2024 MSc, and the homepage subtitle says `Researcher · HSE University`.
+  Michael's [HSE staff page](https://www.hse.ru/en/staff/yhn112), read on 24 November 2026, lists Michael as
+  Doctoral Student at the Faculty of Computer Science,
+  International Laboratory of Stochastic Algorithms and High-Dimensional Inference, in the 3rd year of postgraduate study,
+  with the approved thesis topic "Adaptive Uncertainty Estimation Methods for Ensuring Generation Reliability in Large Language Models"
+  and Alexey Naumov as academic supervisor.
+  The homepage research themes do not mention uncertainty estimation.
 - Review news and selected homepage papers for current work.
   The latest news item is dated 23 April 2026, and all three selected homepage papers are from 2021–2023.
   The homepage research paragraph now lists the 2025–2026 themes.
-  The `950+` total and `650+` GNN citation figures in prose are maintained independently of the citation cache.
+  The citation figures in prose are maintained independently of the citation cache.
+  On 24 November 2026 they were raised from the 23 November cache:
+  the total from `950+` to `1,000+` (1,064 across its 12 entries) and the GNN benchmark from `650+` to `700+` (735).
+- Decide the scope of the CV.
+  The PDF and web CV have no Publications, Teaching, or Talks sections,
+  and the PDF header shows the GitHub and LinkedIn usernames without the website or Scholar profile.
+  `al_folio_cv` 1.0.2 renders a `Publications` section;
+  generating it from [\_bibliography/papers.bib](../_bibliography/papers.bib) would avoid a second copy of the list.
+  The published PDF has the same text as the committed one; their bytes differ.
+- Update teaching.
+  The NLP course is marked `Ongoing` with year 2025.
+  The HSE staff page lists a 2026/27 Mentor's Seminar "Artificial Intelligence" in a Master's programme,
+  which the teaching page does not include.
+- Complete the talks list.
+  It has three entries and no slides.
+  News items mention a workshop presentation at EMNLP 2025 and attendance at ICLR 2026, which it does not list,
+  and the `LLMs One Year Later` entry names no event.
+- Decide whether to show recent public repositories that the site does not mention:
+  [vistaqa-premise-check](https://github.com/yhn112/vistaqa-premise-check),
+  a system for the VistaQA Zero-Shot Challenge of the VLM4RWD workshop at NeurIPS 2026, last pushed on 16 November 2026;
+  [QK-resoning](https://github.com/yhn112/QK-resoning), code for query–key score experiments,
+  which its README calls an anonymous repository and no publication links to;
+  and [Talkloom](https://github.com/yhn112/Talkloom), a local meeting transcriber for macOS.
+- The HSE staff page itself lists outdated interests (deep learning, computer vision, graph neural networks)
+  and "2022 Bachelor's" education, while the site's CV lists a 2014–2019 BSc.
+  It is edited on the HSE portal, outside this repository.
 - Add the existing Scholar identifier `WF5omc3nYNoC` to the sparse activations paper
   if it should display a citation badge.
   The cache contains this paper, but its bibliography entry lacks `google_scholar_id`.
@@ -148,6 +178,8 @@ External-link repairs, citation-fetch reliability, PDF content mapping, and the 
 - Consider shortening the mobile introduction area.
   At a 390-pixel viewport, the portrait and location list occupy most of the space before the name and summary.
   This is an editorial choice; no horizontal overflow was measured in the inspected layouts.
+  The location list (Moscow, Yerevan, Tel Aviv, Zürich, London, Abu Dhabi) does not say what it means,
+  while the CV places the current role in Moscow.
 
 ## Peer-site comparison
 
@@ -182,16 +214,53 @@ Candidate additions that need Michael's information or decisions, with the sites
   (Voita, Dettmers, Beyer, Richtárik).
 - Lecture recordings and slides through course `schedule` materials in `_teachings/` (Gorbunov, Raschka).
 - A higher-resolution headshot; the current file is 640 × 640 px.
+  It, the homepage portrait, and the social preview image are an illustrated avatar, not a photograph.
 - Pronouns for the third-person bios, which currently avoid them.
 - Writing, observed on almost all 13 sites: paper companion posts (Voita) or external posts through `external_sources`.
   A newsletter, comments, and site search add little without regular posts.
+
+A second pass on 24 November 2026 read six more sites with WebFetch:
+the homepages of Andrej Karpathy, Jason Wei, and Omar Khattab,
+and the homepages plus one or two subpages of Jack Morris, Ofir Press, and Sebastian Ruder.
+Additional candidates:
+
+- A research agenda written as open questions (Khattab, Morris), a natural place for the thesis topic.
+- Michael's contribution to each paper (Khattab), useful for long author lists such as the open-collaborations paper.
+- A one-line plain-language summary and teaser figure for selected papers (Morris);
+  the BibTeX `preview` field is rendered natively.
+- Named adoption of software and benchmarks (Press, Khattab), for example Hivemind, the GNN benchmark, and the NLP course.
+- A last-updated date in the footer (Khattab); `last_updated` exists in [\_config.yml](../_config.yml) and is disabled.
+- Talk types such as keynote, panel, guest lecture, and podcast (Ruder, Jason Wei).
+- A FAQ for recurring questions (Ruder), for example from prospective students and candidates.
+
+The second pass added items that needed no new information from Michael:
+
+- code links for SWARM, Secure Distributed Training, and Training Transformers Together, plus the demo page of the last,
+  confirmed through the GitHub API as the papers' repositories;
+- homepage JSON-LD as a [ProfilePage](https://developers.google.com/search/docs/appearance/structured-data/profile-page)
+  whose `Person` has alternate names, job title, employer, HSE affiliation, education, portrait, and profile links;
+  the job and education come from [\_data/cv.yml](../_data/cv.yml);
+- a large social preview card instead of a square crop of the 1536 × 1024 preview image;
+- the citation figures in prose, described under [content updates](#content-updates).
+
+The second pass also fetched the live homepage, publications, CV, teaching, contact, repositories, and news pages.
+The Semantic Scholar API listed eight papers for Michael's author ID, all already on the site.
+DBLP returned a browser challenge, so the site was not compared with it.
+Michael's name was not searched in search engines.
 
 ## Decisions and missing information
 
 - Peer-site candidates: choose which [candidate additions](#peer-site-comparison) to pursue and supply their content.
   Wildberries work beyond the CV wording needs Michael's approval for public description.
 
-- PhD: confirm institution, program, start date, and public wording before editing the CV.
+- PhD: confirm the public wording and start year; the HSE staff page gives the other details listed under content updates.
+- News: supply events since 23 April 2026, such as the WMT26 paper and the VistaQA challenge.
+- Photo: choose whether to replace the illustrated avatar with a high-resolution photograph.
+- Teaching and talks: confirm current 2026/27 courses, the full list of talks, and available slides or recordings.
+- CV: choose one academic CV with publications, teaching, and talks, or separate academic and industry versions.
+- Homepage location list: state what it means or remove it.
+- Repositories: decide whether `QK-resoning` should be the code link for a QK-score paper,
+  and whether VistaQA and Talkloom belong on the site.
 - The latest remote citation cache also contains `Query–Key Ensembles for Mathematical Reasoning Verification`.
   The [MATH-AI 2026 accepted paper list](https://mathai-2026.github.io/papers/) includes this title,
   but direct OpenReview author verification was blocked by its browser challenge.
