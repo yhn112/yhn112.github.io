@@ -11,7 +11,7 @@ It follows upstream release [v1.2](https://github.com/alshedivat/al-folio/releas
 at `b95d6d61a1b0663529094b1b5f4fbe8aa41f8a04`.
 The old local runtime is replaced by the release's exact gem pins,
 including `al_folio_core` 1.0.15 and `al_folio_cv` 1.0.2.
-`Gemfile` matches the release verbatim.
+`Gemfile` matches the release verbatim, except that `al_citations` is removed (see [Dependencies](#dependencies)).
 The remote citation commits through `ab8be0b` were merged without rewriting history.
 
 Michael's one-time migration decisions of 24 November 2026:
@@ -40,7 +40,7 @@ remain separate tasks in [the site audit](SITE_AUDIT.md).
 
 ## Runtime ownership
 
-The gems now own shared layouts, includes, Sass, JavaScript, citation tags,
+The gems now own shared layouts, includes, Sass, JavaScript,
 external-post ingestion, CV rendering, and icon loading.
 Copied Bootstrap/MDB, icon fonts, search bundles, and other stock runtime assets were removed.
 Site-specific CSS is in `_sass/_site.scss`.
@@ -53,7 +53,7 @@ Ten intentional overrides remain:
 | `_includes/metadata.liquid`                                                                     | JSON serialization, escaped metadata, and useful homepage preview titles.    |
 | `_includes/cv/render.liquid`                                                                    | Accessible PDF download and sequential section headings in the v1 renderer.  |
 | `_includes/plugins/al_analytics_scripts.liquid`                                                 | Standard Google integration plus the existing Yandex counter.                |
-| `_layouts/bib.liquid`                                                                           | Venue background and text colors from `_data/venues.yml`.                    |
+| `_layouts/bib.liquid`                                                                           | Venue colors from `_data/venues.yml`; no InspireHEP badge (`al_citations`).  |
 | `assets/css/main.scss`                                                                          | Load site CSS after the gem's Sass modules.                                  |
 | `_layouts/default.liquid`                                                                       | Native main landmark that keeps `role="main"` for the gem's tocbot selector. |
 | `_includes/cv/education.liquid`, `_includes/cv/experience.liquid`, `_includes/cv/awards.liquid` | Sequential CV headings kept out of the table of contents (`data-toc-skip`).  |
@@ -129,7 +129,8 @@ git merge al-folio/vX.Y
 ```
 
 When upstream modifies a starter file that the site removed, keep it removed;
-resolve site configuration conflicts by hand.
+likewise keep `al_citations` out of `Gemfile` and `plugins`.
+Resolve site configuration conflicts by hand.
 Regenerate `Gemfile.lock` from the merged `Gemfile` with `bundle lock`,
 read the release notes in `docs/releases/`, and run the override checks above.
 Merge the pull request with a merge commit; squash and rebase merges drop the upstream ancestor.
@@ -176,9 +177,21 @@ The standalone RenderCV workflow still commits generated PDFs to Git.
 The citation workflow retains its cache, tests, failure reporting, and deployment trigger.
 Publishing remains on `gh-pages`; GitHub Pages settings and DNS are unchanged.
 
+## Dependencies
+
+`al_citations` was removed on 24 November 2026.
+It provides only the `google_scholar_citations` and `inspirehep_citations` tags, which fetch counts during the build;
+the site's Scholar badges read the `_data/citations.yml` cache instead, and the site shows no InspireHEP badges.
+Its `activesupport < 8.0` constraint blocked the fix for
+[GHSA-8474-xrp6-wh69](https://github.com/advisories/GHSA-8474-xrp6-wh69), released in activesupport 8.1.4.1.
+The `bib.liquid` override and `enable_publication_badges` dropped the InspireHEP badge with it.
+`al_citations` also loaded `active_support/all`, whose `to_json` made Liquid's `jsonify` escape `&`, `<` and `>`;
+without it, JSON-LD contains a literal `&` instead of `&`, with the same values.
+The PR 15 build artifact differs from the published site only in that and in feed and sitemap timestamps.
+
 ## Accepted risks
 
-These were found in the post-rollout review and left unchanged:
+These were found in the post-rollout review or later dependency reviews and left unchanged:
 
 - Yandex depends on the site's `yandex_metrika` keys, `include: [_pages, _scripts]` and the analytics override,
   loads only in production, and bypasses the cookie-consent gate, which is disabled.
@@ -202,6 +215,14 @@ These were found in the post-rollout review and left unchanged:
   Breakage on these domains is not detected.
 - Upstream merges add new upstream workflows silently, while changes to deleted starter files appear as modify/delete conflicts;
   review `.github/workflows` after each merge.
+- `css_parser` 1.22.0 is affected by [GHSA-9pmc-p236-855h](https://github.com/advisories/GHSA-9pmc-p236-855h)
+  (SSRF and local file disclosure in `read_remote_file`, fixed in 3.0.0).
+  Its only consumer, `jekyll-3rd-party-libraries` 0.0.1, requires `css_parser < 2.0`, has no newer release,
+  and is required by `al_img_tools`; it also resolves the `{{version}}` placeholders in the CDN URLs.
+  The plugin calls css_parser only when `third_party_libraries.download` is true (the site uses `false`),
+  and then only through `load_string!` without a base URI, which never reaches `read_remote_file`.
+  The Dependabot alert was dismissed as unused vulnerable code;
+  [upstream issue 1](https://github.com/george-gca/jekyll-3rd-party-libraries/issues/1) requests css_parser 3.x support.
 
 ## Verification and release
 

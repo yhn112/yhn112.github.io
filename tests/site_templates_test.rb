@@ -4,7 +4,6 @@
 require "jekyll"
 require "al_folio_core"
 require "al_analytics"
-require "al_citations"
 require "json"
 require "yaml"
 
