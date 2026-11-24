@@ -38,7 +38,7 @@
     {% include header.liquid %}
 
     <!-- Content -->
-    <main class="container mt-5">
+    <main class="container mt-5" role="main">
       {% if page.toc and page.toc.sidebar %}
         {% assign toc_collapse = page.toc.collapse | default: 'expanded' %}
         {% assign toc_collapse_depth = page.toc.collapse_depth | default: '' %}

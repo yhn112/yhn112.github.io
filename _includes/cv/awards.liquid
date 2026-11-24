@@ -28,11 +28,11 @@
           </div>
           <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0">
             {% if entry.url %}
-              <h3 class="title font-weight-bold ml-1 ml-md-4">
+              <h3 class="title font-weight-bold ml-1 ml-md-4" data-toc-skip>
                 <a href="{{ entry.url }}">{{ entry.title }}</a>
               </h3>
             {% elsif entry.title %}
-              <h3 class="title font-weight-bold ml-1 ml-md-4">{{ entry.title }}</h3>
+              <h3 class="title font-weight-bold ml-1 ml-md-4" data-toc-skip>{{ entry.title }}</h3>
             {% endif %}
 
             {% if entry.awarder %}
@@ -46,11 +46,11 @@
         {% else %}
           <div class="col-xs-12 col-sm-12 col-md-12">
             {% if entry.url %}
-              <h3 class="title font-weight-bold ml-1 ml-md-4">
+              <h3 class="title font-weight-bold ml-1 ml-md-4" data-toc-skip>
                 <a href="{{ entry.url }}">{{ entry.title }}</a>
               </h3>
             {% elsif entry.title %}
-              <h3 class="title font-weight-bold ml-1 ml-md-4">{{ entry.title }}</h3>
+              <h3 class="title font-weight-bold ml-1 ml-md-4" data-toc-skip>{{ entry.title }}</h3>
             {% endif %}
 
             {% if entry.awarder %}

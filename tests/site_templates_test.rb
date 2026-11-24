@@ -73,7 +73,8 @@ check("CV PDF keeps its URL and has an accessible name") do
 end
 
 check("Publication badges use the committed citation cache") do
-  key, paper = DATA.fetch("citations").fetch("papers").find { |id, _| id.end_with?(":UeHWp8X0CEIC") }
+  key, paper = DATA.fetch("citations").fetch("papers").find { |_, cached| cached["citations"] }
+  assert(paper, "Citation cache has no paper with a citation count")
   entry = { "key" => "cached-paper", "title" => paper.fetch("title"), "author_array" => [], "google_scholar_id" => key.split(":").last, "bibtex" => "@article{cached-paper}" }
   html = render_override("_layouts/bib.liquid", extra: { "entry" => entry })
   assert(html.include?("#{paper.fetch('citations')} Google Scholar citations"), "Cached citation count was not rendered")

@@ -64,11 +64,11 @@ jobs:
           bundle exec al-folio upgrade audit
           bundle exec al-folio upgrade overrides audit --fail-on-stale
       - name: Render the CV before building
-        run: rendercv render _data/cv.yml --settings assets/rendercv/settings.yaml
+        run: |
+          rendercv render _data/cv.yml --settings assets/rendercv/settings.yaml
+          rm -f assets/rendercv/rendercv_output/*.typ
       - name: Install ImageMagick
         run: sudo apt-get update && sudo apt-get install -y imagemagick
-      - name: Prepare local icon fonts
-        run: python bin/download_icon_fonts.py
       - name: Build the production artifact
         env:
           JEKYLL_ENV: production

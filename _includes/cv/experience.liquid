@@ -72,11 +72,11 @@
           {% endcapture %}
 
           {% if entry.url %}
-            <h3 class="title font-weight-bold ml-1 ml-md-4">
+            <h3 class="title font-weight-bold ml-1 ml-md-4" data-toc-skip>
               <a href="{{ entry.url }}">{{ position_title }}</a>
             </h3>
           {% elsif position_title != '' %}
-            <h3 class="title font-weight-bold ml-1 ml-md-4">{{ position_title }}</h3>
+            <h3 class="title font-weight-bold ml-1 ml-md-4" data-toc-skip>{{ position_title }}</h3>
           {% endif %}
 
           {% capture company_name %}

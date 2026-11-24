@@ -42,7 +42,7 @@ git diff --check
 ```
 
 The production build runs only in GitHub Actions.
-`deploy.yml` renders the PDF, prepares icon fonts, builds once,
+`deploy.yml` renders the PDF, builds once,
 and passes the same artifact through browser/accessibility checks and offline link checks before publishing.
 PR builds do not publish.
 `render-cv.yml` preserves generated PDF commits;

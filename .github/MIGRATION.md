@@ -11,6 +11,7 @@ It follows upstream release [v1.2](https://github.com/alshedivat/al-folio/releas
 at `b95d6d61a1b0663529094b1b5f4fbe8aa41f8a04`.
 The old local runtime is replaced by the release's exact gem pins,
 including `al_folio_core` 1.0.15 and `al_folio_cv` 1.0.2.
+`Gemfile` and `Gemfile.lock` match the release verbatim, including the lockfile's checksums.
 The remote citation commits through `ab8be0b` were merged without rewriting history.
 
 Michael's approved decisions are recorded in [AGENTS.md](../AGENTS.md#current-project-direction).
@@ -33,16 +34,16 @@ It preserves the blue/cyan theme and fixes year-heading and venue-badge contrast
 
 Ten intentional overrides remain:
 
-| Local file                                                                                      | Reason                                                                      |
-| ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `_includes/metadata.liquid`                                                                     | JSON serialization, escaped metadata, and useful homepage preview titles.   |
-| `_includes/cv/render.liquid`                                                                    | Accessible PDF download and sequential section headings in the v1 renderer. |
-| `_includes/plugins/al_analytics_scripts.liquid`                                                 | Standard Google integration plus the existing Yandex counter.               |
-| `_layouts/bib.liquid`                                                                           | Venue text colors and native annotation disclosure.                         |
-| `assets/css/main.scss`                                                                          | Load site CSS after the gem's Sass modules.                                 |
-| `_layouts/default.liquid`                                                                       | Native main landmark so page headers do not become nested banners.          |
-| `_includes/cv/education.liquid`, `_includes/cv/experience.liquid`, `_includes/cv/awards.liquid` | Sequential CV headings with descriptive text as paragraphs.                 |
-| `assets/js/copy_code.js`                                                                        | Keyboard scrolling in code blocks, including expanded BibTeX.               |
+| Local file                                                                                      | Reason                                                                       |
+| ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `_includes/metadata.liquid`                                                                     | JSON serialization, escaped metadata, and useful homepage preview titles.    |
+| `_includes/cv/render.liquid`                                                                    | Accessible PDF download and sequential section headings in the v1 renderer.  |
+| `_includes/plugins/al_analytics_scripts.liquid`                                                 | Standard Google integration plus the existing Yandex counter.                |
+| `_layouts/bib.liquid`                                                                           | Venue text colors and native annotation disclosure.                          |
+| `assets/css/main.scss`                                                                          | Load site CSS after the gem's Sass modules.                                  |
+| `_layouts/default.liquid`                                                                       | Native main landmark that keeps `role="main"` for the gem's tocbot selector. |
+| `_includes/cv/education.liquid`, `_includes/cv/experience.liquid`, `_includes/cv/awards.liquid` | Sequential CV headings kept out of the table of contents (`data-toc-skip`).  |
+| `assets/js/copy_code.js`                                                                        | Keyboard scrolling in code blocks, including expanded BibTeX.                |
 
 `.al-folio-overrides.yml` records the reviewed upstream and local checksums.
 After editing an override, format it before reviewing and acknowledging its final contents:
@@ -114,25 +115,31 @@ Merge the pull request with a merge commit; squash and rebase merges drop the up
 
 ## Assets, analytics, and automation
 
-The icon configuration uses the v1.2 Font Awesome, Academicons, and Scholar Icons versions and CSS integrity hashes.
-`bin/download_icon_fonts.py` downloads their fonts before the Jekyll library hook.
-This is needed because `jekyll-3rd-party-libraries` 0.0.1 flattens CSS paths
-and skips a font directory once it contains any files;
-Academicons and Scholar Icons share the resulting `assets/libs/fonts` directory.
-The helper verifies each CSS integrity hash and preserves all referenced font formats.
-Downloaded files remain disposable under `assets/libs`.
-Remove the helper once a `jekyll-3rd-party-libraries` release newer than 0.0.1
-no longer skips a non-empty font directory.
-The legacy CSS minifier's second compression pass is disabled:
-it corrupts Tailwind's `calc(var(--spacing))` expressions and changes Scholar Icons' integrity hash.
+`third_party_libraries` is the v1.2 block verbatim, so libraries load from their CDNs with integrity hashes (`download: false`).
+The site previously kept the old `download: true` setting,
+which published every listed library under `assets/libs` and needed a font prefetch workaround
+for `jekyll-3rd-party-libraries` 0.0.1; both were removed on 24 November 2026.
+The v1.2 block also restores `tocbot`, which the CV's sidebar table of contents loads,
+and drops entries that no v1.2 gem reads.
+The legacy CSS minifier's second compression pass stays disabled, as in v1.2:
+it corrupts Tailwind's `calc(var(--spacing))` expressions.
 Tailwind remains precompiled and minified, and Sass still uses compressed output.
-Browser checks verify navbar geometry and integrity hashes of the loaded local assets.
+Browser checks verify navbar geometry, the icon font, integrity hashes of local assets,
+and scripts or stylesheets with empty URLs.
 
 Google Analytics uses `al_analytics` 1.0.2 and its supported top-level configuration keys.
 Yandex keeps `_scripts/yandex-metrika-setup.js` and its existing counter and options.
 Both load immediately in the production site, without a consent dialog.
 Privacy describes Webvisor, click maps, link tracking, bounce tracking, and the ecommerce data layer;
 the footer links to that page.
+
+The gem's `_includes/head.liquid` hard-codes a Content Security Policy without the `blob:` frame and child sources
+that [Yandex requires for Session Replay and click maps](https://yandex.ru/support/metrica/code/install-counter-csp.html);
+the old site added them together with `wss:` Yandex endpoints.
+On 24 November 2026, scripted Chrome 158 sessions on diskin.me (home and CV, 30 seconds each, with scrolling and mouse movement)
+loaded the Webvisor tag but started no recording and logged no CSP violations, so the impact is unconfirmed.
+Webvisor recordings in Metrica after the rollout would confirm it; if they are missing,
+override `_includes/head.liquid` with those exceptions as Michael decided.
 
 The deployment workflow renders the PDF before a single production build,
 then passes the same `site` artifact to browser/accessibility checks, offline link checks, and publication.
@@ -141,6 +148,25 @@ Chrome and its matching ChromeDriver are installed together with explicit execut
 The standalone RenderCV workflow still commits generated PDFs to Git.
 The citation workflow retains its cache, tests, failure reporting, and deployment trigger.
 Publishing remains on `gh-pages`; GitHub Pages settings and DNS are unchanged.
+
+## Accepted risks
+
+These were found in the post-rollout review and left unchanged:
+
+- v1.2's `_config.yml` nests analytics IDs under `analytics:`, while the site keeps top-level keys,
+  which `al_analytics` 1.0.2 reads first; expect conflicts in that block on upstream merges.
+  Yandex additionally depends on `include: [_pages, _scripts]` and the analytics override,
+  loads only in production, and bypasses the cookie-consent gate, which is disabled.
+- Every publication, including citation-triggered deploys, waits for browser, Axe, link, formatting and upgrade checks;
+  Chrome is installed at its current stable version, so a browser change can block publishing.
+- The `bib.liquid`, `cv/render.liquid` and `metadata.liquid` overrides copy most of their gem files;
+  `--fail-on-stale` flags gem changes, which then need a manual three-way review.
+- `al_folio_core` 1.0.15 `assets/js/bibsearch.js` calls `setTimeout(filterItems(searchTerm), 300)`:
+  publication search filters on every keystroke without the intended delay,
+  and Chrome logs a Content Security Policy `unsafe-eval` violation for the returned value.
+  Search still works (PR 6 CI, 24 November 2026); the fix belongs upstream.
+- Upstream merges add new upstream workflows silently, while changes to deleted starter files appear as modify/delete conflicts;
+  review `.github/workflows` after each merge.
 
 ## Verification and release
 

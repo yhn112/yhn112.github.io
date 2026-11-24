@@ -42,6 +42,7 @@ async function checkPage(route, theme, width) {
       url: node.src || node.href,
       integrity: node.integrity,
     })),
+    emptyAssets: document.querySelectorAll('script[src=""], link[href=""]').length,
     google: document.querySelectorAll('script[src*="googletagmanager.com/gtag/js"]').length,
     yandex: document.querySelectorAll('script[src*="yandex-metrika-setup.js"]').length,
     consentGates: document.querySelectorAll('script[type="text/plain"][data-category="analytics"]').length,
@@ -62,6 +63,7 @@ async function checkPage(route, theme, width) {
   assert.equal(data.yandex, 1, `Yandex loaded more or less than once: ${route}`);
   assert.equal(data.consentGates, 0, `Unexpected consent gate: ${route}`);
   assert(data.privacyLink, `Missing privacy footer link: ${route}`);
+  assert.equal(data.emptyAssets, 0, `Script or stylesheet with an empty URL: ${route}`);
   assert(!data.overflow, `Horizontal overflow at ${width}px: ${route}`);
   assert(
     Math.abs(data.navbar.top) < 1 && Math.abs(data.navbar.width - data.navbar.viewport) < 1,
@@ -118,7 +120,7 @@ try {
       await driver.wait(
         () => driver.executeScript(() => [...document.fonts].some((font) => font.family.includes("Font Awesome 7 Free") && font.status === "loaded")),
         10000,
-        "The local icon font did not load"
+        "The icon font did not load"
       );
       const mobileToggle = width < 576 ? await driver.findElement(By.css("[data-nav-toggle]")) : null;
       if (mobileToggle) {
@@ -162,6 +164,16 @@ try {
   for (const section of ["Experience", "Education", "Skills", "Awards", "Languages"]) {
     assert(cvText.includes(section), `CV section missing: ${section}`);
   }
+  await driver.wait(
+    () => driver.executeScript(() => !!window.tocbot && document.querySelectorAll("#toc-sidebar .toc-link").length > 0),
+    10000,
+    "tocbot did not build the CV table of contents"
+  );
+  const toc = await driver.executeScript(() => ({
+    links: document.querySelectorAll("#toc-sidebar .toc-link").length,
+    sections: document.querySelectorAll("main h2:not([data-toc-skip])").length,
+  }));
+  assert.equal(toc.links, toc.sections, `CV table of contents should list only sections: ${JSON.stringify(toc)}`);
   const download = await driver.findElement(By.css('a[aria-label="Download CV as PDF"]'));
   const pdfPath = "/assets/rendercv/rendercv_output/Michael_Diskin_CV.pdf";
   assert.equal(await download.getAttribute("href"), base + pdfPath);
