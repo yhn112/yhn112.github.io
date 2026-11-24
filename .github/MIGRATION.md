@@ -125,7 +125,7 @@ The legacy CSS minifier's second compression pass stays disabled, as in v1.2:
 it corrupts Tailwind's `calc(var(--spacing))` expressions.
 Tailwind remains precompiled and minified, and Sass still uses compressed output.
 Browser checks verify navbar geometry, the icon font, integrity hashes of local assets,
-and the absence of Content Security Policy violations.
+and scripts or stylesheets with empty URLs.
 
 Google Analytics uses `al_analytics` 1.0.2 and its supported top-level configuration keys.
 Yandex keeps `_scripts/yandex-metrika-setup.js` and its existing counter and options.
@@ -161,6 +161,10 @@ These were found in the post-rollout review and left unchanged:
   Chrome is installed at its current stable version, so a browser change can block publishing.
 - The `bib.liquid`, `cv/render.liquid` and `metadata.liquid` overrides copy most of their gem files;
   `--fail-on-stale` flags gem changes, which then need a manual three-way review.
+- `al_folio_core` 1.0.15 `assets/js/bibsearch.js` calls `setTimeout(filterItems(searchTerm), 300)`:
+  publication search filters on every keystroke without the intended delay,
+  and Chrome logs a Content Security Policy `unsafe-eval` violation for the returned value.
+  Search still works (PR 6 CI, 24 November 2026); the fix belongs upstream.
 - Upstream merges add new upstream workflows silently, while changes to deleted starter files appear as modify/delete conflicts;
   review `.github/workflows` after each merge.
 

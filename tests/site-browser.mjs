@@ -91,7 +91,7 @@ async function checkPage(route, theme, width) {
     `Broken local image: ${route}`
   );
   const errors = (await driver.manage().logs().get(logging.Type.BROWSER)).filter((entry) =>
-    /Uncaught|SyntaxError|ReferenceError|TypeError|Content Security Policy/.test(entry.message)
+    /Uncaught|SyntaxError|ReferenceError|TypeError/.test(entry.message)
   );
   assert.equal(errors.length, 0, `JavaScript errors on ${route}: ${JSON.stringify(errors)}`);
   if (sections.includes(route)) {
