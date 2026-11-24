@@ -39,7 +39,7 @@ Ten intentional overrides remain:
 | `_includes/metadata.liquid`                                                                     | JSON serialization, escaped metadata, and useful homepage preview titles.    |
 | `_includes/cv/render.liquid`                                                                    | Accessible PDF download and sequential section headings in the v1 renderer.  |
 | `_includes/plugins/al_analytics_scripts.liquid`                                                 | Standard Google integration plus the existing Yandex counter.                |
-| `_layouts/bib.liquid`                                                                           | Venue text colors and native annotation disclosure.                          |
+| `_layouts/bib.liquid`                                                                           | Venue background and text colors from `_data/venues.yml`.                    |
 | `assets/css/main.scss`                                                                          | Load site CSS after the gem's Sass modules.                                  |
 | `_layouts/default.liquid`                                                                       | Native main landmark that keeps `role="main"` for the gem's tocbot selector. |
 | `_includes/cv/education.liquid`, `_includes/cv/experience.liquid`, `_includes/cv/awards.liquid` | Sequential CV headings kept out of the table of contents (`data-toc-skip`).  |
