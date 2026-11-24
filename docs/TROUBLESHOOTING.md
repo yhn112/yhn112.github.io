@@ -10,6 +10,7 @@ This guide covers common issues and their solutions. For more information, see [
     - [Custom domain becomes blank after deployment](#custom-domain-becomes-blank-after-deployment)
     - [GitHub Actions: "Unknown tag 'toc'" error](#github-actions-unknown-tag-toc-error)
   - [Local Build Issues](#local-build-issues)
+    - [Docker build fails](#docker-build-fails)
     - [Ruby dependency issues](#ruby-dependency-issues)
     - [Port already in use](#port-already-in-use)
   - [Styling &amp; Layout Problems](#styling--layout-problems)
@@ -85,15 +86,34 @@ This guide covers common issues and their solutions. For more information, see [
 
 ## Local Build Issues
 
+### Docker build fails
+
+**Problem:** `docker compose up` fails or shows errors.
+
+**Solution:**
+
+1. Update Docker: `docker compose pull`
+2. Rebuild: `docker compose up --build`
+3. If still failing, check your system resources (disk space, RAM)
+4. For M1/M2 Mac users, verify you're using a compatible Docker version
+5. Check Docker Desktop is running
+
+**For permission issues:**
+
+- Linux users may need to add your user to the docker group: `sudo usermod -aG docker $USER`
+- Then log out and log back in
+
+---
+
 ### Ruby dependency issues
 
 **Problem:** `Gemfile.lock` conflicts or bundle errors.
 
 **Solution:**
 
-1. Delete `Gemfile.lock`: `rm Gemfile.lock`
-2. Update Bundler: `bundle update`
-3. Install gems: `bundle install`
+1. Install with the committed lockfile: `bundle install`
+2. If you intentionally changed plugin pins or Ruby dependencies, update the affected gems: `bundle update <gem-name>`
+3. For broad local dependency refreshes in a customized fork, run `bundle update` and commit the regenerated `Gemfile.lock`
 4. Try serving again: `bundle exec jekyll serve`
 
 ---
@@ -102,7 +122,14 @@ This guide covers common issues and their solutions. For more information, see [
 
 **Problem:** "Address already in use" when running `jekyll serve`.
 
-**Solution:**
+**Solution - Docker:**
+
+```bash
+docker compose down  # Stop the running container
+docker compose up    # Start fresh
+```
+
+**Solution - Local Ruby:**
 
 ```bash
 # Find and kill the Jekyll process
@@ -166,7 +193,7 @@ bundle exec jekyll serve --port 5000
 
 1. Check your color name is valid in `_sass/_variables.scss`
 2. Clear browser cache (see above)
-3. Rebuild: `bundle exec jekyll build`
+3. Rebuild: `docker compose up --build` (Docker) or `bundle exec jekyll build` (Ruby)
 4. Wait for GitHub Actions to complete
 5. Visit the site in a private/incognito window
 
@@ -217,6 +244,9 @@ bundle exec jekyll serve --port 5000
 ```bash
 # Local Ruby setup
 bundle exec jekyll build 2>&1 | grep -i bibtex
+
+# Docker
+docker compose run --rm web jekyll build 2>&1 | grep -i bibtex
 ```
 
 ---
@@ -236,7 +266,7 @@ bundle exec jekyll build 2>&1 | grep -i bibtex
 1. **Correct path format:**
 
    ```markdown
-   ![Alt text](assets/img/image-name.jpg)
+   ![Alt text](../assets/img/1.jpg)
    ```
 
 2. **Check the file exists:**

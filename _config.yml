@@ -200,16 +200,12 @@ kramdown:
 include: ["_pages", "_scripts"]
 exclude:
   - AGENTS.md
-  - ANALYTICS.md
   - al-folio-upgrade-report.md
   - bin/
   - CLAUDE.md
-  - CONTRIBUTING.md
-  - CUSTOMIZE.md
-  - FAQ.md
+  - docs/
   - Gemfile
   - Gemfile.lock
-  - INSTALL.md
   - LICENSE
   - lighthouse_results/
   - package.json
@@ -221,13 +217,9 @@ exclude:
   - _pages/profiles.md
   - _pages/dropdown.md
   - purgecss.config.js
-  - QUICKSTART.md
   - README.md
-  - readme_preview/
   - requirements.txt
-  - SEO.md
   - tests/
-  - TROUBLESHOOTING.md
   - vendor
 keep_files:
   - CNAME

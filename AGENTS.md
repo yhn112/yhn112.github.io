@@ -1,6 +1,6 @@
-# Agent Guidelines for al-folio
+# Agent Guidelines for diskin.me
 
-A simple, clean, and responsive Jekyll theme for academics.
+Michael Diskin's academic website, built on the al-folio v1.2 starter.
 
 ## Current Project Direction
 
@@ -21,6 +21,14 @@ Michael subsequently authorized the upstream setup and upload on 24 November 202
 Use the existing `origin` repository and `diskin.me` publication scope;
 complete CI and visual acceptance before publishing the migrated site.
 
+After the rollout, Michael decided on 24 November 2026:
+
+- Keep a commit with the site's changes on top of the clean al-folio v1.2 release.
+  Copy its files from the site instead of replaying the migration history.
+  Merge it into `main` without rewriting `main`, so v1.2 becomes an ancestor of `main`.
+  Force-push is authorized to move `migration/al-folio-v1.2` to that commit.
+- Replace the outdated generic al-folio documentation with the v1.2 versions.
+
 Local runtime files must be intentional overrides of the pinned gems.
 Review them with `bundle exec al-folio upgrade overrides diff PATH` and acknowledge reviewed changes in `.al-folio-overrides.yml`.
 
@@ -31,15 +39,26 @@ Review them with `bundle exec al-folio upgrade overrides diff PATH` and acknowle
 - Do not suggest local build verification as a default step.
 - This policy overrides any conflicting build instructions in other project docs unless the user explicitly asks to run a local build.
 
+## Documentation Precedence
+
+Site-specific rules live in this file, [`.github/copilot-instructions.md`](.github/copilot-instructions.md),
+and [the migration record](.github/MIGRATION.md).
+`docs/`, `.github/agents/`, and `.github/instructions/` are unchanged al-folio v1.2 copies,
+kept verbatim so that upstream releases merge cleanly.
+They describe the upstream starter repository:
+its ban on local `_layouts`, `_includes`, `_sass`, and `_scripts`, its `/al-folio` baseurl,
+its local build and Docker commands, and agent skills under `.agents/skills` that this site does not keep.
+Where they conflict with the site-specific files, the site-specific files take precedence.
+
 ## Quick Links by Role
 
-- **Are you a coding agent?** → Read [`.github/copilot-instructions.md`](.github/copilot-instructions.md) first (tech stack, build, CI/CD, common pitfalls & solutions)
-- **Customizing the site?** → See [`.github/agents/customize.agent.md`](.github/agents/customize.agent.md)
+- **Are you a coding agent?** → Read [`.github/copilot-instructions.md`](.github/copilot-instructions.md) first (site runtime, inputs, verification, delivery)
+- **Which gem owns a layout, include, or feature?** → [docs/BOUNDARIES.md](docs/BOUNDARIES.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- **Customizing the site?** → [docs/CUSTOMIZE.md](docs/CUSTOMIZE.md) and [`.github/agents/customize.agent.md`](.github/agents/customize.agent.md)
 - **Writing documentation?** → See [`.github/agents/docs.agent.md`](.github/agents/docs.agent.md)
-- **Need setup/deployment help?** → [INSTALL.md](INSTALL.md)
-- **Troubleshooting & FAQ?** → [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
-- **Customization & theming?** → [CUSTOMIZE.md](CUSTOMIZE.md)
-- **Quick 5-min start?** → [QUICKSTART.md](QUICKSTART.md)
+- **Need setup/deployment help?** → [docs/INSTALL.md](docs/INSTALL.md)
+- **Troubleshooting & FAQ?** → [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) and [docs/FAQ.md](docs/FAQ.md)
+- **Quick start?** → [docs/QUICKSTART.md](docs/QUICKSTART.md)
 
 ## Essential Commands
 
@@ -66,8 +85,8 @@ Before every commit, you **must** run these steps:
 
 1.  **Format Code:**
     ```bash
-    # (First time only)
-    npm install --save-dev prettier @shopify/prettier-plugin-liquid
+    # Install the locked formatter dependencies
+    npm ci
     # Format all files
     npx prettier . --write
     ```
@@ -104,6 +123,6 @@ When modifying `_config.yml`, these **must be updated together**:
 
 For troubleshooting, see:
 
-- [Common Pitfalls & Workarounds](.github/copilot-instructions.md#common-pitfalls--workarounds) in copilot-instructions.md
-- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for detailed solutions
+- [Failure modes that produce no error message](docs/ARCHITECTURE.md#failure-modes-that-produce-no-error-message) in docs/ARCHITECTURE.md
+- [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) and [docs/FAQ.md](docs/FAQ.md) for detailed solutions
 - [GitHub Issues](https://github.com/alshedivat/al-folio/issues) to search for your specific problem.
