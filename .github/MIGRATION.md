@@ -185,6 +185,9 @@ the site's Scholar badges read the `_data/citations.yml` cache instead, and the 
 Its `activesupport < 8.0` constraint blocked the fix for
 [GHSA-8474-xrp6-wh69](https://github.com/advisories/GHSA-8474-xrp6-wh69), released in activesupport 8.1.4.1.
 The `bib.liquid` override and `enable_publication_badges` dropped the InspireHEP badge with it.
+`al_citations` also loaded `active_support/all`, whose `to_json` made Liquid's `jsonify` escape `&`, `<` and `>`;
+without it, JSON-LD contains a literal `&` instead of `&`, with the same values.
+The PR 15 build artifact differs from the published site only in that and in feed and sitemap timestamps.
 
 ## Accepted risks
 
