@@ -34,7 +34,7 @@ overrides:
     gem_version: 1.0.15
     upstream_path: _includes/metadata.liquid
     upstream_sha256: 1446b2572062335b5fc44e16b6090ff197e03b3503009660f79a6a39cd383584
-    local_sha256: c4380525871a9afeca14fbce4f9b0e83d986f1c4cf397f392421afb8a0210619
+    local_sha256: 5dd9df5a5b75d143f854d760b40f1c1cb002b54aba05fc29b7af44c42f3c16cf
     acknowledged_at: "2026-11-24"
   _includes/plugins/al_analytics_scripts.liquid:
     owner: al_folio_core

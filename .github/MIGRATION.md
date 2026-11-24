@@ -50,7 +50,7 @@ Ten intentional overrides remain:
 
 | Local file                                                                                      | Reason                                                                       |
 | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `_includes/metadata.liquid`                                                                     | JSON serialization, escaped metadata, and useful homepage preview titles.    |
+| `_includes/metadata.liquid`                                                                     | Escaped JSON-LD, homepage ProfilePage, large preview card, preview titles.   |
 | `_includes/cv/render.liquid`                                                                    | Accessible PDF download and sequential section headings in the v1 renderer.  |
 | `_includes/plugins/al_analytics_scripts.liquid`                                                 | Standard Google integration plus the existing Yandex counter.                |
 | `_layouts/bib.liquid`                                                                           | Venue colors from `_data/venues.yml`; no InspireHEP badge (`al_citations`).  |

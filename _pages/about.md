@@ -28,7 +28,7 @@ latest_posts:
 
 **Industry.** Head of LLM R&D at [Wildberries](https://www.wildberries.ru) — Russia's largest e-commerce platform. Built the LLM & embeddings organization from scratch (**30+** people, **4–5** teams), shipping search, retrieval, machine translation, and RAG systems at scale. Previously ML at [Yandex](https://yandex.com).
 
-**Research.** Published at NeurIPS, ICML, ICLR, EMNLP, and WMT (**950+** citations). Themes, newest first:
+**Research.** Published at NeurIPS, ICML, ICLR, EMNLP, and WMT (**1,000+** citations). Themes, newest first:
 
 - **LLM reasoning for mathematics:** [Lean-based synthetic proofs](/publications/#obozov2025synthetic) (MathNLP @ EMNLP 2025) and [query–key scores for LLM reasoning](/publications/#obozov2025think) (MATH-AI @ NeurIPS 2025).
 - **Efficient and low-resource LLMs:** [adaptive sparse activations](/publications/#rudamenko2026sparse) (Sci4DL @ ICLR 2026) and [one 2B model for five Sorbian tasks on two RTX 3090 GPUs](/publications/#diskin2026one) (WMT 2026).

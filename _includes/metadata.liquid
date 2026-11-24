@@ -78,7 +78,7 @@
   <meta property="og:locale" content="{{ site.lang }}">
 
   <!-- Twitter card -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="{% if page.og_image or site.og_image %}summary_large_image{% else %}summary{% endif %}">
   <meta name="twitter:title" content="{{ page_headline | escape }}">
   <meta name="twitter:description" content="{{ page_description | escape }}">
   {% if page.og_image or site.og_image %}
@@ -240,22 +240,63 @@
     {% endcase %}
   {% endfor %}
 
-  <script type="application/ld+json">
-    {
-        "author":
-        {
-            "@type": "Person",
-            "name": {{ author_name | jsonify }}
-        },
-        "url": {{ canonical_url | jsonify }},
-        "@type": "{% if is_blog_post %}BlogPosting{% else %}WebSite{% endif %}",
-        "description": {{ page_description | jsonify }},
-        "headline": {{ page_headline | jsonify }},
-        {% if sameaslinks != blank %}
-        "sameAs": {{ sameaslinks | jsonify }},
-        {% endif %}
-        "name": {{ author_name | jsonify }},
-        "@context": "https://schema.org"
-    }
-  </script>
+  {% if page.url == '/' %}
+    {% assign cv_sections = site.data.cv.cv.sections %}
+    {% assign current_jobs = cv_sections.Experience | where: 'end_date', 'present' %}
+    {% assign schools = cv_sections.Education | map: 'institution' | uniq %}
+    <script type="application/ld+json">
+      {
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          "url": {{ canonical_url | jsonify }},
+          "headline": {{ page_headline | jsonify }},
+          "description": {{ page_description | jsonify }},
+          "mainEntity":
+          {
+              "@type": "Person",
+              "name": {{ author_name | jsonify }},
+              {% if site.alternate_names %}"alternateName": {{ site.alternate_names | jsonify }},{% endif %}
+              "url": {{ '/' | absolute_url | jsonify }},
+              {% if page.profile.image %}"image": {{ page.profile.image | prepend: '/assets/img/' | absolute_url | jsonify }},{% endif %}
+              {% if site.data.cv.cv.label %}"jobTitle": {{ site.data.cv.cv.label | jsonify }},{% endif %}
+              "worksFor": [
+                {% for job in current_jobs %}
+                  { "@type": "Organization", "name": {{ job.company | jsonify }}{% if job.url %}, "url": {{ job.url | jsonify }}{% endif %} }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              ],
+              "affiliation": [
+                {% for organization in site.affiliations %}
+                  { "@type": "Organization", "name": {{ organization.name | jsonify }}{% if organization.url %}, "url": {{ organization.url | jsonify }}{% endif %} }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              ],
+              "alumniOf": [
+                {% for school in schools %}
+                  {% assign school_entry = cv_sections.Education | where: 'institution', school | first %}
+                  { "@type": "EducationalOrganization", "name": {{ school | jsonify }}{% if school_entry.url %}, "url": {{ school_entry.url | jsonify }}{% endif %} }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              ],
+              "sameAs": {{ sameaslinks | jsonify }}
+          }
+      }
+    </script>
+  {% else %}
+    <script type="application/ld+json">
+      {
+          "author":
+          {
+              "@type": "Person",
+              "name": {{ author_name | jsonify }}
+          },
+          "url": {{ canonical_url | jsonify }},
+          "@type": "{% if is_blog_post %}BlogPosting{% else %}WebSite{% endif %}",
+          "description": {{ page_description | jsonify }},
+          "headline": {{ page_headline | jsonify }},
+          {% if sameaslinks != blank %}
+          "sameAs": {{ sameaslinks | jsonify }},
+          {% endif %}
+          "name": {{ author_name | jsonify }},
+          "@context": "https://schema.org"
+      }
+    </script>
+  {% endif %}
 {% endif %}
