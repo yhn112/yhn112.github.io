@@ -180,6 +180,12 @@ These were found in the post-rollout review and left unchanged:
   the `bib.liquid` override keeps the gem's own `data-toggle="popover"` annotation markup,
   which `al_folio_core` 1.0.15 `assets/js/tooltips-setup.js` handles without Bootstrap.
   `al_folio_upgrade` 1.0.3 flags its own runtime's markup; no publication has an annotation today.
+- The external link check (`broken-links.yml`, which also scans `_bibliography/papers.bib`) ignores domains
+  that refuse automated clients: Google Scholar (403), VK video (login redirect loop), Wildberries (498)
+  yandexdataschool.com (intermittent 403) and OpenReview PDF downloads (403; the matching `forum?id=` pages are checked).
+  It also ignores `data-fusion.ru`, whose certificate chains to the Russian Ministry of Digital Development CA;
+  browsers without that root show a certificate warning, and Michael chose to keep the link.
+  Breakage on these domains is not detected.
 - Upstream merges add new upstream workflows silently, while changes to deleted starter files appear as modify/delete conflicts;
   review `.github/workflows` after each merge.
 
