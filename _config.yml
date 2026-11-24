@@ -29,6 +29,17 @@ back_to_top: false # set to false to disable the back to top button
 # repo color theme
 repo_theme_light: default # https://github.com/anuraghazra/github-readme-stats/blob/master/themes/README.md
 repo_theme_dark: dark # https://github.com/anuraghazra/github-readme-stats/blob/master/themes/README.md
+# Off by default: addresses are then split at build time so the HTML contains no
+# `user@host` and no `mailto:` for harvesters to scrape, and clicking one copies
+# it to the clipboard instead of opening a mail client.
+# See "Protecting email addresses from scrapers" in docs/CUSTOMIZE.md.
+protect_email: false
+
+# Off by default: the free public github-profile-trophy instance is disabled
+# (its Vercel deployment answers HTTP 402 / DEPLOYMENT_DISABLED), so every trophy
+# image 404s. The project itself is still open source and free — self-host it and
+# point external_services.github_profile_trophy_url at your instance, then set
+# enabled: true. See docs/CUSTOMIZE.md.
 repo_trophies:
   enabled: false
   theme_light: flat # https://github.com/ryo-ma/github-profile-trophy
@@ -41,7 +52,10 @@ external_services:
   github_readme_stats_url: https://github-readme-stats.vercel.app
   github_profile_trophy_url: https://github-profile-trophy.vercel.app
 
-# al-folio v1.2 runtime contract. Site content and URLs remain site-owned.
+# -----------------------------------------------------------------------------
+# al-folio API (v1.x)
+# -----------------------------------------------------------------------------
+
 al_folio:
   api_version: 1
   style_engine: tailwind
@@ -67,8 +81,6 @@ al_folio:
   upgrade:
     channel: stable
     auto_apply_safe_fixes: false
-
-protect_email: false
 
 # -----------------------------------------------------------------------------
 # RSS Feed
@@ -228,9 +240,10 @@ keep_files:
   - CNAME
   - .nojekyll
 
+# Use al_folio_core as the theme runtime; local files can still override theme files.
 theme: al_folio_core
 
-# Plug-ins: keep v1.2 runtime wiring aligned with the exact Gemfile pins.
+# Plug-ins
 plugins:
   - jekyll-3rd-party-libraries
   - jekyll-archives-v2
@@ -251,6 +264,8 @@ plugins:
   - jekyll-toc
   - jekyll-twitter-plugin
   - jemoji
+
+  # al-folio plugins
   - al_folio_core
   - al_icons
   - al_folio_cv
@@ -286,10 +301,14 @@ sass:
 # -----------------------------------------------------------------------------
 
 jekyll-minifier:
-  # Sass and Tailwind are already compressed. Preserve modern CSS syntax and SRI-pinned assets.
-  compress_css: false
   compress_javascript: false # set to false since we are using terser as the js minifier
-  exclude: ["robots.txt", "assets/js/search/*.js"]
+  # CSS is already minified upstream (Tailwind build ships tailwind.css; main.scss is compiled
+  # with sass `style: compressed`). Re-minifying via cssminify2 mangles Tailwind v4 spacing
+  # tokens inside calc(), turning `var(--spacing)` into the invalid `var( -  - spacing)` and
+  # breaking every spacing/positioning utility (e.g. .fixed-top -> broken navbar). Disable it.
+  compress_css: false
+  # JS minification is delegated to jekyll-terser (compress_javascript above is false).
+  exclude: ["robots.txt"]
 
 # -----------------------------------------------------------------------------
 # Terser
