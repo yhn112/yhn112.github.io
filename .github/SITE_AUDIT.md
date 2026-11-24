@@ -10,8 +10,8 @@ the migration record identifies completed fixes and release evidence.
 The v1.2 migration was merged through [PR 4](https://github.com/yhn112/yhn112.github.io/pull/4).
 See [the migration record](MIGRATION.md) for the pinned release, implementation,
 retained overrides, checks, and release steps.
-Michael's approved layout, analytics, widget, and publication decisions live in
-[AGENTS.md](../AGENTS.md#current-project-direction).
+Michael's migration decisions are listed there;
+those that still apply are in [AGENTS.md](../AGENTS.md#current-project-direction).
 
 The implementation replaces copied runtime files with the v1.2 gems,
 preserves site content and URLs, fixes JSON-LD and measured contrast/download-label defects,
