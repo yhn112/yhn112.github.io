@@ -12,6 +12,7 @@ university_url: https://yandexdataschool.com
 
 ## Overview
 
-Lecturer in the [YSDA Natural Language Processing course](https://github.com/yandexdataschool/nlp_course) — one of the most popular open NLP courses (10k+ GitHub stars). Topics include word embeddings, language modeling, attention and transformers, transfer learning, LLMs, prompting, fine-tuning, retrieval, and agents.
+Responsible for the 2025 edition of the [YSDA Natural Language Processing course](https://github.com/yandexdataschool/nlp_course) and one of its lecturers.
+The course, originally created by [Elena Voita](https://lena-voita.github.io), is one of the most popular open NLP courses (10k+ GitHub stars). Topics include word embeddings, language modeling, attention and transformers, transfer learning, LLMs, prompting, fine-tuning, retrieval, and agents.
 
 [Course repository on GitHub](https://github.com/yandexdataschool/nlp_course)

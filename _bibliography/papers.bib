@@ -1,6 +1,23 @@
 ---
 ---
 
+@inproceedings{diskin2026one,
+  abbr      = {WMT},
+  title     = {One Model, Five Tasks, Two RTX 3090 GPUs: The HSE System for the Sorbian Track of WMT26 Multitask LLMs with Limited Resources},
+  author    = {Diskin, Michael},
+  booktitle = {Proceedings of the Eleventh Conference on Machine Translation (WMT)},
+  year      = {2026},
+  pages     = {2652--2661},
+  location  = {Budapest, Hungary},
+  url       = {https://aclanthology.org/2026.wmt-main.209/},
+  html      = {https://aclanthology.org/2026.wmt-main.209/},
+  pdf       = {https://aclanthology.org/2026.wmt-main.209.pdf},
+  doi       = {10.18653/2026.wmt-main.209},
+  abstract  = {We describe HSE’s submission to the Sorbian track of WMT26 Multitask LLMs with Limited Resources, where a single 2B-parameter model must translate between German, Upper Sorbian, and Lower Sorbian and also answer multiple-choice questions, check spelling and grammar, and solve maths problems in both Sorbian languages. Our system is one LoRA adapter on Qwen3.5-2B, trained on the official parallel data, synthetic spelling and grammar examples, a question-answering proxy, and English GSM8K in about nine GPU-hours on two consumer RTX 3090 GPUs. Extended translation-only fine-tuning cost about ten points of question-answering accuracy, reproducing a WMT25 finding, and nearly erased the output conventions of the other tasks; the multitask mixture recovered them at almost no translation cost. The system ranked fourth of four teams. It far exceeded the baseline on translation (21.7 → 61.5 chrF++) and spell checking (6.7 → 63.6), but on grammar checking and maths reasoning it learned the answer format without the skill: the grammar score is almost exactly the share of error-free sentences, and maths accuracy did not exceed the baseline. Two negative results may transfer to other low-resource settings. Synthetic holdouts did not predict performance on the official tasks in either direction, and self-translated training problems passed every automatic check yet changed meaning in at least 6 of 20 inspected cases. The model is publicly available.},
+  google_scholar_id = {_FxGoFyzp5QC},
+  bibtex_show = {true}
+}
+
 @inproceedings{rudamenko2026sparse,
   abbr      = {ICLR-W},
   title     = {Learning When to Be Sparse: Adaptive Activations via Two-Parameter Entropy},
@@ -25,6 +42,7 @@
   html      = {https://aclanthology.org/2025.mathnlp-main.15/},
   pdf       = {https://aclanthology.org/2025.mathnlp-main.15.pdf},
   doi       = {10.18653/v1/2025.mathnlp-main.15},
+  abstract  = {Modern mathematical reasoning benchmarks primarily focus on answer finding rather than proof verification, creating a gap in evaluating the proving capabilities of large language models (LLMs). We present a methodology for generating diverse mathematical proof tasks using formal tools. Our approach combines Lean-based synthetic problem generation with a Tool-Integrated Reasoning (TiR) framework for partial (sampling-based) proof validation, and it uses contrastive preference optimization to align the model’s proof outputs. Experiments on the Qwen-2.5 family of models demonstrate meaningful improvements in mathematical reasoning, particularly for smaller models. Our aligned models achieve up to a 57\% higher success rate than baselines on the MiniF2F benchmark (across 0.5B, 1.5B, and 7B parameter models). These results highlight the potential of synthetic data and integrated validation for advancing LLM-based mathematical reasoning.},
   altmetric = {false},
   dimensions = {false},
   google_scholar_id = {Y0pCki6q_DkC},
@@ -55,6 +73,7 @@
   pdf       = {https://arxiv.org/pdf/2301.11913.pdf},
   arxiv     = {2301.11913},
   eprint    = {2301.11913},
+  abstract  = {Many deep learning applications benefit from using large models with billions of parameters. Training these models is notoriously expensive due to the need for specialized HPC clusters. In this work, we consider alternative setups for training large models: using cheap "preemptible" instances or pooling existing resources from multiple regions. We analyze the performance of existing model-parallel algorithms in these conditions and find configurations where training larger models becomes less communication-intensive. Based on these findings, we propose SWARM parallelism, a model-parallel training algorithm designed for poorly connected, heterogeneous and unreliable devices. SWARM creates temporary randomized pipelines between nodes that are rebalanced in case of failure. We empirically validate our findings and compare SWARM parallelism with existing large-scale training approaches. Finally, we combine our insights with compression strategies to train a large Transformer language model with 1B shared parameters (approximately 13B before sharing) on preemptible T4 GPUs with less than 200Mb/s network.},
   altmetric = {true},
   google_scholar_id = {9yKSN-GCB0IC},
   selected  = {true},
@@ -72,6 +91,7 @@
   pdf       = {https://arxiv.org/pdf/2302.11640.pdf},
   arxiv     = {2302.11640},
   eprint    = {2302.11640},
+  abstract  = {Node classification is a classical graph machine learning task on which Graph Neural Networks (GNNs) have recently achieved strong results. However, it is often believed that standard GNNs only work well for homophilous graphs, i.e., graphs where edges tend to connect nodes of the same class. Graphs without this property are called heterophilous, and it is typically assumed that specialized methods are required to achieve strong performance on such graphs. In this work, we challenge this assumption. First, we show that the standard datasets used for evaluating heterophily-specific models have serious drawbacks, making results obtained by using them unreliable. The most significant of these drawbacks is the presence of a large number of duplicate nodes in the datasets Squirrel and Chameleon, which leads to train-test data leakage. We show that removing duplicate nodes strongly affects GNN performance on these datasets. Then, we propose a set of heterophilous graphs of varying properties that we believe can serve as a better benchmark for evaluating the performance of GNNs under heterophily. We show that standard GNNs achieve strong results on these heterophilous graphs, almost always outperforming specialized models. Our datasets and the code for reproducing our experiments are available at https://github.com/yandex-research/heterophilous-graphs.},
   altmetric = {true},
   google_scholar_id = {UeHWp8X0CEIC},
   code      = {https://github.com/yandex-research/heterophilous-graphs},
@@ -90,6 +110,7 @@
   pdf       = {https://arxiv.org/pdf/2110.03313.pdf},
   arxiv     = {2110.03313},
   eprint    = {2110.03313},
+  abstract  = {Variational inequalities in general and saddle point problems in particular are increasingly relevant in machine learning applications, including adversarial learning, GANs, transport and robust optimization. With increasing data and problem sizes necessary to train high performing models across various applications, we need to rely on parallel and distributed computing. However, in distributed training, communication among the compute nodes is a key bottleneck during training, and this problem is exacerbated for high dimensional and over-parameterized models. Due to these considerations, it is important to equip existing methods with strategies that would allow to reduce the volume of transmitted information during training while obtaining a model of comparable quality. In this paper, we present the first theoretically grounded distributed methods for solving variational inequalities and saddle point problems using compressed communication: MASHA1 and MASHA2. Our theory and methods allow for the use of both unbiased (such as Rand-k; MASHA1) and contractive (such as Top-k; MASHA2) compressors. New algorithms support bidirectional compressions, and also can be modified for stochastic setting with batches and for federated learning with partial participation of clients. We empirically validated our conclusions using two experimental setups: a standard bilinear min-max problem, and large-scale distributed adversarial training of transformers.},
   altmetric = {true},
   google_scholar_id = {d1gkVwhDpl0C},
   bibtex_show = {true}
@@ -106,6 +127,7 @@
   pdf       = {https://arxiv.org/pdf/2106.11257.pdf},
   arxiv     = {2106.11257},
   eprint    = {2106.11257},
+  abstract  = {Many areas of deep learning benefit from using increasingly larger neural networks trained on public data, as is the case for pre-trained models for NLP and computer vision. Training such models requires a lot of computational resources (e.g., HPC clusters) that are not available to small research groups and independent researchers. One way to address it is for several smaller groups to pool their computational resources together and train a model that benefits all participants. Unfortunately, in this case, any participant can jeopardize the entire training run by sending incorrect updates, deliberately or by mistake. Training in presence of such peers requires specialized distributed training algorithms with Byzantine tolerance. These algorithms often sacrifice efficiency by introducing redundant communication or passing all updates through a trusted server, making it infeasible to apply them to large-scale deep learning, where models can have billions of parameters. In this work, we propose a novel protocol for secure (Byzantine-tolerant) decentralized training that emphasizes communication efficiency.},
   altmetric = {true},
   google_scholar_id = {u-x6o8ySG0sC},
   bibtex_show = {true}
@@ -123,6 +145,7 @@
   pdf       = {https://arxiv.org/pdf/2207.03481.pdf},
   arxiv     = {2207.03481},
   eprint    = {2207.03481},
+  abstract  = {The infrastructure necessary for training state-of-the-art models is becoming overly expensive, which makes training such models affordable only to large corporations and institutions. Recent work proposes several methods for training such models collaboratively, i.e., by pooling together hardware from many independent parties and training a shared model over the Internet. In this demonstration, we collaboratively trained a text-to-image transformer similar to OpenAI DALL-E. We invited the viewers to join the ongoing training run, showing them instructions on how to contribute using the available hardware. We explained how to address the engineering challenges associated with such a training run (slow communication, limited memory, uneven performance between devices, and security concerns) and discussed how the viewers can set up collaborative training runs themselves. Finally, we show that the resulting model generates images of reasonable quality on a number of prompts.},
   altmetric = {true},
   google_scholar_id = {2osOgNQ5qMEC},
   bibtex_show = {true}
@@ -139,6 +162,7 @@
   pdf       = {https://arxiv.org/pdf/2106.10207.pdf},
   arxiv     = {2106.10207},
   eprint    = {2106.10207},
+  abstract  = {Modern deep learning applications require increasingly more compute to train state-of-the-art models. To address this demand, large corporations and institutions use dedicated High-Performance Computing clusters, whose construction and maintenance are both environmentally costly and well beyond the budget of most organizations. As a result, some research directions become the exclusive domain of a few large industrial and even fewer academic actors. To alleviate this disparity, smaller groups may pool their computational resources and run collaborative experiments that benefit all participants. This paradigm, known as grid- or volunteer computing, has seen successful applications in numerous scientific areas. However, using this approach for machine learning is difficult due to high latency, asymmetric bandwidth, and several challenges unique to volunteer computing. In this work, we carefully analyze these constraints and propose a novel algorithmic framework designed specifically for collaborative training. We demonstrate the effectiveness of our approach for SwAV and ALBERT pretraining in realistic conditions and achieve performance comparable to traditional setups at a fraction of the cost. Finally, we provide a detailed report of successful collaborative language model pretraining with 40 participants.},
   altmetric = {true},
   google_scholar_id = {u5HHmVD_uO8C},
   code      = {https://github.com/yhn112/DeDLOC},

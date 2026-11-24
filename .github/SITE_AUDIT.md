@@ -123,15 +123,15 @@ External-link repairs, citation-fetch reliability, PDF content mapping, and the 
   Text extraction confirms that the committed pre-migration PDF and the regenerated migration PDF
   both omit these values while showing institutions and skill category names.
   This is an existing content-mapping defect, not a migration regression.
-- Add the October 2026 WMT paper
+- Decide whether the October 2026 WMT paper
   [One Model, Five Tasks, Two RTX 3090 GPUs](https://aclanthology.org/2026.wmt-main.209/)
-  to [\_bibliography/papers.bib](../_bibliography/papers.bib), with a news entry if desired.
-  ACL Anthology identifies Michael Diskin as its author; the paper is absent from the current bibliography.
+  should get a news entry; the paper itself is now in [\_bibliography/papers.bib](../_bibliography/papers.bib).
 - Add the PhD education entry to [\_data/cv.yml](../_data/cv.yml)
   using Michael's confirmed institution, program, and dates.
   The current education list ends with the 2022–2024 MSc.
-- Review the research summary and news for current work.
+- Review news and selected homepage papers for current work.
   The latest news item is dated 23 April 2026, and all three selected homepage papers are from 2021–2023.
+  The homepage research paragraph now lists the 2025–2026 themes.
   The `950+` total and `650+` GNN citation figures in prose are maintained independently of the citation cache.
 - Add the existing Scholar identifier `WF5omc3nYNoC` to the sparse activations paper
   if it should display a citation badge.
@@ -149,7 +149,47 @@ External-link repairs, citation-fetch reliability, PDF content mapping, and the 
   At a 390-pixel viewport, the portrait and location list occupy most of the space before the name and summary.
   This is an editorial choice; no horizontal overflow was measured in the inspected layouts.
 
+## Peer-site comparison
+
+On 24 November 2026, the homepages and up to three subpages of 13 researcher sites were read with WebFetch:
+
+- academic NLP and optimization: Lena Voita, Tim Dettmers, Eduard Gorbunov, Colin Raffel;
+- industry research: Eugene Yan, Nathan Lambert, Lucas Beyer, Yi Tay, Chip Huyen;
+- researcher-practitioners and group leads: Sebastian Raschka, Sasha Rush, Hamel Husain, Peter Richtárik.
+
+Parts of Richtárik's homepage and talks page and of Gorbunov's publications page were read only through a model summary.
+No personal sites were found for Max Ryabinin or Alexander Borzunov.
+
+The same change added items that needed no new information from Michael:
+
+- research themes with links to publications on the homepage;
+- a [contact page](../_pages/contact.md) with short, medium, and long bios and the headshot;
+- abstracts for publications whose primary sources were reachable (arXiv, ACL Anthology).
+  The two OpenReview papers have none: OpenReview pages, API, and PDFs returned HTTP 403 browser challenges.
+- the 2025 YSDA NLP course role, as stated in the course README.
+
+Candidate additions that need Michael's information or decisions, with the sites where each was observed:
+
+- Contact routing for hiring, student supervision, talk requests, collaboration, and consulting
+  (Gorbunov, Eugene Yan, Lambert, Raffel, Huyen).
+- Talks grouped by type, with slides, recordings, podcasts, and workshop presentations
+  (Voita, Richtárik, Hamel, Eugene Yan, Lambert).
+  The BibTeX `slides`, `poster`, and `video` fields are rendered natively.
+- A projects page with open-source and publicly describable industry work and Michael's role in each
+  (Hamel, Beyer, Yi Tay).
+- Students and mentees with periods, topics, and next positions (Gorbunov, Richtárik, Rush, Dettmers).
+- A Service section in [\_data/cv.yml](../_data/cv.yml) for reviewing and organizing
+  (Voita, Dettmers, Beyer, Richtárik).
+- Lecture recordings and slides through course `schedule` materials in `_teachings/` (Gorbunov, Raschka).
+- A higher-resolution headshot; the current file is 640 × 640 px.
+- Pronouns for the third-person bios, which currently avoid them.
+- Writing, observed on almost all 13 sites: paper companion posts (Voita) or external posts through `external_sources`.
+  A newsletter, comments, and site search add little without regular posts.
+
 ## Decisions and missing information
+
+- Peer-site candidates: choose which [candidate additions](#peer-site-comparison) to pursue and supply their content.
+  Wildberries work beyond the CV wording needs Michael's approval for public description.
 
 - PhD: confirm institution, program, start date, and public wording before editing the CV.
 - The latest remote citation cache also contains `Query–Key Ensembles for Mathematical Reasoning Verification`.
