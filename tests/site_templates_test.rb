@@ -9,7 +9,7 @@ require "yaml"
 
 ROOT = File.expand_path("..", __dir__)
 CONFIG = YAML.safe_load_file(File.join(ROOT, "_config.yml"))
-DATA = %w[socials citations venues].to_h do |name|
+DATA = %w[socials citations venues cv].to_h do |name|
   [name, YAML.safe_load_file(File.join(ROOT, "_data", "#{name}.yml"))]
 end
 
@@ -45,6 +45,21 @@ end
     assert(schema["headline"] == (url == "/" ? "Michael Diskin" : title), "Unexpected headline")
     assert(schema["url"] == "https://diskin.me#{url}", "Canonical URL changed")
   end
+end
+
+check("Homepage JSON-LD is a ProfilePage about a Person with a large preview card") do
+  html = render_override("_includes/metadata.liquid", page: { "url" => "/", "title" => "about", "profile" => { "image" => "prof_pic.png" } })
+  schema = JSON.parse(html.match(%r{<script type="application/ld\+json">(.*?)</script>}m)[1])
+  person = schema.fetch("mainEntity")
+  assert(schema["@type"] == "ProfilePage" && person["@type"] == "Person", "Homepage is not a ProfilePage about a Person")
+  assert(person["alternateName"].include?("Михаил Дискин"), "Alternate names are missing")
+  assert(person["jobTitle"] == DATA.dig("cv", "cv", "label"), "Job title does not come from the CV")
+  assert(person["worksFor"].map { |org| org["name"] } == ["Wildberries"], "Current employer is missing or wrong")
+  assert(person["affiliation"].map { |org| org["name"] } == ["HSE University"], "Affiliation is missing")
+  assert(person["alumniOf"].map { |org| org["name"] } == ["HSE University", "Yandex School of Data Analysis"], "Education is missing or duplicated")
+  assert(person["image"] == "https://diskin.me/assets/img/prof_pic.png", "Profile image URL changed")
+  assert(person["sameAs"].include?("https://scholar.google.com/citations?user=LRKQhcYAAAAJ"), "Scholar profile is missing from sameAs")
+  assert(html.include?('name="twitter:card" content="summary_large_image"'), "Preview image is not a large card")
 end
 
 check("Google and Yandex load once without a consent gate") do

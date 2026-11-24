@@ -12,6 +12,11 @@ description: >
   AI/ML leader. Head of LLM R&D at Wildberries. Building large-scale language systems, embeddings, and ML infrastructure.
 footer_text: '<a href="/privacy/">Privacy</a>.'
 keywords: michael diskin, mikhail diskin, михаил дискин, майкл дискин, llm, machine learning, nlp, deep learning, ai research, embeddings, машинное обучение, обработка естественного языка, большие языковые модели
+# Homepage ProfilePage structured data; the current job and education come from _data/cv.yml
+alternate_names: [Mikhail Diskin, Михаил Дискин, Майкл Дискин]
+affiliations:
+  - name: HSE University
+    url: https://www.hse.ru/en/
 x_username: michael_diskin
 lang: en
 icon: favicon-8-md-split.svg
