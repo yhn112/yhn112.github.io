@@ -22,7 +22,7 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
-    addressable (2.9.0)
+    addressable (2.9.2)
       public_suffix (>= 2.0.2, < 8.0)
     al_analytics (1.0.2)
       jekyll (>= 3.9, < 5.0)
@@ -404,7 +404,7 @@ DEPENDENCIES
 
 CHECKSUMS
   activesupport (8.1.4.1) sha256=16ac4f341ca65c85a1fcdb8ac73f68891aae9e3c4a6f9c3a27daed8b00017ed7
-  addressable (2.9.0) sha256=7fdf6ac3660f7f4e867a0838be3f6cf722ace541dd97767fa42bc6cfa980c7af
+  addressable (2.9.2) sha256=9117c7e7d6ee07230e75ce41fb9401ae55354dc654fcd0e862ba41d539e9a610
   al_analytics (1.0.2) sha256=0c8e0c029b1a28401d21ed9b56033036697e61722a0d8867f33c30010ad738d6
   al_charts (1.0.1) sha256=ce26374c2b1159ae0d65dc7999730be700a9ee486002ae14cb480eef70580885
   al_comments (1.0.0) sha256=1da87a29b55e4d9fd62d380200af9671f10ae4a84e3259828588498d8f3210e5
