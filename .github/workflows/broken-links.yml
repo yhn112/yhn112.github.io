@@ -18,6 +18,7 @@ on:
       - "_data/cv.yml"
       - "_data/coauthors.yml"
       - "_data/venues.yml"
+      - "_bibliography/papers.bib"
       - "assets/html/**/*.html"
   pull_request:
     branches:
@@ -34,6 +35,7 @@ on:
       - "_data/cv.yml"
       - "_data/coauthors.yml"
       - "_data/venues.yml"
+      - "_bibliography/papers.bib"
       - "assets/html/**/*.html"
   workflow_dispatch:
 
@@ -52,4 +54,4 @@ jobs:
         uses: lycheeverse/lychee-action@v2.0.2
         with:
           fail: true
-          args: --user-agent 'curl/7.54' --max-retries 3 --retry-wait-time 2 --exclude-path _pages/404.md --exclude-path _pages/blog.md --verbose --no-progress '_pages/**/*.md' '_posts/**/*.md' '_projects/**/*.md' '_news/**/*.md' '_books/**/*.md' '_teachings/**/*.md' '_data/socials.yml' '_data/cv.yml' '_data/coauthors.yml' '_data/venues.yml' 'assets/html/**/*.html'
+          args: --user-agent 'curl/7.54' --max-retries 3 --retry-wait-time 2 --exclude-path _pages/404.md --exclude-path _pages/blog.md --verbose --no-progress '_pages/**/*.md' '_posts/**/*.md' '_projects/**/*.md' '_news/**/*.md' '_books/**/*.md' '_teachings/**/*.md' '_data/socials.yml' '_data/cv.yml' '_data/coauthors.yml' '_data/venues.yml' '_bibliography/papers.bib' 'assets/html/**/*.html'
