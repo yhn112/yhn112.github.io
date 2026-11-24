@@ -59,7 +59,7 @@ The upstream [migration guide](https://github.com/alshedivat/al-folio/blob/v1.2/
 and [ownership boundaries](https://github.com/alshedivat/al-folio/blob/v1.2/docs/BOUNDARIES.md)
 describe future gem upgrades.
 
-## Upstream comparisons
+## Upstream lineage and comparisons
 
 The `upstream` remote points to `https://github.com/alshedivat/al-folio.git`.
 The original release is kept as the namespaced tag `al-folio/v1.2`,
@@ -72,19 +72,45 @@ git remote add upstream https://github.com/alshedivat/al-folio.git
 git fetch --no-tags upstream refs/tags/v1.2:refs/tags/al-folio/v1.2
 ```
 
-Compare starter configuration, dependencies, and workflows against the original release:
+The site was created from the template without upstream history.
+After the rollout, `migration/al-folio-v1.2` was moved to a single commit on top of `al-folio/v1.2`.
+Its files were copied from the site after the documentation alignment;
+the migration history was not replayed.
+That commit was merged into `main` with `--allow-unrelated-histories` without changing any file,
+so the v1.2 release is an ancestor of `main`, and `main` now contains 1113 upstream commits.
+The original migration commits remain in `main` through PR 4.
+
+Show the site's changes against the clean release and check the lineage:
 
 ```sh
-git diff al-folio/v1.2 HEAD --stat
+git diff al-folio/v1.2 migration/al-folio-v1.2 --stat
 git diff al-folio/v1.2 HEAD -- Gemfile _config.yml .github/workflows
+git merge-base main al-folio/v1.2
 ```
 
-These compare the two snapshots directly, preserving the site's existing history.
+The merge base is the release commit recorded above.
 The full diff includes personal content and removed starter examples.
 Runtime templates live in gems, so use the override audit and per-file diff commands above
 for their actual implementation differences.
 Those commands compare against the installed gem versions;
 the current pins are the v1.2 release set.
+
+The upstream guides in `docs/`, `.github/agents/`, and `.github/instructions/` are unchanged v1.2 copies;
+[AGENTS.md](../AGENTS.md#documentation-precedence) defines their precedence.
+
+To adopt a later release, merge its tag instead of copying files:
+
+```sh
+git fetch --no-tags upstream refs/tags/vX.Y:refs/tags/al-folio/vX.Y
+git switch -c upgrade/al-folio-vX.Y main
+git merge al-folio/vX.Y
+```
+
+When upstream modifies a starter file that the site removed, keep it removed;
+resolve site configuration conflicts by hand.
+Regenerate `Gemfile.lock` from the merged `Gemfile` with `bundle lock`,
+read the release notes in `docs/releases/`, and run the override checks above.
+Merge the pull request with a merge commit; squash and rebase merges drop the upstream ancestor.
 
 ## Assets, analytics, and automation
 
@@ -95,6 +121,8 @@ and skips a font directory once it contains any files;
 Academicons and Scholar Icons share the resulting `assets/libs/fonts` directory.
 The helper verifies each CSS integrity hash and preserves all referenced font formats.
 Downloaded files remain disposable under `assets/libs`.
+Remove the helper once a `jekyll-3rd-party-libraries` release newer than 0.0.1
+no longer skips a non-empty font directory.
 The legacy CSS minifier's second compression pass is disabled:
 it corrupts Tailwind's `calc(var(--spacing))` expressions and changes Scholar Icons' integrity hash.
 Tailwind remains precompiled and minified, and Sass still uses compressed output.

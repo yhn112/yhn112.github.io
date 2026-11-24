@@ -20,6 +20,9 @@ It also orders PDF rendering before the build and replaces the broken driver set
 The production build, internal links, browser matrix, and Axe checks passed before merge.
 The migrated site is published at [diskin.me](https://diskin.me).
 The release pipeline and live checks passed; their exact revisions and scope are in the migration record.
+The site's changes also exist as one commit on top of the clean v1.2 release, merged into `main`,
+and the generic guides now match v1.2;
+see [upstream lineage](MIGRATION.md#upstream-lineage-and-comparisons).
 
 The migration resolves the Ruby/driver failures, PDF build ordering, invalid JSON-LD,
 privacy mismatch and missing footer link, measured contrast defects, and unnamed CV download.
