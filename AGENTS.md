@@ -8,29 +8,20 @@ The site targets al-folio v1.2 with gem-owned runtime files.
 See [the migration record](.github/MIGRATION.md) for implementation status, retained overrides, checks, and release steps.
 See [the site audit](.github/SITE_AUDIT.md) for the historical baseline and separate content work.
 
-Michael approved these migration decisions on 24 November 2026:
+This section lists only Michael's decisions that still apply to future work.
+Record one-time choices and their results where that work is documented:
+migration decisions in [the migration record](.github/MIGRATION.md#status-and-decisions),
+content decisions in the site audit.
 
-- Use the v1.2 layout while preserving content, routes, site colors, and profile.
+Michael's decisions of 24 November 2026:
+
 - Keep Google Analytics and Yandex.Metrika loading immediately, including the existing Yandex settings;
-  make Privacy describe that behavior.
-- Disable the unavailable GitHub trophies widget while preserving the other repository cards.
-- Configure an `upstream` remote and keep the original release at `al-folio/v1.2` for direct comparisons.
-
-Michael subsequently authorized the upstream setup and upload on 24 November 2026
-("делай. и заливать можно").
-Use the existing `origin` repository and `diskin.me` publication scope;
-complete CI and visual acceptance before publishing the migrated site.
-
-After the rollout, Michael decided on 24 November 2026:
-
-- Keep a commit with the site's changes on top of the clean al-folio v1.2 release.
-  Copy its files from the site instead of replaying the migration history.
-  Merge it into `main` without rewriting `main`, so v1.2 becomes an ancestor of `main`.
-  Force-push is authorized to move `migration/al-folio-v1.2` to that commit.
-- Replace the outdated generic al-folio documentation with the v1.2 versions.
-- Load third-party libraries from their CDNs, as in v1.2 (`third_party_libraries.download: false`).
-- Show only CV sections in the sidebar table of contents, built by tocbot.
-- Use the al-folio v1.2 `Gemfile.lock` verbatim.
+  Privacy describes that behavior.
+- Keep the `upstream` remote and the original release at `al-folio/v1.2` for direct comparisons.
+- Do not rewrite `main`; adopt upstream releases by merging them,
+  as described in [the migration record](.github/MIGRATION.md#upstream-lineage-and-comparisons).
+- Publish through the existing `origin` repository to `diskin.me`
+  (Michael authorized the upload: "делай. и заливать можно").
 - If Content Security Policy violations break Yandex Webvisor, override `_includes/head.liquid`
   to add the Yandex exceptions; until they are confirmed, keep the gem's policy.
 

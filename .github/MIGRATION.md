@@ -11,10 +11,24 @@ It follows upstream release [v1.2](https://github.com/alshedivat/al-folio/releas
 at `b95d6d61a1b0663529094b1b5f4fbe8aa41f8a04`.
 The old local runtime is replaced by the release's exact gem pins,
 including `al_folio_core` 1.0.15 and `al_folio_cv` 1.0.2.
-`Gemfile` and `Gemfile.lock` match the release verbatim, including the lockfile's checksums.
+`Gemfile` matches the release verbatim.
 The remote citation commits through `ab8be0b` were merged without rewriting history.
 
-Michael's approved decisions are recorded in [AGENTS.md](../AGENTS.md#current-project-direction).
+Michael's one-time migration decisions of 24 November 2026:
+
+- Use the v1.2 layout while preserving content, routes, site colors, and profile.
+- Disable the unavailable GitHub trophies widget while preserving the other repository cards.
+- Complete CI and visual acceptance before publishing the migrated site.
+- Keep a commit with the site's changes on top of the clean v1.2 release,
+  copied from the site instead of replaying the migration history, and merge it into `main`.
+  Force-push was authorized only to move `migration/al-folio-v1.2` to that commit.
+- Replace the outdated generic al-folio documentation with the v1.2 versions.
+- Load third-party libraries from their CDNs, as in v1.2 (`third_party_libraries.download: false`).
+- Show only CV sections in the sidebar table of contents, built by tocbot.
+- Replace the old site's `Gemfile.lock` with the release's lockfile, including its checksums (PR 6).
+  This was a one-time replacement, not a pin.
+
+Decisions that still apply are in [AGENTS.md](../AGENTS.md#current-project-direction).
 The migration keeps `https://diskin.me`, an empty `baseurl`, `CNAME`, page permalinks,
 content collections, bibliography, CV source, RenderCV settings, and personal assets.
 Existing disabled sections and features stay disabled.
