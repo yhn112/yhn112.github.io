@@ -170,6 +170,10 @@ These were found in the post-rollout review and left unchanged:
   publication search filters on every keystroke without the intended delay,
   and Chrome logs a Content Security Policy `unsafe-eval` violation for the returned value.
   Search still works (PR 6 CI, 24 November 2026); the fix belongs upstream.
+- `bundle exec al-folio upgrade audit` reports one non-blocking `legacy_data_toggle` finding:
+  the `bib.liquid` override keeps the gem's own `data-toggle="popover"` annotation markup,
+  which `al_folio_core` 1.0.15 `assets/js/tooltips-setup.js` handles without Bootstrap.
+  `al_folio_upgrade` 1.0.3 flags its own runtime's markup; no publication has an annotation today.
 - Upstream merges add new upstream workflows silently, while changes to deleted starter files appear as modify/delete conflicts;
   review `.github/workflows` after each merge.
 
