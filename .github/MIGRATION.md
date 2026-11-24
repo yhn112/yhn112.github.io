@@ -127,7 +127,8 @@ Tailwind remains precompiled and minified, and Sass still uses compressed output
 Browser checks verify navbar geometry, the icon font, integrity hashes of local assets,
 and scripts or stylesheets with empty URLs.
 
-Google Analytics uses `al_analytics` 1.0.2 and its supported top-level configuration keys.
+Google Analytics uses `al_analytics` 1.0.2 with the v1.2 `analytics:` block;
+the gem reads top-level keys first and falls back to that block.
 Yandex keeps `_scripts/yandex-metrika-setup.js` and its existing counter and options.
 Both load immediately in the production site, without a consent dialog.
 Privacy describes Webvisor, click maps, link tracking, bounce tracking, and the ecommerce data layer;
@@ -153,9 +154,7 @@ Publishing remains on `gh-pages`; GitHub Pages settings and DNS are unchanged.
 
 These were found in the post-rollout review and left unchanged:
 
-- v1.2's `_config.yml` nests analytics IDs under `analytics:`, while the site keeps top-level keys,
-  which `al_analytics` 1.0.2 reads first; expect conflicts in that block on upstream merges.
-  Yandex additionally depends on `include: [_pages, _scripts]` and the analytics override,
+- Yandex depends on the site's `yandex_metrika` keys, `include: [_pages, _scripts]` and the analytics override,
   loads only in production, and bypasses the cookie-consent gate, which is disabled.
 - Every publication, including citation-triggered deploys, waits for browser, Axe, link, formatting and upgrade checks;
   Chrome is installed at its current stable version, so a browser change can block publishing.
