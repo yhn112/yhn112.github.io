@@ -1,9 +1,30 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
-  color: "#00369f"
+"ICML":
+  url: https://icml.cc/
+  color: "#d62728"
 
-"PhysRev":
-  url: https://journals.aps.org/
+"ICLR":
+  url: https://iclr.cc/
+  color: "#2ca02c"
+  text_color: "#111111"
 
-"Vision":
-  color: "#009f36"
+"ICLR-W":
+  url: https://iclr.cc/
+  color: "#6aa84f"
+  text_color: "#111111"
+
+"NeurIPS":
+  url: https://neurips.cc/
+  color: "#1f77b4"
+
+"OSS":
+  color: "#333333"
+
+"NeurIPS-W":
+  url: https://neurips.cc/
+  color: "#9467bd"
+  text_color: "#000000"
+
+"EMNLP-W":
+  url: https://2025.emnlp.org/
+  color: "#e377c2"
+  text_color: "#111111"

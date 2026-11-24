@@ -1,15 +1,18 @@
 ---
 layout: page
 permalink: /teaching/
-title: teaching
-description: Course materials, schedules, and resources for classes taught.
+title: "talks&teaching"
+description: Courses, lectures, and talks.
 nav: true
-nav_order: 6
-calendar: true
+nav_order: 4
 ---
 
-This page displays a collection of courses with detailed schedules, materials, and resources. You can organize your courses by years, terms, or topics.
+## Talks
 
-{% include calendar.liquid calendar_id='test@gmail.com' timezone='Asia/Shanghai' %}
+- **2026** — [Do You Really Need a Multi-Agent System? Lessons from Teams That Already Tried](https://data-fusion.ru/page-program-2026?active_day=9&session_id=68846) — Data Fusion 2026.
+- **2025** — [LLMs One Year Later](https://vk.com/video-214144682_456239200) — industry panel.
+- **2024** — [Optimizing Marketplace Operations with Language Models](https://vk.com/video-22522055_456244299) — Wildberries Tech.
+
+## Teaching
 
 {% include courses.liquid %}

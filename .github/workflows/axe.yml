@@ -1,74 +1,81 @@
 name: Axe accessibility testing
 
 on:
-  # if you want to run this on every push uncomment the following lines
-  # push:
-  #   branches:
-  #     - master
-  #     - main
-  # pull_request:
-  #   branches:
-  #     - master
-  #     - main
+  workflow_call:
+    inputs:
+      artifact_name:
+        type: string
+        required: true
+      source_sha:
+        type: string
+        required: true
   workflow_dispatch:
     inputs:
       url:
-        description: "URL to be checked (e.g.: blog/)"
+        description: "Published page path to check (empty checks the main sections)"
         required: false
 
-env:
-  URL: ""
+permissions:
+  contents: read
 
 jobs:
   check:
-    # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v4
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@v4
         with:
-          ruby-version: "3.2.2"
-          bundler-cache: true
-      - name: Update _config.yml ⚙️
-        uses: fjogeleit/yaml-update-action@main
+          ref: ${{ inputs.source_sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
         with:
-          commitChange: false
-          valueFile: "_config.yml"
-          changes: |
-            {
-              "giscus.repo": "${{ github.repository }}",
-              "baseurl": ""
-            }
-      - name: Install and Build 🔧
-        run: |
-          sudo apt-get update && sudo apt-get install -y imagemagick
-          pip3 install --upgrade jupyter
-          export JEKYLL_ENV=production
-          bundle exec jekyll build
-      - name: Purge unused CSS 🧹
-        run: |
-          npm install -g purgecss
-          purgecss -c purgecss.config.js
-      - name: Get Chromium version 🌐
-        # https://github.com/GoogleChromeLabs/chrome-for-testing?tab=readme-ov-file#other-api-endpoints
-        run: |
-          CHROMIUM_VERSION=$(wget -qO- https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE | cut -d. -f1)
-          echo "Chromium version: $CHROMIUM_VERSION"
-          echo "CHROMIUM_VERSION=$CHROMIUM_VERSION" >> $GITHUB_ENV
-      - name: Setup Chrome 🌐
-        id: setup-chrome
-        uses: browser-actions/setup-chrome@v1
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        if: inputs.artifact_name != ''
         with:
-          chrome-version: ${{ env.CHROMIUM_VERSION }}
-      - name: Install chromedriver 🚗
+          name: ${{ inputs.artifact_name }}
+          path: _site
+      - name: Set up Chrome and its matching driver
+        id: chrome
+        uses: browser-actions/setup-chrome@48ad923757ca74d66703209fe939badbdf80f2f4 # v2.2.0, packaged release
+        with:
+          chrome-version: stable
+          install-dependencies: true
+          install-chromedriver: true
+      - name: Check accessibility and browser behavior
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+          CHROMEDRIVER_PATH: ${{ steps.chrome.outputs.chromedriver-path }}
+          ARTIFACT_NAME: ${{ inputs.artifact_name }}
+          PAGE_PATH: ${{ inputs.url }}
         run: |
-          npm install -g chromedriver@$CHROMIUM_VERSION
-      - name: Run axe 🪓
-        # https://github.com/dequelabs/axe-core-npm/tree/develop/packages/cli
-        run: |
-          npm install -g @axe-core/cli
-          npm install -g http-server
-          http-server _site/ &
-          axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver http://localhost:8080/${{ github.event.inputs.url || env.URL }} --load-delay=1500 --exit
+          SITE_URL=https://diskin.me
+          browser_status=0
+          if [ -n "$ARTIFACT_NAME" ]; then
+            python3 -m http.server 8080 --protocol HTTP/1.1 --directory _site > "$RUNNER_TEMP/site-server.log" 2>&1 &
+            SERVER_PID=$!
+            trap 'kill "$SERVER_PID"' EXIT
+            SITE_URL=http://localhost:8080
+            curl --fail --silent --show-error --retry 5 --retry-connrefused --retry-delay 1 "$SITE_URL/" > /dev/null
+            export SITE_URL
+            node tests/site-browser.mjs || browser_status=$?
+          fi
+          paths=("" "publications/" "cv/" "teaching/" "repositories/" "news/" "privacy/")
+          if [ -n "$PAGE_PATH" ]; then
+            paths=("${PAGE_PATH#/}")
+          fi
+          urls=()
+          for path in "${paths[@]}"; do
+            urls+=("$SITE_URL/$path")
+          done
+          npx axe --chrome-path "$CHROME_PATH" --chromedriver-path "$CHROMEDRIVER_PATH" \
+            --chrome-options="--headless=new,--no-sandbox,--disable-dev-shm-usage" \
+            --load-delay=1500 --exit "${urls[@]}"
+          exit "$browser_status"
+      - uses: actions/upload-artifact@v4
+        if: always() && inputs.artifact_name != ''
+        with:
+          name: site-browser-results
+          path: test-results/
+          if-no-files-found: warn

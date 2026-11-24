@@ -1,27 +1,52 @@
-# Copilot Coding Agent Instructions (v1.x)
+# Coding instructions for diskin.me
 
-**Read [`AGENTS.md`](../AGENTS.md) first — it is the authoritative entry point for all coding agents in this repo.** It carries the change-routing table, the stop sign for gem-owned paths, the three silent failure modes, and the validated command set. This file previously duplicated that content; it is now a pointer so the rules cannot drift apart.
+Read [AGENTS.md](../AGENTS.md) first.
+Its prohibition on local Jekyll builds and servers applies to both Codex and Claude Code.
 
-In short: `al-folio` v1.x is a **thin Jekyll starter, not a theme**. It owns starter wiring (`Gemfile`, `_config.yml`), example content, docs, integration tests, and visual parity tests. All runtime — layouts, includes, Sass, Liquid tags, filters, feature JS — lives in versioned gems under [`al-org-dev`](https://github.com/al-org-dev). Route runtime changes to the owning gem.
+## Site and runtime
 
-## Where to look
+This is Michael Diskin's academic and professional website at `https://diskin.me`.
+It uses Jekyll 4 with the al-folio v1.2 starter contract and exact plugin pins in `Gemfile`.
+Ruby is selected by `.ruby-version`; commit dependency resolution in `Gemfile.lock`.
 
-| Question                             | File                                                                                          |
-| ------------------------------------ | --------------------------------------------------------------------------------------------- |
-| Which repo does my change belong in? | [`AGENTS.md`](../AGENTS.md#route-your-change)                                                 |
-| Which gem owns this area?            | [`docs/BOUNDARIES.md`](../docs/BOUNDARIES.md)                                                 |
-| Which gem owns this Liquid tag?      | [`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md#wrapper-to-tag-to-gem-delegation)            |
-| Why did my feature render nothing?   | [`docs/ARCHITECTURE.md`](../docs/ARCHITECTURE.md#failure-modes-that-produce-no-error-message) |
-| What commands should I run?          | [`AGENTS.md`](../AGENTS.md#validated-local-command-set)                                       |
-| How do I contribute?                 | [`docs/CONTRIBUTING.md`](../docs/CONTRIBUTING.md)                                             |
+Shared runtime files come from gems.
+Local `_includes`, `_layouts`, `_sass`, and runtime asset files are intentional customizations.
+Review and acknowledge gem-owned overrides in `.al-folio-overrides.yml`.
+See [the migration record](MIGRATION.md) for ownership, reasons, commands, and verification limits.
 
-## Copilot-specific paths
+## Site-owned inputs
 
-- `.github/agents/` — custom agents (`customize.agent.md`, `docs.agent.md`).
-- `.github/instructions/` — per-file-type instruction files (Liquid, YAML, BibTeX, Markdown, JavaScript).
-- `.github/workflows/copilot-setup-steps.yml` — pre-installs Ruby, Python, Node, ImageMagick, and nbconvert for the coding agent.
-- `.agents/skills/` — canonical agent skills, also exposed via the `.codex/skills` and `.claude/skills` symlinks.
+- `_config.yml`: domain, language, metadata, feature flags, and v1 runtime contract.
+- `_pages`, `_news`, `_teachings`: page content and existing routes.
+- `_bibliography/papers.bib`: publications.
+- `_data`: CV, citations, social links, coauthors, venues, and repositories.
+- `assets/img`, `assets/pdf`, `assets/rendercv`: personal assets and PDF settings.
+- `_scripts/yandex-metrika-setup.js`: the site's Yandex integration.
 
-## CI expectations
+Keep `url: https://diskin.me` and an empty `baseurl` consistent.
+Preserve existing permalinks and disabled demo sections.
+Do not copy starter sample content over personal data.
 
-Keep these workflows aligned when changing starter behavior: `unit-tests.yml` (style contract plus all six `test/integration_*.sh` scripts), `visual-regression.yml`, `upgrade-check.yml`, `prettier.yml`, and `deploy.yml`.
+## Verification and delivery
+
+Local source checks:
+
+```sh
+npx prettier . --write
+npx prettier . --check
+bundle exec ruby tests/site_templates_test.rb
+python -m unittest discover -s tests -p 'test_*.py'
+bundle exec al-folio upgrade audit
+bundle exec al-folio upgrade overrides audit --fail-on-stale
+git diff --check
+```
+
+The production build runs only in GitHub Actions.
+`deploy.yml` renders the PDF, prepares icon fonts, builds once,
+and passes the same artifact through browser/accessibility checks and offline link checks before publishing.
+PR builds do not publish.
+`render-cv.yml` preserves generated PDF commits;
+`update-citations.yml` preserves citation updates and cache failure handling.
+
+Follow [the Git workflow](GIT_WORKFLOW.md).
+Changes to site requirements and publication need the authorization described in `AGENTS.md`.

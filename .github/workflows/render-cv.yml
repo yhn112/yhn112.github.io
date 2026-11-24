@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT || github.token }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -37,13 +39,13 @@ jobs:
             echo "No RenderCV config directory found!"
             exit 1
           fi
-          settings=$(find $rendercv_dir -maxdepth 1 -type f \( -name "settings.yaml" -o -name "settings.yml" \))
+          settings=$(find "$rendercv_dir" -maxdepth 1 -type f \( -name "settings.yaml" -o -name "settings.yml" \))
           if [ -z "$settings" ]; then
             echo "Missing RenderCV config file!"
             exit 1
           fi
-          rendercv render $cv_file --settings $settings
-          rm assets/rendercv/rendercv_output/*.typ
+          rendercv render "$cv_file" --settings "$settings"
+          rm -f assets/rendercv/rendercv_output/*.typ
       - name: Upload rendercv_output as an artifact
         uses: actions/upload-artifact@v4
         with:
@@ -51,8 +53,12 @@ jobs:
           path: assets/rendercv/rendercv_output
       - name: Push the changes
         run: |
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git add -A
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git add assets/rendercv/rendercv_output/*.pdf
+          if git diff --cached --quiet; then
+            echo "No RenderCV output changes to commit."
+            exit 0
+          fi
           git commit -m "chore: render the latest CV"
           git push
