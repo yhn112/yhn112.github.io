@@ -114,19 +114,17 @@ Merge the pull request with a merge commit; squash and rebase merges drop the up
 
 ## Assets, analytics, and automation
 
-The icon configuration uses the v1.2 Font Awesome, Academicons, and Scholar Icons versions and CSS integrity hashes.
-`bin/download_icon_fonts.py` downloads their fonts before the Jekyll library hook.
-This is needed because `jekyll-3rd-party-libraries` 0.0.1 flattens CSS paths
-and skips a font directory once it contains any files;
-Academicons and Scholar Icons share the resulting `assets/libs/fonts` directory.
-The helper verifies each CSS integrity hash and preserves all referenced font formats.
-Downloaded files remain disposable under `assets/libs`.
-Remove the helper once a `jekyll-3rd-party-libraries` release newer than 0.0.1
-no longer skips a non-empty font directory.
-The legacy CSS minifier's second compression pass is disabled:
-it corrupts Tailwind's `calc(var(--spacing))` expressions and changes Scholar Icons' integrity hash.
+`third_party_libraries` is the v1.2 block verbatim, so libraries load from their CDNs with integrity hashes (`download: false`).
+The site previously kept the old `download: true` setting,
+which published every listed library under `assets/libs` and needed a font prefetch workaround
+for `jekyll-3rd-party-libraries` 0.0.1; both were removed on 24 November 2026.
+The v1.2 block also restores `tocbot`, which the CV's sidebar table of contents loads,
+and drops entries that no v1.2 gem reads.
+The legacy CSS minifier's second compression pass stays disabled, as in v1.2:
+it corrupts Tailwind's `calc(var(--spacing))` expressions.
 Tailwind remains precompiled and minified, and Sass still uses compressed output.
-Browser checks verify navbar geometry and integrity hashes of the loaded local assets.
+Browser checks verify navbar geometry, the icon font, integrity hashes of local assets,
+and the absence of Content Security Policy violations.
 
 Google Analytics uses `al_analytics` 1.0.2 and its supported top-level configuration keys.
 Yandex keeps `_scripts/yandex-metrika-setup.js` and its existing counter and options.

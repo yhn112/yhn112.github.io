@@ -67,8 +67,6 @@ jobs:
         run: rendercv render _data/cv.yml --settings assets/rendercv/settings.yaml
       - name: Install ImageMagick
         run: sudo apt-get update && sudo apt-get install -y imagemagick
-      - name: Prepare local icon fonts
-        run: python bin/download_icon_fonts.py
       - name: Build the production artifact
         env:
           JEKYLL_ENV: production

@@ -89,7 +89,7 @@ async function checkPage(route, theme, width) {
     `Broken local image: ${route}`
   );
   const errors = (await driver.manage().logs().get(logging.Type.BROWSER)).filter((entry) =>
-    /Uncaught|SyntaxError|ReferenceError|TypeError/.test(entry.message)
+    /Uncaught|SyntaxError|ReferenceError|TypeError|Content Security Policy/.test(entry.message)
   );
   assert.equal(errors.length, 0, `JavaScript errors on ${route}: ${JSON.stringify(errors)}`);
   if (sections.includes(route)) {
@@ -118,7 +118,7 @@ try {
       await driver.wait(
         () => driver.executeScript(() => [...document.fonts].some((font) => font.family.includes("Font Awesome 7 Free") && font.status === "loaded")),
         10000,
-        "The local icon font did not load"
+        "The icon font did not load"
       );
       const mobileToggle = width < 576 ? await driver.findElement(By.css("[data-nav-toggle]")) : null;
       if (mobileToggle) {
