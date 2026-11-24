@@ -61,7 +61,7 @@ jobs:
             export SITE_URL
             node tests/site-browser.mjs || browser_status=$?
           fi
-          paths=("" "publications/" "cv/" "teaching/" "repositories/" "news/" "privacy/")
+          paths=("" "publications/" "cv/" "teaching/" "repositories/" "news/" "contact/" "privacy/")
           if [ -n "$PAGE_PATH" ]; then
             paths=("${PAGE_PATH#/}")
           fi

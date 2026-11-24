@@ -15,7 +15,7 @@ logPreferences.setLevel(logging.Type.BROWSER, logging.Level.ALL);
 options.setLoggingPrefs(logPreferences);
 const service = new chrome.ServiceBuilder(process.env.CHROMEDRIVER_PATH);
 const driver = await new Builder().forBrowser("chrome").setChromeOptions(options).setChromeService(service).build();
-const sections = ["/", "/publications/", "/cv/", "/teaching/", "/repositories/", "/news/", "/privacy/"];
+const sections = ["/", "/publications/", "/cv/", "/teaching/", "/repositories/", "/news/", "/contact/", "/privacy/"];
 await mkdir("test-results", { recursive: true });
 
 async function collectionRoutes(directory) {
