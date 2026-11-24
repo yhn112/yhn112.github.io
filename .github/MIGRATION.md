@@ -90,17 +90,23 @@ git diff al-folio/v1.2 main -- Gemfile _config.yml .github/workflows
 git merge-base main al-folio/v1.2
 ```
 
-The merge base is the release commit recorded above.
+On 24 November 2026 the site also merged al-folio `main` at `e5f84cc8` (23 commits after v1.2, no new release),
+taking the GitHub Actions major-version update and Prettier 3.9 pins from upstream PR 3704
+and the regenerated `docs/` tables of contents.
+Star-history, screenshot and example-citation refreshes and upstream PR 3705, which limits starter test workflows the site removed, were not taken.
+The merge base is therefore `e5f84cc8`;
+`git diff al-folio/v1.2 main` still shows the site's changes against the release.
 The full diff includes personal content and removed starter examples.
 Runtime templates live in gems, so use the override audit and per-file diff commands above
 for their actual implementation differences.
 Those commands compare against the installed gem versions;
 the current pins are the v1.2 release set.
 
-The upstream guides in `docs/`, `.github/agents/`, and `.github/instructions/` are unchanged v1.2 copies;
+The upstream guides in `docs/`, `.github/agents/`, and `.github/instructions/` are unchanged upstream copies;
 [AGENTS.md](../AGENTS.md#documentation-precedence) defines their precedence.
 
-To adopt a later release, merge its tag instead of copying files:
+To adopt a later release, merge its tag instead of copying files
+(merge `upstream/main` the same way to take unreleased starter changes):
 
 ```sh
 git fetch --no-tags upstream refs/tags/vX.Y:refs/tags/al-folio/vX.Y

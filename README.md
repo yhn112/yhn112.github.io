@@ -9,4 +9,4 @@ local files keep the site's content, configuration, and reviewed overrides.
 - [AGENTS.md](AGENTS.md): working rules for this repository.
 - [Migration record](.github/MIGRATION.md): runtime ownership, overrides, checks, and upstream updates.
 - [Site audit](.github/SITE_AUDIT.md): remaining content and maintenance work.
-- [al-folio v1.2 documentation](docs/README.md): upstream guides, kept unchanged.
+- [al-folio documentation](docs/README.md): upstream guides, kept unchanged.
