@@ -274,7 +274,6 @@ plugins:
   - al_folio_bootstrap_compat
   - al_cookie
   - al_analytics
-  - al_citations
   - al_ext_posts
   - al_img_tools
   - al_search
@@ -368,7 +367,6 @@ enable_publication_badges:
   altmetric: true # Altmetric badge (Customization options: https://badge-docs.altmetric.com/index.html)
   dimensions: false # Dimensions badge (Customization options: https://badge.dimensions.ai/)
   google_scholar: true # Google Scholar badge (https://scholar.google.com/intl/en/scholar/citations.html)
-  inspirehep: false # Inspire HEP badge (https://help.inspirehep.net/knowledge-base/citation-metrics/)
 
 # Filter out certain bibtex entry keywords used internally from the bib output
 filtered_bibtex_keywords:

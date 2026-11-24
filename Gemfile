@@ -49,7 +49,6 @@ group :al_folio_plugins do
     gem 'al_cookie', '= 1.0.1'
 
     gem 'al_analytics', '= 1.0.2'
-    gem 'al_citations', '= 1.0.1'
     gem 'al_ext_posts', '= 1.0.3'
     gem 'al_img_tools', '= 1.0.3'
     gem 'al_search', '= 1.0.3'
