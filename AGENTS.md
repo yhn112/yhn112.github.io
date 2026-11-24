@@ -48,8 +48,8 @@ Review them with `bundle exec al-folio upgrade overrides diff PATH` and acknowle
 
 Site-specific rules live in this file, [`.github/copilot-instructions.md`](.github/copilot-instructions.md),
 and [the migration record](.github/MIGRATION.md).
-`docs/`, `.github/agents/`, and `.github/instructions/` are unchanged al-folio v1.2 copies,
-kept verbatim so that upstream releases merge cleanly.
+`docs/`, `.github/agents/`, and `.github/instructions/` are unchanged al-folio copies,
+kept verbatim so that upstream merges apply cleanly.
 They describe the upstream starter repository:
 its ban on local `_layouts`, `_includes`, `_sass`, and `_scripts`, its `/al-folio` baseurl,
 its local build and Docker commands, and agent skills under `.agents/skills` that this site does not keep.
