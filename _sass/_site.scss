@@ -16,6 +16,8 @@ html[data-theme="dark"] {
   color: var(--global-text-color-light);
 }
 
+// The _layouts/bib.liquid override sets --venue-bg and --venue-text from _data/venues.yml;
+// without this rule every venue badge falls back to the theme color.
 .publications ol.bibliography li .abbr abbr {
   background-color: var(--venue-bg, var(--global-theme-color));
   color: var(--venue-text, #fff) !important;
@@ -43,6 +45,8 @@ html[data-theme="dark"] {
   border-bottom-color: currentColor;
 }
 
+// The assets/js/copy_code.js override makes code blocks focusable;
+// hiding collapsed BibTeX panels keeps them out of the keyboard tab order.
 .publications .hidden {
   visibility: hidden;
 

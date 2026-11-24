@@ -28,6 +28,11 @@ After the rollout, Michael decided on 24 November 2026:
   Merge it into `main` without rewriting `main`, so v1.2 becomes an ancestor of `main`.
   Force-push is authorized to move `migration/al-folio-v1.2` to that commit.
 - Replace the outdated generic al-folio documentation with the v1.2 versions.
+- Load third-party libraries from their CDNs, as in v1.2 (`third_party_libraries.download: false`).
+- Show only CV sections in the sidebar table of contents, built by tocbot.
+- Use the al-folio v1.2 `Gemfile.lock` verbatim.
+- If Content Security Policy violations break Yandex Webvisor, override `_includes/head.liquid`
+  to add the Yandex exceptions; until they are confirmed, keep the gem's policy.
 
 Local runtime files must be intentional overrides of the pinned gems.
 Review them with `bundle exec al-folio upgrade overrides diff PATH` and acknowledge reviewed changes in `.al-folio-overrides.yml`.
