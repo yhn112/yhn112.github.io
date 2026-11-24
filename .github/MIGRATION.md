@@ -80,12 +80,13 @@ the migration history was not replayed.
 That commit was merged into `main` with `--allow-unrelated-histories` without changing any file,
 so the v1.2 release is an ancestor of `main`, and `main` now contains 1113 upstream commits.
 The original migration commits remain in `main` through PR 4.
+That commit is a snapshot of 24 November 2026 (PR 5); later fixes are only in `main`.
 
-Show the site's changes against the clean release and check the lineage:
+Show the site's current changes against the clean release and check the lineage:
 
 ```sh
-git diff al-folio/v1.2 migration/al-folio-v1.2 --stat
-git diff al-folio/v1.2 HEAD -- Gemfile _config.yml .github/workflows
+git diff al-folio/v1.2 main --stat
+git diff al-folio/v1.2 main -- Gemfile _config.yml .github/workflows
 git merge-base main al-folio/v1.2
 ```
 
