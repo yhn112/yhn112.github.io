@@ -39,7 +39,7 @@ Ten intentional overrides remain:
 | `_includes/metadata.liquid`                                                                     | JSON serialization, escaped metadata, and useful homepage preview titles.    |
 | `_includes/cv/render.liquid`                                                                    | Accessible PDF download and sequential section headings in the v1 renderer.  |
 | `_includes/plugins/al_analytics_scripts.liquid`                                                 | Standard Google integration plus the existing Yandex counter.                |
-| `_layouts/bib.liquid`                                                                           | Venue text colors and native annotation disclosure.                          |
+| `_layouts/bib.liquid`                                                                           | Venue background and text colors from `_data/venues.yml`.                    |
 | `assets/css/main.scss`                                                                          | Load site CSS after the gem's Sass modules.                                  |
 | `_layouts/default.liquid`                                                                       | Native main landmark that keeps `role="main"` for the gem's tocbot selector. |
 | `_includes/cv/education.liquid`, `_includes/cv/experience.liquid`, `_includes/cv/awards.liquid` | Sequential CV headings kept out of the table of contents (`data-toc-skip`).  |
@@ -80,12 +80,13 @@ the migration history was not replayed.
 That commit was merged into `main` with `--allow-unrelated-histories` without changing any file,
 so the v1.2 release is an ancestor of `main`, and `main` now contains 1113 upstream commits.
 The original migration commits remain in `main` through PR 4.
+That commit is a snapshot of 24 November 2026 (PR 5); later fixes are only in `main`.
 
-Show the site's changes against the clean release and check the lineage:
+Show the site's current changes against the clean release and check the lineage:
 
 ```sh
-git diff al-folio/v1.2 migration/al-folio-v1.2 --stat
-git diff al-folio/v1.2 HEAD -- Gemfile _config.yml .github/workflows
+git diff al-folio/v1.2 main --stat
+git diff al-folio/v1.2 main -- Gemfile _config.yml .github/workflows
 git merge-base main al-folio/v1.2
 ```
 
@@ -127,7 +128,13 @@ Tailwind remains precompiled and minified, and Sass still uses compressed output
 Browser checks verify navbar geometry, the icon font, integrity hashes of local assets,
 and scripts or stylesheets with empty URLs.
 
-Google Analytics uses `al_analytics` 1.0.2 and its supported top-level configuration keys.
+Starter example media that no page referenced (sample images, audio, video, PDF, notebook, Plotly demo)
+and the February 2026 `assets/json/resume.json` copy were removed on 24 November 2026.
+The CV renders from `_data/cv.yml` (`cv_format: rendercv`);
+`jekyll-get-json` keeps v1.2's `resume` entry and skips the missing file.
+
+Google Analytics uses `al_analytics` 1.0.2 with the v1.2 `analytics:` block;
+the gem reads top-level keys first and falls back to that block.
 Yandex keeps `_scripts/yandex-metrika-setup.js` and its existing counter and options.
 Both load immediately in the production site, without a consent dialog.
 Privacy describes Webvisor, click maps, link tracking, bounce tracking, and the ecommerce data layer;
@@ -153,9 +160,7 @@ Publishing remains on `gh-pages`; GitHub Pages settings and DNS are unchanged.
 
 These were found in the post-rollout review and left unchanged:
 
-- v1.2's `_config.yml` nests analytics IDs under `analytics:`, while the site keeps top-level keys,
-  which `al_analytics` 1.0.2 reads first; expect conflicts in that block on upstream merges.
-  Yandex additionally depends on `include: [_pages, _scripts]` and the analytics override,
+- Yandex depends on the site's `yandex_metrika` keys, `include: [_pages, _scripts]` and the analytics override,
   loads only in production, and bypasses the cookie-consent gate, which is disabled.
 - Every publication, including citation-triggered deploys, waits for browser, Axe, link, formatting and upgrade checks;
   Chrome is installed at its current stable version, so a browser change can block publishing.
@@ -165,6 +170,10 @@ These were found in the post-rollout review and left unchanged:
   publication search filters on every keystroke without the intended delay,
   and Chrome logs a Content Security Policy `unsafe-eval` violation for the returned value.
   Search still works (PR 6 CI, 24 November 2026); the fix belongs upstream.
+- `bundle exec al-folio upgrade audit` reports one non-blocking `legacy_data_toggle` finding:
+  the `bib.liquid` override keeps the gem's own `data-toggle="popover"` annotation markup,
+  which `al_folio_core` 1.0.15 `assets/js/tooltips-setup.js` handles without Bootstrap.
+  `al_folio_upgrade` 1.0.3 flags its own runtime's markup; no publication has an annotation today.
 - Upstream merges add new upstream workflows silently, while changes to deleted starter files appear as modify/delete conflicts;
   review `.github/workflows` after each merge.
 
