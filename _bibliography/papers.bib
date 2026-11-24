@@ -1,6 +1,23 @@
 ---
 ---
 
+@inproceedings{diskin2026one,
+  abbr      = {WMT},
+  title     = {One Model, Five Tasks, Two RTX 3090 GPUs: The HSE System for the Sorbian Track of WMT26 Multitask LLMs with Limited Resources},
+  author    = {Diskin, Michael},
+  booktitle = {Proceedings of the Eleventh Conference on Machine Translation (WMT)},
+  year      = {2026},
+  pages     = {2652--2661},
+  location  = {Budapest, Hungary},
+  url       = {https://aclanthology.org/2026.wmt-main.209/},
+  html      = {https://aclanthology.org/2026.wmt-main.209/},
+  pdf       = {https://aclanthology.org/2026.wmt-main.209.pdf},
+  doi       = {10.18653/2026.wmt-main.209},
+  abstract  = {We describe HSE’s submission to the Sorbian track of WMT26 Multitask LLMs with Limited Resources, where a single 2B-parameter model must translate between German, Upper Sorbian, and Lower Sorbian and also answer multiple-choice questions, check spelling and grammar, and solve maths problems in both Sorbian languages. Our system is one LoRA adapter on Qwen3.5-2B, trained on the official parallel data, synthetic spelling and grammar examples, a question-answering proxy, and English GSM8K in about nine GPU-hours on two consumer RTX 3090 GPUs. Extended translation-only fine-tuning cost about ten points of question-answering accuracy, reproducing a WMT25 finding, and nearly erased the output conventions of the other tasks; the multitask mixture recovered them at almost no translation cost. The system ranked fourth of four teams. It far exceeded the baseline on translation (21.7 → 61.5 chrF++) and spell checking (6.7 → 63.6), but on grammar checking and maths reasoning it learned the answer format without the skill: the grammar score is almost exactly the share of error-free sentences, and maths accuracy did not exceed the baseline. Two negative results may transfer to other low-resource settings. Synthetic holdouts did not predict performance on the official tasks in either direction, and self-translated training problems passed every automatic check yet changed meaning in at least 6 of 20 inspected cases. The model is publicly available.},
+  google_scholar_id = {_FxGoFyzp5QC},
+  bibtex_show = {true}
+}
+
 @inproceedings{rudamenko2026sparse,
   abbr      = {ICLR-W},
   title     = {Learning When to Be Sparse: Adaptive Activations via Two-Parameter Entropy},

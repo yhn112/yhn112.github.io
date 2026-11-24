@@ -123,10 +123,9 @@ External-link repairs, citation-fetch reliability, PDF content mapping, and the 
   Text extraction confirms that the committed pre-migration PDF and the regenerated migration PDF
   both omit these values while showing institutions and skill category names.
   This is an existing content-mapping defect, not a migration regression.
-- Add the October 2026 WMT paper
+- Decide whether the October 2026 WMT paper
   [One Model, Five Tasks, Two RTX 3090 GPUs](https://aclanthology.org/2026.wmt-main.209/)
-  to [\_bibliography/papers.bib](../_bibliography/papers.bib), with a news entry if desired.
-  ACL Anthology identifies Michael Diskin as its author; the paper is absent from the current bibliography.
+  should get a news entry; the paper itself is now in [\_bibliography/papers.bib](../_bibliography/papers.bib).
 - Add the PhD education entry to [\_data/cv.yml](../_data/cv.yml)
   using Michael's confirmed institution, program, and dates.
   The current education list ends with the 2022–2024 MSc.

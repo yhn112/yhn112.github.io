@@ -28,3 +28,7 @@
   url: https://2025.emnlp.org/
   color: "#e377c2"
   text_color: "#111111"
+
+"WMT":
+  url: https://www2.statmt.org/wmt26/
+  color: "#8c564b"
