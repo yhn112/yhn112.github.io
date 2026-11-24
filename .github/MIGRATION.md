@@ -127,6 +127,11 @@ Tailwind remains precompiled and minified, and Sass still uses compressed output
 Browser checks verify navbar geometry, the icon font, integrity hashes of local assets,
 and scripts or stylesheets with empty URLs.
 
+Starter example media that no page referenced (sample images, audio, video, PDF, notebook, Plotly demo)
+and the February 2026 `assets/json/resume.json` copy were removed on 24 November 2026.
+The CV renders from `_data/cv.yml` (`cv_format: rendercv`);
+`jekyll-get-json` keeps v1.2's `resume` entry and skips the missing file.
+
 Google Analytics uses `al_analytics` 1.0.2 with the v1.2 `analytics:` block;
 the gem reads top-level keys first and falls back to that block.
 Yandex keeps `_scripts/yandex-metrika-setup.js` and its existing counter and options.
