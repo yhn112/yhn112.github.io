@@ -19,8 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT || github.token }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
@@ -45,7 +43,7 @@ jobs:
             exit 1
           fi
           rendercv render "$cv_file" --settings "$settings"
-          rm -f assets/rendercv/rendercv_output/*.typ
+          rm assets/rendercv/rendercv_output/*.typ
       - name: Upload rendercv_output as an artifact
         uses: actions/upload-artifact@v4
         with:
@@ -53,8 +51,8 @@ jobs:
           path: assets/rendercv/rendercv_output
       - name: Push the changes
         run: |
-          git config --local user.name "${{ github.actor }}"
-          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git add assets/rendercv/rendercv_output/*.pdf
           if git diff --cached --quiet; then
             echo "No RenderCV output changes to commit."
