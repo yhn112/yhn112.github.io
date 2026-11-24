@@ -5,7 +5,7 @@ on:
     branches: [main, master]
     paths-ignore:
       - "lighthouse_results/**"
-      - "readme_preview/**"
+      - "docs/**"
       - "*.md"
       - ".github/SITE_AUDIT.md"
       - ".github/MIGRATION.md"
