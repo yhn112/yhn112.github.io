@@ -9,11 +9,15 @@ require "yaml"
 
 ROOT = File.expand_path("..", __dir__)
 CONFIG = YAML.safe_load_file(File.join(ROOT, "_config.yml"))
-DATA = %w[socials citations venues cv].to_h do |name|
+DATA = %w[socials citations venues cv coauthors].to_h do |name|
   [name, YAML.safe_load_file(File.join(ROOT, "_data", "#{name}.yml"))]
 end
 
-SiteContext = Struct.new(:config, :filter_cache, :source, keyword_init: true)
+SiteContext = Struct.new(:config, :filter_cache, :source, keyword_init: true) do
+  def find_converter_instance(_klass)
+    @markdown ||= Jekyll::Converters::Markdown.new(config)
+  end
+end
 
 def render_override(path, page: {}, extra: {}, config: {})
   values = CONFIG.merge("data" => DATA).merge(config)
@@ -59,6 +63,9 @@ check("Homepage JSON-LD is a ProfilePage about a Person with a large preview car
   assert(person["alumniOf"].map { |org| org["name"] } == ["HSE University", "Yandex School of Data Analysis"], "Education is missing or duplicated")
   assert(person["image"] == "https://diskin.me/assets/img/prof_pic.png", "Profile image URL changed")
   assert(person["sameAs"].include?("https://scholar.google.com/citations?user=LRKQhcYAAAAJ"), "Scholar profile is missing from sameAs")
+  assert(person["sameAs"].include?("https://t.me/yhn112"), "Telegram link should use t.me")
+  assert(person["sameAs"].include?("https://x.com/michael_diskin"), "X link should use x.com")
+  assert(!schema["description"].end_with?("\n"), "Homepage description should not end with a newline")
   assert(html.include?('name="twitter:card" content="summary_large_image"'), "Preview image is not a large card")
 end
 
@@ -78,20 +85,43 @@ check("CV PDF keeps its URL and has an accessible name") do
   html = render_override(
     "_includes/cv/render.liquid",
     page: { "title" => "CV", "cv_format" => "rendercv", "cv_pdf" => "/assets/rendercv/rendercv_output/Michael_Diskin_CV.pdf" },
-    config: { "data" => { "cv" => { "cv" => { "name" => "Michael Diskin", "sections" => {} } } } }
+    config: { "data" => { "cv" => { "cv" => { "name" => "Michael Diskin", "location" => "Europe", "website" => "https://diskin.me", "sections" => {} } } } }
   )
   assert(html.include?('aria-label="Download CV as PDF"'), "PDF download has no accessible name")
   assert(html.include?('href="/assets/rendercv/rendercv_output/Michael_Diskin_CV.pdf"'), "PDF URL changed")
   assert(html.include?("Michael Diskin"), "RenderCV content is missing")
+  assert(html.include?("Europe"), "CV location is missing")
+  assert(html.include?("https://diskin.me"), "CV website is missing")
   assert(html.scan(/<h([1-6])\b/).flatten == ["1", "2"], "CV section headings skip a level")
 end
 
-check("Publication badges use the committed citation cache") do
+check("CV skills renderer supports RenderCV label/details entries") do
+  html = render_override("_includes/cv/skills.liquid", extra: { "entries" => DATA.dig("cv", "cv", "sections", "Skills") })
+  assert(html.include?("ML & AI:"), "Skills label is missing")
+  assert(html.include?("PyTorch"), "Skills details are missing")
+end
+
+check("CV education renderer displays degree and highlights") do
+  html = render_override("_includes/cv/education.liquid", extra: { "entries" => DATA.dig("cv", "cv", "sections", "Education") })
+  assert(html.include?("MSc"), "Education degree is missing")
+  assert(html.include?("Summa cum laude"), "Education highlights are missing")
+end
+
+check("Publication badges use the committed citation cache and HTTPS arXiv links") do
   key, paper = DATA.fetch("citations").fetch("papers").find { |_, cached| cached["citations"] }
   assert(paper, "Citation cache has no paper with a citation count")
-  entry = { "key" => "cached-paper", "title" => paper.fetch("title"), "author_array" => [], "google_scholar_id" => key.split(":").last, "bibtex" => "@article{cached-paper}" }
+  entry = {
+    "key" => "cached-paper",
+    "title" => paper.fetch("title"),
+    "author_array" => [{ "first" => "Peter", "last" => "Richtárik" }],
+    "arxiv" => "2110.03313",
+    "google_scholar_id" => key.split(":").last,
+    "bibtex" => "@article{cached-paper}"
+  }
   html = render_override("_layouts/bib.liquid", extra: { "entry" => entry })
   assert(html.include?("#{paper.fetch('citations')} Google Scholar citations"), "Cached citation count was not rendered")
+  assert(html.include?('href="https://arxiv.org/abs/2110.03313"'), "arXiv link should use HTTPS")
+  assert(html.include?('href="https://richtarik.org/"'), "Accented coauthor key should resolve via remove_accents")
 end
 
 check("Venue text meets WCAG AA contrast") do

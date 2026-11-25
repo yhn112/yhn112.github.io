@@ -27,4 +27,4 @@ This site may also use ownership-verification meta tags for services such as Goo
 
 ## Contact
 
-Questions about privacy, cookies, or analytics can be sent to [michael.s.diskin@gmail.com](mailto:michael.s.diskin@gmail.com).
+Questions about privacy, cookies, or analytics can be sent to {% al_email_protect_link site.data.socials.email %}.

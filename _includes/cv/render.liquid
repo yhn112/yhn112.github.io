@@ -97,6 +97,11 @@
                     {% if cv.address.postalCode %}{{ cv.address.postalCode }}{% endif %}
                   </td>
                 </tr>
+              {% elsif cv.location %}
+                <tr>
+                  <td class="p-1 pr-2 font-weight-bold"><b>Location</b></td>
+                  <td class="p-1 pl-2 font-weight-light">{{ cv.location }}</td>
+                </tr>
               {% endif %}
               {% if cv.website %}
                 <tr>

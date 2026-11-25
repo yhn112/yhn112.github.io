@@ -46,18 +46,20 @@ Copied Bootstrap/MDB, icon fonts, search bundles, and other stock runtime assets
 Site-specific CSS is in `_sass/_site.scss`.
 It preserves the blue/cyan theme and fixes year-heading and venue-badge contrast.
 
-Ten intentional overrides remain:
+Twelve intentional overrides remain:
 
-| Local file                                                                                      | Reason                                                                       |
-| ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `_includes/metadata.liquid`                                                                     | Escaped JSON-LD, homepage ProfilePage, large preview card, preview titles.   |
-| `_includes/cv/render.liquid`                                                                    | Accessible PDF download and sequential section headings in the v1 renderer.  |
-| `_includes/plugins/al_analytics_scripts.liquid`                                                 | Standard Google integration plus the existing Yandex counter.                |
-| `_layouts/bib.liquid`                                                                           | Venue colors from `_data/venues.yml`; no InspireHEP badge (`al_citations`).  |
-| `assets/css/main.scss`                                                                          | Load site CSS after the gem's Sass modules.                                  |
-| `_layouts/default.liquid`                                                                       | Native main landmark that keeps `role="main"` for the gem's tocbot selector. |
-| `_includes/cv/education.liquid`, `_includes/cv/experience.liquid`, `_includes/cv/awards.liquid` | Sequential CV headings kept out of the table of contents (`data-toc-skip`).  |
-| `assets/js/copy_code.js`                                                                        | Keyboard scrolling in code blocks, including expanded BibTeX.                |
+| Local file                                                                                      | Reason                                                                                             |
+| ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `_includes/metadata.liquid`                                                                     | Escaped JSON-LD, homepage ProfilePage, large preview card, preview titles, `t.me`/`x.com` sameAs.  |
+| `_includes/cv/render.liquid`                                                                    | Accessible PDF download, sequential section headings, and `cv.location` in the v1 renderer.        |
+| `_includes/cv/skills.liquid`                                                                    | Support RenderCV `OneLineEntry` (`label`/`details`) alongside `name`/`keywords`.                   |
+| `_includes/plugins/al_analytics_scripts.liquid`                                                 | Standard Google integration plus the existing Yandex counter.                                      |
+| `_layouts/bib.liquid`                                                                           | Venue colors from `_data/venues.yml`; HTTPS arXiv; `site.data.socials.scholar_userid`; no Inspire. |
+| `assets/css/main.scss`                                                                          | Load site CSS after the gem's Sass modules.                                                        |
+| `_layouts/default.liquid`                                                                       | Native main landmark that keeps `role="main"` for the gem's tocbot selector.                       |
+| `_includes/cv/education.liquid`, `_includes/cv/experience.liquid`, `_includes/cv/awards.liquid` | Sequential CV headings kept out of the table of contents (`data-toc-skip`).                        |
+| `assets/js/bibsearch.js`                                                                        | Preserve publication anchor hashes (`#key`) instead of filtering; fix `setTimeout` callback/CSP.   |
+| `assets/js/copy_code.js`                                                                        | Keyboard scrolling in code blocks, including expanded BibTeX.                                      |
 
 `.al-folio-overrides.yml` records the reviewed upstream and local checksums.
 After editing an override, format it before reviewing and acknowledging its final contents:
@@ -228,10 +230,8 @@ These were found in the post-rollout review or later dependency reviews and left
   The age counts from the last change in counts, not the last successful fetch,
   so a cache confirmed unchanged by a recent fetch can still fail the next failed run once it is older than 30 days;
   from 7 September to 3 October 2026, counts stayed unchanged for 26 days while every fetch succeeded.
-- `al_folio_core` 1.0.15 `assets/js/bibsearch.js` calls `setTimeout(filterItems(searchTerm), 300)`:
-  publication search filters on every keystroke without the intended delay,
-  and Chrome logs a Content Security Policy `unsafe-eval` violation for the returned value.
-  Search still works (PR 6 CI, 24 November 2026); the fix belongs upstream.
+- `al_folio_core` 1.0.15 `assets/js/bibsearch.js` had `setTimeout(filterItems(searchTerm), 300)` (causing immediate filtering and a CSP `unsafe-eval` console error) and treated publication `#key` anchors as search queries.
+  Fixed locally in the `assets/js/bibsearch.js` override on 25 November 2026; drop the override once fixed upstream.
 - `bundle exec al-folio upgrade audit` reports one non-blocking `legacy_data_toggle` finding:
   the `bib.liquid` override keeps the gem's own `data-toggle="popover"` annotation markup,
   which `al_folio_core` 1.0.15 `assets/js/tooltips-setup.js` handles without Bootstrap.

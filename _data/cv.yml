@@ -3,6 +3,7 @@ cv:
   label: Head of LLM R&D
   email: michael.s.diskin@gmail.com
   location: Europe
+  website: https://diskin.me
   image: ""
   summary: AI/ML leader with a track record of bridging top-tier research and large-scale production. Built and scaled LLM and embeddings organizations from the ground up (30+ people, 4–5 teams).
 
@@ -79,15 +80,16 @@ cv:
         location: Moscow, Russia
         url: https://www.hse.ru/en/
         area: Computer Science
-        studyType: MSc
+        degree: MSc
         start_date: 2022
         end_date: 2024
-        score: summa cum laude
+        highlights:
+          - Summa cum laude
 
       - institution: Yandex School of Data Analysis
         url: https://yandexdataschool.com
         area: Machine Learning (Graduate program)
-        studyType: Graduate program
+        degree: Grad
         start_date: 2019
         end_date: 2021
 
@@ -95,31 +97,21 @@ cv:
         location: Moscow, Russia
         url: https://www.hse.ru/en/
         area: Computer Science
-        studyType: BSc
+        degree: BSc
         start_date: 2014
         end_date: 2019
 
     Skills:
-      - name: "ML & AI"
-        level: Expert
-        icon: fa-solid fa-brain
-        keywords: "LLM pre-training & alignment (SFT, DPO, RLHF), parameter-efficient tuning (LoRA, QLoRA), text embeddings & rerankers, seq2seq / machine translation, RAG pipelines, multimodal vision-language models"
-      - name: Frameworks
-        level: Expert
-        icon: fa-solid fa-code
-        keywords: "PyTorch, Hugging Face (Transformers, PEFT, TRL, Datasets), DeepSpeed, FSDP, Megatron-LM, vLLM, TGI, Triton Inference Server, TensorRT-LLM, ONNX Runtime"
-      - name: "Data & Eval"
-        level: Expert
-        icon: fa-solid fa-chart-bar
-        keywords: "COMET, BLEU, MTEB, LLM-as-judge, custom evaluation harnesses, human annotation pipelines, A/B testing"
-      - name: "Infra & MLOps"
-        level: Expert
-        icon: fa-solid fa-server
-        keywords: "CUDA, Docker, Kubernetes, Airflow, Weights & Biases, MLflow, Grafana / Prometheus, S3 / MinIO, Git, CI/CD"
-      - name: Languages
-        level: Expert
-        icon: fa-solid fa-terminal
-        keywords: "Python, C++, Bash, SQL"
+      - label: "ML & AI"
+        details: "LLM pre-training & alignment (SFT, DPO, RLHF), parameter-efficient tuning (LoRA, QLoRA), text embeddings & rerankers, seq2seq / machine translation, RAG pipelines, multimodal vision-language models"
+      - label: Frameworks
+        details: "PyTorch, Hugging Face (Transformers, PEFT, TRL, Datasets), DeepSpeed, FSDP, Megatron-LM, vLLM, TGI, Triton Inference Server, TensorRT-LLM, ONNX Runtime"
+      - label: "Data & Eval"
+        details: "COMET, BLEU, MTEB, LLM-as-judge, custom evaluation harnesses, human annotation pipelines, A/B testing"
+      - label: "Infra & MLOps"
+        details: "CUDA, Docker, Kubernetes, Airflow, Weights & Biases, MLflow, Grafana / Prometheus, S3 / MinIO, Git, CI/CD"
+      - label: Languages
+        details: "Python, C++, Bash, SQL"
 
     Awards:
       - title: HSE FCS Scholarship for Research Excellence

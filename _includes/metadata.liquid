@@ -16,7 +16,7 @@
 
 {% capture author_name %}{{ site.first_name }}{% if site.middle_name %} {{ site.middle_name }}{% endif %} {{ site.last_name }}{% endcapture %}
 {% assign author_name = author_name | strip %}
-{% assign page_description = page.description | default: site.description %}
+{% assign page_description = page.description | default: site.description | strip %}
 {% assign page_headline = page.title | default: author_name %}
 {% if page.url == '/' %}{% assign page_headline = author_name %}{% endif %}
 {% assign canonical_url = page.url | absolute_url %}
@@ -209,7 +209,7 @@
         {% capture link %}https://www.strava.com/athletes/{{ social[1] }}{% endcapture %}
         {% assign sameaslinks = sameaslinks | push: link %}
       {% when 'telegram_username' %}
-        {% capture link %}https://telegram.me/{{ social[1] }}{% endcapture %}
+        {% capture link %}https://t.me/{{ social[1] }}{% endcapture %}
         {% assign sameaslinks = sameaslinks | push: link %}
       {% when 'unsplash_id' %}
         {% capture link %}https://unsplash.com/@{{ social[1] }}{% endcapture %}
@@ -227,7 +227,7 @@
         {% capture link %}{{ social[1] }}{% endcapture %}
         {% assign sameaslinks = sameaslinks | push: link %}
       {% when 'x_username' %}
-        {% capture link %}https://twitter.com/{{ social[1] }}{% endcapture %}
+        {% capture link %}https://x.com/{{ social[1] }}{% endcapture %}
         {% assign sameaslinks = sameaslinks | push: link %}
       {% when 'youtube_id' %}
         {% capture link %}https://youtube.com/@{{ social[1] }}{% endcapture %}

@@ -1,0 +1,4 @@
+pyyaml
+scholarly
+# scholarly imports the bibdatabase module removed in bibtexparser 2.x.
+bibtexparser>=1.2,<2
