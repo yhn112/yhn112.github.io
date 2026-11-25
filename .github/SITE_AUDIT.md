@@ -27,7 +27,13 @@ see [upstream lineage](MIGRATION.md#upstream-lineage-and-comparisons).
 The migration resolves the Ruby/driver failures, PDF build ordering, invalid JSON-LD,
 privacy mismatch and missing footer link, measured contrast defects, and unnamed CV download.
 The unavailable trophy widget is disabled by Michael's decision.
-External-link repairs, citation-fetch reliability, PDF content mapping, and the content updates below remain separate work.
+On 25 November 2026, a technical cleanup fixed the RenderCV `Education`/`Skills` PDF mapping,
+added `website` to `_data/cv.yml`, added `WF5omc3nYNoC` to `rudamenko2026sparse`,
+fixed `coauthors.yml` (`richtarik`, HTTPS, non-API links) and publication anchor handling in `bibsearch.js`,
+switched repository cards to `github-stats-extended.vercel.app`,
+compressed `og-image.png` to 1200 × 630 px, stopped emitting standalone pages for inline news,
+and added dark-theme Axe checks.
+Content updates below remain separate work.
 
 ## Historical publication and automation findings
 
@@ -118,11 +124,6 @@ External-link repairs, citation-fetch reliability, PDF content mapping, and the 
 
 ## Content updates
 
-- Repair the PDF mapping of education degree labels (`studyType`) and Skills descriptions (`keywords`)
-  from [\_data/cv.yml](../_data/cv.yml).
-  Text extraction confirms that the committed pre-migration PDF and the regenerated migration PDF
-  both omit these values while showing institutions and skill category names.
-  This is an existing content-mapping defect, not a migration regression.
 - Decide whether the October 2026 WMT paper
   [One Model, Five Tasks, Two RTX 3090 GPUs](https://aclanthology.org/2026.wmt-main.209/)
   should get a news entry; the paper itself is now in [\_bibliography/papers.bib](../_bibliography/papers.bib).
@@ -163,18 +164,13 @@ External-link repairs, citation-fetch reliability, PDF content mapping, and the 
 - The HSE staff page itself lists outdated interests (deep learning, computer vision, graph neural networks)
   and "2022 Bachelor's" education, while the site's CV lists a 2014–2019 BSc.
   It is edited on the HSE portal, outside this repository.
-- Add the existing Scholar identifier `WF5omc3nYNoC` to the sparse activations paper
-  if it should display a citation badge.
-  The cache contains this paper, but its bibliography entry lacks `google_scholar_id`.
 - Review [Dependabot PR 3](https://github.com/yhn112/yhn112.github.io/pull/3)
   and [dependency alerts](https://github.com/yhn112/yhn112.github.io/security/dependabot).
   GitHub's push summary after migration reported 40 alerts:
   four high, 20 moderate, and 16 low.
   This is GitHub's automatic report; advisory applicability and fixes were not triaged during migration.
-- Refresh performance measurements after fixes.
-  The checked-in Lighthouse reports are from 23 April 2026, using Lighthouse 9.6.8.
-  Their performance scores are 71 for mobile and 98 for desktop under their respective recorded presets;
-  these are historical measurements, not current site scores.
+- Consider running a fresh Lighthouse check via the manual `Lighthouse Badger` workflow if performance metrics are needed;
+  the stale April 2026 pre-migration reports were removed on 25 November 2026.
 - Consider shortening the mobile introduction area.
   At a 390-pixel viewport, the portrait and location list occupy most of the space before the name and summary.
   This is an editorial choice; no horizontal overflow was measured in the inspected layouts.

@@ -6,9 +6,6 @@
   - firstname: ["Eduard", "E."]
     url: https://aclanthology.org/people/e/eduard-tulchinskii/
 
-"kuznetsov":
-  - firstname: ["Kristian", "K."]
-
 "barannikov":
   - firstname: ["Serguei", "S."]
     url: https://scholar.google.com/citations?user=-soT8KcAAAAJ
@@ -45,7 +42,7 @@
   - firstname: ["Aleksandr", "A."]
     url: https://www.hse.ru/en/org/persons/444324804
 
-"richtárik":
+"richtarik":
   - firstname: ["Peter", "P."]
     url: https://richtarik.org/
 
@@ -83,7 +80,7 @@
 
 "pekhimenko":
   - firstname: ["Gennady", "G."]
-    url: http://www.cs.utoronto.ca/~pekhimenko/
+    url: https://www.cs.utoronto.ca/~pekhimenko/
 
 "villanova del moral":
   - firstname: ["Albert", "A."]
@@ -95,15 +92,11 @@
 
 "kobelev":
   - firstname: ["Ilia", "I."]
-    url: https://dblp.org/search/pid/api?q=author%3AIlia_Kobelev%3A
+    url: https://github.com/skobellev
 
 "popov":
   - firstname: ["Dmitry", "D."]
     url: https://scholar.google.com/citations?user=9FdtTv4AAAAJ
-
-"pyrkin":
-  - firstname: ["Dmitry", "D."]
-    url: https://dblp.org/search/pid/api?q=author%3ADmitry_V._Pyrkin%3A
 
 "kashirin":
   - firstname: ["Maxim", "M."]

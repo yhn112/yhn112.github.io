@@ -8,7 +8,7 @@ middle_name:
 last_name: Diskin
 contact_note: >
   Feel free to reach out via email or any of the social links below.
-description: >
+description: >-
   AI/ML leader. Head of LLM R&D at Wildberries. Building large-scale language systems, embeddings, and ML infrastructure.
 footer_text: '<a href="/privacy/">Privacy</a>.'
 keywords: michael diskin, mikhail diskin, михаил дискин, майкл дискин, llm, machine learning, nlp, deep learning, ai research, embeddings, машинное обучение, обработка естественного языка, большие языковые модели
@@ -54,7 +54,7 @@ repo_trophies:
 # To use a different instance or service for displaying GitHub stats and trophies,
 # update these URLs. These are used in the repository templates.
 external_services:
-  github_readme_stats_url: https://github-readme-stats.vercel.app
+  github_readme_stats_url: https://github-stats-extended.vercel.app
   github_profile_trophy_url: https://github-profile-trophy.vercel.app
 
 # -----------------------------------------------------------------------------
@@ -195,7 +195,7 @@ collections:
   news:
     defaults:
       layout: post
-    output: true
+    output: false
   teachings:
     output: true
 
@@ -230,15 +230,11 @@ exclude:
   - lighthouse_results/
   - package.json
   - package-lock.json
-  - _pages/about_einstein.md
-  - _pages/blog.md
-  - _pages/books.md
-  - _pages/projects.md
-  - _pages/profiles.md
-  - _pages/dropdown.md
   - purgecss.config.js
   - README.md
   - requirements.txt
+  - requirements-citations.txt
+  - requirements-cv.txt
   - tests/
   - vendor
 keep_files:

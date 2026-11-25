@@ -16,6 +16,7 @@ options.setLoggingPrefs(logPreferences);
 const service = new chrome.ServiceBuilder(process.env.CHROMEDRIVER_PATH);
 const driver = await new Builder().forBrowser("chrome").setChromeOptions(options).setChromeService(service).build();
 const sections = ["/", "/publications/", "/cv/", "/teaching/", "/repositories/", "/news/", "/contact/", "/privacy/"];
+const axeSource = await readFile("node_modules/axe-core/axe.min.js", "utf8");
 await mkdir("test-results", { recursive: true });
 
 async function collectionRoutes(directory) {
@@ -55,7 +56,7 @@ async function checkPage(route, theme, width) {
       viewport: document.documentElement.clientWidth,
     },
   }));
-  if (!route.startsWith("/news/announcement")) assert(data.heading, `Missing page heading: ${route}`);
+  assert(data.heading, `Missing page heading: ${route}`);
   assert(data.json.length, `Missing JSON-LD: ${route}`);
   for (const json of data.json) JSON.parse(json);
   assert.equal(data.canonical, "https://diskin.me" + route, `Wrong canonical: ${route}`);
@@ -95,6 +96,18 @@ async function checkPage(route, theme, width) {
   );
   assert.equal(errors.length, 0, `JavaScript errors on ${route}: ${JSON.stringify(errors)}`);
   if (sections.includes(route)) {
+    if (width === 1440) {
+      await driver.executeScript(`if (!window.axe) { ${axeSource} }`);
+      const axeResults = await driver.executeAsyncScript(`
+        const done = arguments[arguments.length - 1];
+        window.axe
+          .run(document, { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"] } })
+          .then((results) => done({ violations: results.violations.map((v) => ({ id: v.id, impact: v.impact, nodes: v.nodes.length, help: v.help })) }))
+          .catch((error) => done({ error: String(error) }));
+      `);
+      assert(!axeResults.error, `Axe error on ${route} (${theme}): ${axeResults.error}`);
+      assert.equal(axeResults.violations.length, 0, `Axe violations on ${route} (${theme}, ${width}px): ${JSON.stringify(axeResults.violations)}`);
+    }
     const name = `${route.replaceAll("/", "_") || "home"}-${theme}-${width}.png`;
     await writeFile(path.join("test-results", name), await driver.takeScreenshot(), "base64");
   }
@@ -105,15 +118,14 @@ try {
   const teaching = await collectionRoutes("_site/teachings");
   const news = await collectionRoutes("_site/news");
   const teachingSources = (await readdir("_teachings")).filter((file) => file.endsWith(".md"));
-  const newsSources = (await readdir("_news")).filter((file) => file.endsWith(".md"));
   assert.equal(teaching.length, teachingSources.length, "A teaching page was lost");
-  assert.equal(news.length, newsSources.length + 1, "A news page or its index was lost");
+  assert.deepEqual(news, ["/news/"], "Inline news should emit only /news/ index");
   for (const theme of ["light", "dark"]) {
     for (const width of [1440, 390]) {
       await driver.sendDevToolsCommand("Emulation.setDeviceMetricsOverride", { width, height: 1000, deviceScaleFactor: 1, mobile: width < 576 });
       await driver.get(base + "/");
       await driver.executeScript("localStorage.setItem('theme', arguments[0])", theme);
-      const routes = theme === "light" && width === 1440 ? [...sections, ...teaching, ...news, "/404.html"] : sections;
+      const routes = theme === "light" && width === 1440 ? [...sections, ...teaching, "/404.html"] : sections;
       for (const route of [...new Set(routes)]) await checkPage(route, theme, width);
 
       await driver.get(base + "/");
@@ -134,6 +146,16 @@ try {
         await mobileToggle.click();
         await driver.wait(until.elementIsNotVisible(await driver.findElement(By.id("navbarNav"))), 5000);
       }
+
+      await driver.get(base + "/publications/#ryabinin2023swarm");
+      const anchorState = await driver.executeScript(() => ({
+        query: document.getElementById("bibsearch")?.value,
+        visibleCount: [...document.querySelectorAll("ol.bibliography > li")].filter((node) => node.getClientRects().length).length,
+        hasTarget: !!document.getElementById("ryabinin2023swarm"),
+      }));
+      assert.equal(anchorState.query, "", "Publication anchor hash should not populate the search input");
+      assert(anchorState.hasTarget, "Publication anchor target #ryabinin2023swarm is missing");
+      assert(anchorState.visibleCount > 1, "Publication anchor hash should not filter out other publications");
 
       await driver.get(base + "/publications/");
       const search = await driver.findElement(By.id("bibsearch"));
@@ -161,8 +183,8 @@ try {
   }
   await driver.get(base + "/cv/");
   const cvText = await driver.findElement(By.css(".cv")).getText();
-  for (const section of ["Experience", "Education", "Skills", "Awards", "Languages"]) {
-    assert(cvText.includes(section), `CV section missing: ${section}`);
+  for (const section of ["Experience", "Education", "Skills", "Awards", "Languages", "MSc", "Summa cum laude", "PyTorch", "https://diskin.me"]) {
+    assert(cvText.includes(section), `CV content missing: ${section}`);
   }
   await driver.wait(
     () => driver.executeScript(() => !!window.tocbot && document.querySelectorAll("#toc-sidebar .toc-link").length > 0),

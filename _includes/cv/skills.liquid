@@ -1,0 +1,35 @@
+{% comment %}
+  Unified skills entry renderer for both formats, including RenderCV OneLineEntry (label/details)
+{% endcomment %}
+
+<div class="card-text font-weight-light">
+  {% for entry in entries %}
+    {% assign skill_name = entry.name | default: entry.label %}
+    <div class="skill-item">
+      {% if entry.icon %}
+        <i class="{{ entry.icon }}"></i>
+      {% endif %}
+      <strong>
+        {{- skill_name -}}
+        {%- if entry.level %} ({{ entry.level }}){% endif %}:</strong
+      >
+      {% if entry.keywords %}
+        {% for keyword in entry.keywords %}
+          {% if forloop.last %}
+            {{ keyword }}
+          {% else %}
+            {{ keyword }},
+          {% endif %}
+        {% endfor %}
+      {% elsif entry.details %}
+        {{ entry.details }}
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<style>
+  .skill-item {
+    padding: 0.5rem 0;
+  }
+</style>
