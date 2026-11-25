@@ -25,6 +25,12 @@ Michael's decisions of 24 November 2026:
 - If Content Security Policy violations break Yandex Webvisor, override `_includes/head.liquid`
   to add the Yandex exceptions; until they are confirmed, keep the gem's policy.
 
+Michael's decision of 25 November 2026:
+
+- A failed Google Scholar fetch fails the citation workflow only when `_data/citations.yml` last changed more than 30 days ago;
+  otherwise the run warns and keeps the cache,
+  as described in [the migration record](.github/MIGRATION.md#citation-updates).
+
 Local runtime files must be intentional overrides of the pinned gems.
 Review them with `bundle exec al-folio upgrade overrides diff PATH` and acknowledge reviewed changes in `.al-folio-overrides.yml`.
 
