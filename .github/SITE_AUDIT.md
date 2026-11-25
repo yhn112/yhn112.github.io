@@ -256,7 +256,8 @@ Michael's content decisions of 25 November 2026:
 - Homepage location list: keep as is.
 - `Query–Key Ensembles for Mathematical Reasoning Verification` (MATH-AI 2026): do not add to `_bibliography/papers.bib`.
 - Selected homepage publications and compact CV scope: keep as is.
-- News: updated ICLR 2026 to past tense and added EMNLP 2026 / WMT 2026 attendance in Budapest without naming the paper.
+- News: added EMNLP 2026 / WMT 2026 attendance in Budapest without naming the paper;
+  kept dated announcements in their original tense relative to their publication date.
 - WMT 2026 model: linked `https://huggingface.co/yhn112/WMT_Limited_Resources_Sorbian` on `diskin2026one`.
 - Contact / Bio: added an open-ended reach-out note and updated bios to use `he`/`his` pronouns.
 - Footer: enabled `last_updated: true`.
