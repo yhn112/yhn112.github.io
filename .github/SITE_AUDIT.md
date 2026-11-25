@@ -246,21 +246,25 @@ Michael's name was not searched in search engines.
 
 ## Decisions and missing information
 
-- Peer-site candidates: choose which [candidate additions](#peer-site-comparison) to pursue and supply their content.
-  Wildberries work beyond the CV wording needs Michael's approval for public description.
+Michael's content decisions of 25 November 2026:
 
-- PhD: confirm the public wording and start year; the HSE staff page gives the other details listed under content updates.
-- News: supply events since 23 April 2026, such as the WMT26 paper and the VistaQA challenge.
+- PhD: do not add to the site.
+- Homepage location list: keep as is.
+- `Query–Key Ensembles for Mathematical Reasoning Verification` (MATH-AI 2026): do not add to `_bibliography/papers.bib`.
+- Selected homepage publications and compact CV scope: keep as is.
+- News: added EMNLP 2026 / WMT 2026 attendance in Budapest without naming the paper;
+  kept dated announcements in their original tense relative to their publication date.
+- WMT 2026 model: linked `https://huggingface.co/yhn112/WMT_Limited_Resources_Sorbian` on `diskin2026one`.
+- Contact / Bio: added an open-ended reach-out note and updated bios to use `he`/`his` pronouns.
+- Footer: enabled `last_updated: true`.
+
+Remaining open items:
+
+- Peer-site candidates: choose whether to pursue any additional sections (projects, students/mentees, service, writing/FAQ);
+  Wildberries work beyond the CV wording needs Michael's approval for public description.
 - Photo: choose whether to replace the illustrated avatar with a high-resolution photograph.
-- Teaching and talks: confirm current 2026/27 courses, the full list of talks, and available slides or recordings.
-- CV: choose one academic CV with publications, teaching, and talks, or separate academic and industry versions.
-- Homepage location list: state what it means or remove it.
-- Repositories: decide whether `QK-resoning` should be the code link for a QK-score paper,
-  and whether VistaQA and Talkloom belong on the site.
-- The latest remote citation cache also contains `Query–Key Ensembles for Mathematical Reasoning Verification`.
-  The [MATH-AI 2026 accepted paper list](https://mathai-2026.github.io/papers/) includes this title,
-  but direct OpenReview author verification was blocked by its browser challenge.
-  Confirm its author list and publication status before adding it.
+- Teaching and talks: confirm current 2026/27 courses, any additional talks, and available slides or recordings.
+- Repositories: decide whether `QK-resoning`, `vistaqa-premise-check`, or `Talkloom` belong on `/repositories/`.
 - Search Console ownership and indexing status remain unknown.
   Empty verification settings alone do not establish that ownership verification is missing.
 
