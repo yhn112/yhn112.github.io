@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  actions: write # dispatch deploy.yml after a citation commit
 
 jobs:
   update-citations:
@@ -48,6 +49,12 @@ jobs:
       - name: Run citation update script
         id: run_citation_update
         shell: bash
+        env:
+          # Keep the script's output when the timeout stops it.
+          PYTHONUNBUFFERED: "1"
+          # Google Scholar often blocks GitHub-hosted runners.
+          # A failed fetch fails the job only when the cache last changed longer ago than this.
+          MAX_CACHE_AGE_DAYS: "30"
         run: |
           set +e
           echo "🚀 Running citation update script (single attempt)..."
@@ -55,14 +62,31 @@ jobs:
           timeout 90 python bin/update_scholar_citations.py
           status=$?
           end_time=$(date)
+          set -e
           if [ "$status" -eq 0 ]; then
             echo "✅ Citation update succeeded (started at $start_time, ended at $end_time)."
             echo "✅ Citation update succeeded." >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "❌ Citation update script failed with exit code $status (started at $start_time, ended at $end_time)."
-            echo "❌ Citation update script failed with exit code $status." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
-          set -e
+          echo "❌ Citation update script failed with exit code $status (started at $start_time, ended at $end_time)."
+          if ! cache_age=$(python -c '
+          import datetime, yaml
+          last_updated = str(yaml.safe_load(open("_data/citations.yml"))["metadata"]["last_updated"])
+          print(last_updated, (datetime.date.today() - datetime.date.fromisoformat(last_updated)).days)
+          '); then
+            echo "::error::Citation update failed with exit code $status, and the cache date in _data/citations.yml is unreadable."
+            echo "❌ Citation update failed with exit code $status, and the cache date is unreadable." >> "$GITHUB_STEP_SUMMARY"
+            exit "$status"
+          fi
+          read -r last_updated age_days <<< "$cache_age"
+          details="the cache last changed on $last_updated, $age_days days ago (limit: $MAX_CACHE_AGE_DAYS days)"
+          if [ "$age_days" -le "$MAX_CACHE_AGE_DAYS" ]; then
+            echo "::warning::Citation update failed with exit code $status; keeping the cache: $details."
+            echo "⚠️ Citation update failed with exit code $status; keeping the cache: $details." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          echo "::error::Citation update failed with exit code $status, and $details."
+          echo "❌ Citation update failed with exit code $status, and $details." >> "$GITHUB_STEP_SUMMARY"
           exit "$status"
 
       - name: Save new citations.yml hash
@@ -95,11 +119,17 @@ jobs:
           git config --local user.name "GitHub Actions"
           echo "🔧 Git configured."
 
-      - name: Commit and push if changed
+      - name: Commit, push, and deploy if changed
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git add _data/citations.yml
-          git diff --staged --quiet || (
-            echo "📤 Committing and pushing changes..."
-            git commit -m "Update Google Scholar citations"
-            git push
-          )
+          if git diff --staged --quiet; then
+            echo "ℹ️ No citation changes to commit."
+            exit 0
+          fi
+          echo "📤 Committing and pushing changes..."
+          git commit -m "Update Google Scholar citations"
+          git push
+          # Pushes made with GITHUB_TOKEN start no push workflows; workflow_dispatch is the exception.
+          gh workflow run deploy.yml --ref "$GITHUB_REF_NAME"

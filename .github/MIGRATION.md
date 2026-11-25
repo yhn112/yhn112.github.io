@@ -174,8 +174,32 @@ then passes the same `site` artifact to browser/accessibility checks, offline li
 Ruby comes from `.ruby-version` (3.3); Node tools are installed from the lockfile on Node 24.
 Chrome and its matching ChromeDriver are installed together with explicit executable paths.
 The standalone RenderCV workflow still commits generated PDFs to Git.
-The citation workflow retains its cache, tests, failure reporting, and deployment trigger.
+The citation workflow retains its cache and tests; its failure reporting and deployment trigger changed on 25 November 2026,
+as described under [citation updates](#citation-updates).
 Publishing remains on `gh-pages`; GitHub Pages settings and DNS are unchanged.
+
+### Citation updates
+
+Google Scholar fetches from GitHub-hosted runners have mostly failed since 9 October 2026:
+4 of the 21 scheduled runs from 9 October to 25 November succeeded,
+while the runs from 10 April to 7 October had no failures (one was cancelled on 13 July).
+Successful runs take about 6 seconds;
+failed runs either reach the 90-second timeout (exit code 124) or fail within seconds,
+for example with `'NoneType' object has no attribute 'get'` on 16 November.
+The timed-out runs logged nothing from the script because Python buffered its output;
+the cause is presumed, not confirmed, to be Scholar blocking runner addresses.
+
+By Michael's decision of 25 November 2026, a failed fetch is a warning while the cache's `metadata.last_updated`
+is at most 30 days old (`MAX_CACHE_AGE_DAYS` in `update-citations.yml`),
+and an error when it is older or unreadable.
+`PYTHONUNBUFFERED` keeps the script's output when the timeout stops it.
+
+Because a tolerated failure ends in success, the deployment no longer follows citation runs through `workflow_run`,
+which would have rebuilt and republished the unchanged site after every run.
+Instead, the citation workflow dispatches `deploy.yml` after it pushes a citation commit;
+`workflow_dispatch` is the event that pushes made with `GITHUB_TOKEN` can still start
+([GitHub documentation](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)).
+Successful fetches without changes no longer redeploy the site.
 
 ## Dependencies
 
@@ -199,6 +223,11 @@ These were found in the post-rollout review or later dependency reviews and left
   Chrome is installed at its current stable version, so a browser change can block publishing.
 - The `bib.liquid`, `cv/render.liquid` and `metadata.liquid` overrides copy most of their gem files;
   `--fail-on-stale` flags gem changes, which then need a manual three-way review.
+- A broken citation fetch is reported only after the cache has gone more than 30 days without a change,
+  whatever the cause; the unit tests that run first catch script regressions they cover.
+  The age counts from the last change in counts, not the last successful fetch,
+  so a cache confirmed unchanged by a recent fetch can still fail the next failed run once it is older than 30 days;
+  from 7 September to 3 October 2026, counts stayed unchanged for 26 days while every fetch succeeded.
 - `al_folio_core` 1.0.15 `assets/js/bibsearch.js` calls `setTimeout(filterItems(searchTerm), 300)`:
   publication search filters on every keystroke without the intended delay,
   and Chrome logs a Content Security Policy `unsafe-eval` violation for the returned value.
