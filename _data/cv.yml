@@ -88,8 +88,8 @@ cv:
 
       - institution: Yandex School of Data Analysis
         url: https://yandexdataschool.com
-        area: Machine Learning
-        degree: Graduate program
+        area: Machine Learning (Graduate program)
+        degree: Grad
         start_date: 2019
         end_date: 2021
 

@@ -63,3 +63,24 @@ p > code {
     margin-bottom: 0.5rem;
   }
 }
+
+// In dark mode, theme cyan links against light body text do not meet the 3:1
+// link-in-text-block contrast threshold without a non-color indicator.
+html[data-theme="dark"] {
+  main p a:not(.btn),
+  main li a:not(.btn):not(.nav-link),
+  main td a:not(.btn),
+  footer a {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+  }
+
+  .publications ol.bibliography li .abbr abbr a,
+  .publications ol.bibliography li .badges a,
+  .cv .list-group h3.title a,
+  .courses h3.course-title a,
+  #toc-sidebar a {
+    text-decoration: none;
+  }
+}
